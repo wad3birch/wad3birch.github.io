@@ -36,7 +36,7 @@ I'm a junior majoring in cyber security from Chengdu, China. My research interes
 
 [AutoBench-V: Can LVLMs Benchmark Themselves?](https://autobench-v.github.io)
 
-<strong>Han Bao</strong>*, Yue Huang\*, Yanbo Wang\*, Jiayi Ye\*, Xiangqi Wang, Xiuying Chen, Mohamed Elhoseiny, Xiangliang Zhang(*:Equal Contribution)
+<strong>Han Bao</strong>\*, Yue Huang\*, Yanbo Wang\*, Jiayi Ye\*, Xiangqi Wang, Xiuying Chen, Mohamed Elhoseiny, Xiangliang Zhang(*:Equal Contribution)
 
 </div>
 </div>
