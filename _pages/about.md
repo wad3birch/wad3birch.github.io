@@ -41,7 +41,7 @@ I'm a junior majoring in cyber security from Chengdu, China. My research interes
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/LiD.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [LiD-FL: Towards List-Decodable Federated Learning](https://arxiv.org/pdf/2408.04963)
