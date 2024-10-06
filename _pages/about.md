@@ -20,7 +20,8 @@ redirect_from:
 I'm a junior majoring in cyber security from Chengdu, China. My research interest includes trustworthy ai and ai4science.
 
 <blockquote>
-  Looking for researchers who are interested in ai4science to cooperate! I'm also seeking for a Phd opportunity in 2026 Fall. 
+  Looking for researchers who are interested in ai4science to cooperate! 
+  I'm also actively seeking for a Phd opportunity in 2026 Fall. 
 </blockquote>
 
 
