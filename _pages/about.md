@@ -41,6 +41,16 @@ I'm a junior majoring in cyber security from Chengdu, China. My research interes
 </div>
 </div>
 
+<div class='paper-box'><div class='paper-box-image'><img src='' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[LiD-FL: Towards List-Decodable Federated Learning](https://arxiv.org/pdf/2408.04963)
+
+Hong Liu, Liren Shan, **Han Bao**, Ronghui You, Yuhao Yi, Jiancheng Lv
+
+</div>
+</div>
+
 # 🎖 Honors and Awards
 <!-- - *2021.10* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
 - *2021.09* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet.  -->
