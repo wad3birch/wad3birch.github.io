@@ -37,13 +37,16 @@ I'm a senior majoring in cyber security from Chengdu, China. My research interes
 
 <strong>Han Bao</strong>\*, Yue Huang\*, Yanbo Wang, Jiayi Ye, Xiangqi Wang, Xiuying Chen, Mohamed Elhoseiny, Xiangliang Zhang(*:Equal Contribution)
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/autobench-v.png' alt="sym" width="100%"></div></div>
+
+</div>
+</div>
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/intro.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [On the Trustworthiness of Generative Foundation Models: Guideline, Assessment, and Perspective](https://trustgen.github.io/#)
 
-Yue Huang, Chujie Gao, Siyuan Wu, Haoran Wang, Xiangqi Wang, Yujun Zhou, Yanbo Wang, Jiayi Ye, Jiawen Shi, Qihui Zhang, Yuan Li, Han Bao, Zhaoyi Liu,
-
+Yue Huang, Chujie Gao, Siyuan Wu, Haoran Wang, Xiangqi Wang, Yujun Zhou, Yanbo Wang, Jiayi Ye, Jiawen Shi, Qihui Zhang, Yuan Li, Han Bao, Zhaoyi Liu, et al.
 
 </div>
 </div>
