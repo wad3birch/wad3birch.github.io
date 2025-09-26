@@ -7,7 +7,7 @@
 
 # Site Settings
 title                    : "Han Bao"
-description              : "A junior majoring in CyberSecurity"
+description              : "A senior majoring in CyberSecurity"
 repository               : "https://github.com/wad3birch/wad3birch.github.io"
 google_scholar_stats_use_cdn : true
 
@@ -22,7 +22,7 @@ baidu_site_verification  :  # get baidu_site_verification from https://ziyuan.ba
 # Site Author
 author:
   name             : "Han Bao"
-  avatar           : "images/android-chrome-512x512.png"
+  avatar           : "images/self.jpeg"
   # bio              : ""
   location         : "Chengdu, China"
   employer         :

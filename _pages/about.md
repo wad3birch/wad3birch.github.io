@@ -17,11 +17,10 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I'm a junior majoring in cyber security from Chengdu, China. My research interest includes trustworthy ai and ai4science.
+I'm a senior majoring in cyber security from Chengdu, China. My research interest includes trustworthy ai and ai4science.
 
 <blockquote>
-  Looking for researchers who are interested in ai4science to cooperate! 
-  I'm also actively seeking for a Phd opportunity in 2026 Fall. 
+  I'm actively seeking for a Phd opportunity in 2026 Fall. 
 </blockquote>
 
 
@@ -55,5 +54,5 @@ I'm a junior majoring in cyber security from Chengdu, China. My research interes
 - *2021.03*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet.  \| [\[video\]](https://github.com/) -->
 
 # 💻 Internships
-- *2024.05 - 2024.08*, Research Intern at <img src='images/westlake.png' alt='Westlake University' width='20'>[Westlake University](https://www.westlake.edu.cn).
+<!-- - *2024.05 - 2024.08*, Research Intern at <img src='images/westlake.png' alt='Westlake University' width='20'>[Westlake University](https://www.westlake.edu.cn). -->
 - *2024.07 - now*, Research Intern at <img src='images/ND.png' alt='University of Notre Dame' width='20'>[University of Notre Dame](https://www.nd.edu), remote.
