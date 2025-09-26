@@ -46,7 +46,7 @@ I'm a senior majoring in cyber security from Chengdu, China. My research interes
 
 [On the Trustworthiness of Generative Foundation Models: Guideline, Assessment, and Perspective](https://trustgen.github.io/#)
 
-Yue Huang, Chujie Gao, Siyuan Wu, Haoran Wang, Xiangqi Wang, Yujun Zhou, Yanbo Wang, Jiayi Ye, Jiawen Shi, Qihui Zhang, Yuan Li, Han Bao, Zhaoyi Liu, et al.
+Yue Huang, Chujie Gao, Siyuan Wu, Haoran Wang, Xiangqi Wang, Yujun Zhou, Yanbo Wang, Jiayi Ye, Jiawen Shi, Qihui Zhang, Yuan Li, <strong>Han Bao</strong>, Zhaoyi Liu, et al.
 
 </div>
 </div>
@@ -67,3 +67,5 @@ Yue Huang, Chujie Gao, Siyuan Wu, Haoran Wang, Xiangqi Wang, Yujun Zhou, Yanbo W
 # 💻 Internships
 <!-- - *2024.05 - 2024.08*, Research Intern at <img src='images/westlake.png' alt='Westlake University' width='20'>[Westlake University](https://www.westlake.edu.cn). -->
 - *2024.07 - now*, Research Intern at <img src='images/ND.png' alt='University of Notre Dame' width='20'>[University of Notre Dame](https://www.nd.edu), remote.
+
+- *2025.07 - 2025.08*, Participated in the iSURE program at the University of Notre Dame, had a wonderful experience!
