@@ -17,10 +17,10 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I'm a senior majoring in cyber security from Chengdu, China. My research interest includes Trustworthy AI and Advanced AI Risks.
+I'm a senior majoring in cyber security from Chengdu, China. My research interests include Trustworthy AI and Advanced AI Risks. Currently, I am conducting research under the supervision of [Prof. Xiangliang Zhang](https://sites.nd.edu/xiangliang-zhang/) and senior [Yue Huang](https://howiehwong.github.io/).
 
 <blockquote>
-  I'm actively seeking for a Phd opportunity in 2026 Fall. 
+  I'm actively seeking for a Phd opportunity in 2026 Fall! Feel free to contact me!
 </blockquote>
 
 
@@ -30,7 +30,7 @@ I'm a senior majoring in cyber security from Chengdu, China. My research interes
 
 # 📝 Preprints 
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/autobench-v.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/pie-0_00.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [AutoBench-V: Can LVLMs Benchmark Themselves?](https://autobench-v.github.io)
@@ -48,6 +48,7 @@ I'm a senior majoring in cyber security from Chengdu, China. My research interes
 
 Yue Huang, Chujie Gao, Siyuan Wu, Haoran Wang, Xiangqi Wang, Yujun Zhou, Yanbo Wang, Jiayi Ye, Jiawen Shi, Qihui Zhang, Yuan Li, <strong>Han Bao</strong>, Zhaoyi Liu, et al.
 
+Role: Text2Image Group Leader
 </div>
 </div>
 
