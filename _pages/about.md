@@ -17,7 +17,7 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I'm a senior majoring in cyber security from Chengdu, China. My research interests include Trustworthy AI and Advanced AI Risks. Currently, I am conducting research under the supervision of [Prof. Xiangliang Zhang](https://sites.nd.edu/xiangliang-zhang/) and senior [Yue Huang](https://howiehwong.github.io/).
+I'm a senior majoring in cyber science from Chengdu, China. My research interests include Trustworthy AI and Advanced AI Risks. Currently, I am conducting research under the supervision of [Prof. Xiangliang Zhang](https://sites.nd.edu/xiangliang-zhang/) and senior [Yue Huang](https://howiehwong.github.io/).
 
 <blockquote>
   I'm actively seeking for a Phd opportunity in 2026 Fall! Feel free to contact me!
