@@ -70,3 +70,7 @@ Role: Text2Image Group Leader
 - *2024.07 - now*, Research Intern at <img src='images/ND.png' alt='University of Notre Dame' width='20'>[University of Notre Dame](https://www.nd.edu), remote.
 
 - *2025.07 - 2025.08*, Participated in the iSURE program at the University of Notre Dame, had a wonderful experience!
+
+# 🌍 Visitor Map
+
+<script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=E7RZfnC_e5Y348kyALuSrkOeYCw0Bl0O6UKvQT0YXoI&cl=ffffff&w=a"></script>
