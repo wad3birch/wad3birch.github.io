@@ -73,4 +73,6 @@ Role: Text2Image Group Leader
 
 # 🌍 Visitor Map
 
+<div style="width: 400px; height: 300px; margin: 0 auto;">
 <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=E7RZfnC_e5Y348kyALuSrkOeYCw0Bl0O6UKvQT0YXoI&cl=ffffff&w=a"></script>
+</div>
