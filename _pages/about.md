@@ -41,7 +41,7 @@ I'm a senior majoring in cyber science from Chengdu, China. My research interest
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/intro.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/trust.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [On the Trustworthiness of Generative Foundation Models: Guideline, Assessment, and Perspective](https://trustgen.github.io/#)
