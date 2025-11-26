@@ -8,7 +8,7 @@
 # Site Settings
 title                    : "Han Bao"
 description              : "A senior majoring in CyberScience"
-repository               : "https://github.com/wad3birch/wad3birch.github.io"
+repository               : "wad3birch/wad3birch.github.io"
 google_scholar_stats_use_cdn : true
 
 # google analytics

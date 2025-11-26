@@ -83,8 +83,10 @@
     }
   }
 
+  /* Cleaner link styling inside main content:
+     no underline by default, underline and subtle image shadow on hover. */
   a {
-    text-decoration: underline;
+    text-decoration: none;
 
     &:hover {
       text-decoration: underline;
