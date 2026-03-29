@@ -1,0 +1,371 @@
+%
+% Academic CV LaTeX Template - Polished for Han Bao
+% Theme: University of Notre Dame (Heavy Gold Accents)
+%
+
+\documentclass[a4paper,11pt]{article}
+
+% Package imports
+\usepackage{latexsym}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{ragged2e}
+\usepackage[empty]{fullpage}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{marvosym}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{cfr-lm}
+\usepackage[T1]{fontenc}
+\usepackage{fontawesome5}
+
+% Color definitions - University of Notre Dame Palette
+% ND Navy Blue: #0C2340 -> RGB(12, 35, 64)
+% ND Gold: #C99700 -> RGB(201, 151, 0) (Standard Athletic Gold)
+% Metallic Gold: #AE9142 (Alternative for text if standard is too bright)
+\definecolor{ndblue}{RGB}{12, 35, 64}
+\definecolor{ndgold}{RGB}{201, 151, 0} 
+
+\newcommand{\googlescholar}[1]{%
+  \textcolor{ndgold}{\faIcon{graduation-cap}}~\href{#1}{Google Scholar}%
+}
+
+% Page layout
+\setlength{\multicolsep}{0pt} 
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% --- Fix for Undefined Control Sequence ---
+\newcommand{\socialicon}[1]{\raisebox{-0.05em}{\resizebox{!}{1em}{#1}}}
+% ------------------------------------------
+
+\geometry{left=1.4cm, top=1.2cm, right=1.4cm, bottom=1.2cm}
+\setlength{\footskip}{5pt}
+
+% Hyperlink setup
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=ndblue, % Keep links blue for readability against white paper
+    filecolor=ndblue,
+    urlcolor=ndblue,
+}
+
+% Custom box settings for sections (Blue Box with Gold Bottom Border)
+\usepackage[most]{tcolorbox}
+\tcbset{
+    frame code={},
+    center title,
+    left=0pt,
+    right=0pt,
+    top=0pt,
+    bottom=0pt,
+    colback=ndblue,       % Background: ND Blue
+    colframe=white,       % Frame: White (invisible)
+    width=\dimexpr\textwidth\relax,
+    enlarge left by=-2mm,
+    boxsep=4pt,
+    arc=0pt,outer arc=0pt,
+    % Add a Gold border at the bottom to increase gold ratio
+    borderline south={2pt}{0pt}{ndgold} 
+}
+
+% URL style
+\urlstyle{same}
+
+% Text alignment
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{ndblue}\titlerule \vspace{-7pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item{
+    \textbf{#1}{\hspace{0.5mm}#2 \vspace{-0.5mm}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{\large \textcolor{ndblue}{#1}} & \textit{\footnotesize{#4}} \\ % Institution Name in Blue
+        \textit{\small{#3}} &  \footnotesize{#2}\\
+    \end{tabular*}
+    \vspace{-2.4mm}
+}
+
+\newcommand{\resumeProject}[4]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & \textit{\footnotesize{#3}} \\
+        \footnotesize{\textit{#2}} & \footnotesize{#4}
+    \end{tabular*}
+    \vspace{-2.4mm}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+% Change Bullet Points to ND Gold
+\renewcommand{\labelitemi}{\textcolor{ndgold}{$\vcenter{\hbox{\tiny$\bullet$}}$}}
+\renewcommand{\labelitemii}{\textcolor{ndgold}{$\vcenter{\hbox{\tiny$\circ$}}$}}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*,labelsep=1mm]}
+\newcommand{\resumeHeadingSkillStart}{\begin{itemize}[leftmargin=*,itemsep=1.7mm, rightmargin=2ex]}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=*,labelsep=1mm,itemsep=0.5mm]}
+
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}\vspace{2mm}}
+\newcommand{\resumeHeadingSkillEnd}{\end{itemize}\vspace{-2mm}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-2mm}}
+
+\newcommand{\cvsection}[1]{%
+\vspace{2mm}
+\begin{tcolorbox}
+    \textbf{\large \textcolor{white}{#1}} 
+\end{tcolorbox}
+    \vspace{-4mm}
+}
+
+% Font options
+\newcommand{\headerfontiii}{\fontfamily{ppl}\selectfont} % Palatino
+
+\begin{document}
+\headerfontiii
+
+% Header
+\begin{center}
+    {\Huge\textbf{\textcolor{ndblue}{Han Bao}}}
+\end{center}
+\vspace{-6mm}
+
+\begin{center}
+    \small{
+    \href{mailto:hbao@nd.edu}{\textcolor{ndgold}{\faIcon{envelope}} Email} 
+    \textcolor{ndgold}{|} 
+    \href{https://wad3birch.github.io/}{\textcolor{ndgold}{\faIcon{globe}} Website} 
+    \textcolor{ndgold}{|}
+    \textcolor{ndgold}{\socialicon{\faGithub}} \href{https://github.com/wad3birch}{Github} 
+    \textcolor{ndgold}{|} 
+    \googlescholar{https://scholar.google.com/citations?user=X8gcICcAAAAJ&hl=zh-CN}
+    }
+\end{center}
+
+\vspace{-4mm}
+
+% ================= EDUCATION =================
+\cvsection{Education}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{University of Notre Dame}{South Bend, USA}
+{Ph.D in Computer Science, supervised by Prof. Fanny Ye.}{Sep 2026 -- June 2031(Expected)}
+% \resumeItemListStart
+% \item GPA: 3.56 / 4.00
+% \resumeItemListEnd
+
+\resumeSubheading
+{Sichuan University}{Chengdu, China}
+{Bachelor of Engineering in Cyber Science and Engineering}{Sep 2021 -- June 2026}
+\resumeItemListStart
+\item GPA: 3.56 / 4.00
+\resumeItemListEnd
+\resumeSubHeadingListEnd
+\vspace{-3mm}
+
+% ================= RESEARCH EXPERIENCE =================
+\cvsection{Research Experience}
+\resumeSubHeadingListStart
+
+    \resumeSubheading
+      {{National University of Singapore [\href{https://nus.edu.sg/}{\textcolor{ndgold}{\faIcon{globe}}}]}}{Singapore}
+      {Summer Workshop Participant}{July 2024}
+      \resumeItemListStart
+        \item \textbf{Advisor:} Prof. Tianbai Ma
+        \item \textbf{Research Area:} Cloud Computing, Network Traffic Analysis
+      \resumeItemListEnd 
+      
+  \resumeSubheading
+      {{MINE Lab, University of Notre Dame [\href{https://www.nd.edu/}{\textcolor{ndgold}{\faIcon{globe}}}]}}{South Bend, USA}
+      {Visiting Research Student}{Aug 2024 -- Present}
+      \resumeItemListStart
+        \item \textbf{Advisor:} \href{https://sites.nd.edu/xiangliang-zhang/}{Prof. Xiangliang Zhang}
+        \item \textbf{Research Area:} Trustworthy Generative Models, LLM Alignment.
+      \resumeItemListEnd
+      
+\resumeSubHeadingListEnd
+\vspace{-3mm}
+
+% ================= PUBLICATIONS =================
+% \cvsection{Publications}
+% \vspace{1mm}
+% \hfill \textcolor{ndblue}{\scriptsize \textbf{C}=Conference, \textbf{J}=Journal, \textbf{S}=Submission/Preprint}
+\cvsection{Publications \hfill {\footnotesize \textmd{C=Conference, J=Journal, S=Submission/Preprint}}}
+\vspace{0.5mm}
+\small{
+\begin{enumerate}[leftmargin=*, labelsep=0.8em, align=left, widest={[\textbf{S.3}]}, itemindent=0em]
+
+\item[\textcolor{ndgold}{\textbf{[J.1]}}]
+\href{https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-025-02981-1}{\textbf{CRISP: A Causal Relationships-Guided Deep Learning Framework for Advanced ICU Mortality Prediction}} \\
+Linna Wang, Xinyu Guo, \textbf{Han Bao}, Lihua Jiang, Li Zhao, Tao Zhu, Ziliang Feng \\
+\textbf{Accepted by \textit{BMC Medical Informatics and Decision Making}.}
+
+\item[\textcolor{ndgold}{\textbf{[C.1]}}]
+\href{https://arxiv.org/pdf/2408.04963}{\textbf{LiD-FL: Towards List-Decodable Federated Learning}} \\
+Hong Liu, Liren Shan, \textbf{Han Bao}, Ronghui You, Yuhao Yi, Jiancheng Lv \\
+\textbf{Accepted by \textit{AAAI Conference on Artificial Intelligence (AAAI 2025)}.}
+
+\item[\textcolor{ndgold}{\textbf{[C.2]}}]
+\href{https://arxiv.org/pdf/2502.14296}{\textbf{On the Trustworthiness of Generative Foundation Models: Guideline, Assessment, and Perspective}} \\
+Yue Huang, Chujie Gao, Siyuan Wu, ..., \textbf{Han Bao}, et al. \\
+\textbf{Accepted by \textit{ICLR 2026}.} \\ Project page: \href{https://trustgen.github.io/\#}{trustgen.github.io}. \textbf{\textit{Role: Leader of T2I Group.}}
+
+\item[\textcolor{ndgold}{\textbf{[C.3]}}]
+\textbf{IntraAI: Bridging Human-AI Understanding Through Intelligent Interface Design} \\
+\textbf{Han Bao}, Yue Huang, Xiangliang Zhang, Yanfang Ye \\
+\textbf{\textit{Accepted by WWW 2026.}} \\ Project page: 
+\href{https://github.com/wad3birch/Intra_AI}{Intra\_AI}
+
+\item[\textcolor{ndgold}{\textbf{[S.1]}}]
+\href{https://arxiv.org/pdf/2410.21259}{\textbf{AutoDavis: Automatic Benchmarking of Large Vision-Language Models on Visual Question-Answering}} \\
+\textbf{Han Bao*}, Yue Huang*, Yanbo Wang, Jiayi Ye, Xiangqi Wang, Xiuying Chen, Mohamed Elhoseiny, Xiangliang Zhang \\
+Preprint on arXiv. (*Equal Contribution)
+
+\item[\textcolor{ndgold}{\textbf{[S.2]}}]
+\textbf{\textit{PolicyLLM}: Towards Excellent Comprehension of Public Policy for Large Language Models} \\
+\textbf{Han Bao}, Penghao Zhang, Yue Huang, Rui Su, Zhengqing Yuan, Yujun Zhou, Xiangqi Wang, Kehan Guo, Nitesh Chawla, Xiangliang Zhang \\
+Manuscript in preparation.
+
+\item[\textcolor{ndgold}{\textbf{[S.3]}}]
+\textbf{Capability-Oriented Training Induced Alignment Risk} \\
+Yujun Zhou*, \textbf{Han Bao*}, Yue Huang, Kehan Guo, Zhenwen Liang, Pin-Yu Chen, Tian Gao, Werner Geyer, Nuno Moniz, Nitesh V Chawla, Xiangliang Zhang \\
+
+\item[\textcolor{ndgold}{\textbf{[S.4]}}]
+\textbf{Guardian-as-an-Advisor: Advancing Next-Generation Guardian Models for Trustworthy LLMs} \\
+Yue Huang, Haomin Zhuang, Jiayi Ye, \textbf{Han Bao}, Yanbo Wang, Hang Hua, Siyuan Wu, Pin-Yu Chen, Xiangliang Zhang \\
+
+\item[\textcolor{ndgold}{\textbf{[S.5]}}]
+\href{https://arxiv.org/pdf/2602.02455}{\textbf{Drift-Bench: Diagnosing CoopeRative Breakdowns in LLM Agents under Input Faults via Multi-Turn Interaction}} \\
+\textbf{Han Bao}, Zheyuan Zhang, Pengcheng Jing, Zhengqing Yuan, Kaiwen Shi, Yanfang Ye \\
+
+\item[\textcolor{ndgold}{\textbf{[S.6]}}]
+\textbf{Position: General Alignment Has Hit a Ceiling; Edge Alignment Must Be Taken Seriously} \\
+\textbf{Han Bao}, Yue Huang, Xiaoda Wang, Zheyuan Zhang, Yujun Zhou, Carl Yang, Xiangliang Zhang, Yanfang Ye \\
+
+\end{enumerate}
+}
+
+
+% ================= PROJECTS =================
+\cvsection{Selected Projects}
+\resumeSubHeadingListStart
+
+% \resumeProject
+%  {Diagnosing CoopeRative Breakdowns in LLM Agents under Input Faults via Multi-Turn Interaction}
+%  {Tools: PyTorch, Hugging Face Transformers, LLM Agents}
+%  {Sep 2025 -- Jan 2026}
+%  {{}}
+%  \vspace{3pt}
+% \resumeItemListStart
+%  \item Proposed and designed a novel benchmark to evaluate agent behavior based on a 2x2 input/output uncertainty matrix.
+%  \item Developed a comprehensive evaluation suite, including a Behavioral Alignment Score (BAS), to assess metacognitive strategies (e.g., clarification requests vs. refusal) in agents.
+% \resumeItemListEnd
+
+% \resumeProject
+%  {Position: General Alignment Has Hit a Ceiling; Edge Alignment Must Be Taken Seriously}
+%  {}
+%  {Dec 2025 -- Jan 2026}
+%  {{}}
+%  \vspace{3pt}
+% \resumeItemListStart
+%  \item Proposed and designed a novel benchmark to evaluate agent behavior based on a 2x2 input/output uncertainty matrix.
+%  \item Developed a comprehensive evaluation suite, including a Behavioral Alignment Score (BAS), to assess metacognitive strategies (e.g., clarification requests vs. refusal) in agents.
+% \resumeItemListEnd
+% \resumeProject
+%  {IntraAI: A Platform for Enhancing User Understanding of LLMs}
+%  {Tools: Large Language Models, React, Python, Visualization}
+%  {June 2025 -- Sep 2025}
+%  {{}}
+%  \vspace{3pt}
+% \resumeItemListStart
+%  \item Architected a platform enabling tag-based personalization and awareness-level probing to interpret LLM outputs.
+%  \item Submitted related work to the WWW 2026 Industry Track.
+% \resumeItemListEnd
+
+\resumeProject
+ {Web-based Advanced Medical Image Processing Platform}
+ {Tools: Segment Anything Model (SAM), Glance, JavaScript, WebAssembly}
+ {Oct 2023 -- Sep 2024}
+ {{}}
+ \vspace{3pt}
+\resumeItemListStart
+ \item Integrated the Segment Anything Model (SAM) for interactive and precise medical image segmentation.
+ \item Optimized the rendering pipeline by replacing the traditional OHIF viewer with the Glance viewer, significantly improving loading speeds.
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+
+% ================= HONORS =================
+\cvsection{Honors and Awards}
+\resumeSubHeadingListStart
+
+\resumeProject
+ {Provincial Third Prize -- China Undergraduate Mathematical Contest in Modeling}
+ {Chinese Society for Industrial and Applied Mathematics (CSIAM)}
+ {Nov 2023}
+ {{}}
+\resumeItemListStart
+ \item Recognized for excellence in mathematical modeling and collaborative problem-solving under tight deadlines.
+\resumeItemListEnd
+
+\resumeProject
+ {Second-Class Scholarship (Top 10\%)}
+ {School of Cyber Science and Engineering, Sichuan University}
+ {Sep 2023}
+ {{}} 
+\resumeItemListStart
+ \item Awarded for outstanding academic achievement and research potential.
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+
+% ================= SKILLS =================
+\cvsection{Technical Skills}
+\resumeHeadingSkillStart
+ \resumeSubItem{AI \& Machine Learning:}
+   {PyTorch, Transformers, LLaMA-Factory, LoRA/QLoRA, Reinforcement Learning (RL, VERL framework), Agentic Workflows}
+ \resumeSubItem{Development:}
+   {Python, C/C++, Docker, Git, MySQL, Redis, Wireshark, HTML/CSS}
+ \resumeSubItem{Research:}
+   {Experimental Design, Technical Writing, Data Visualization, Literature Review}
+ \resumeSubItem{Languages:}
+   {English (IELTS 7.0), Mandarin Chinese (Native)}
+\resumeHeadingSkillEnd
+\vspace{4mm}
+
+
+% ================= SERVICE =================
+\cvsection{Academic Service}
+\resumeSubHeadingListStart
+\resumeProject
+      {Program Committee / Reviewer}
+      {NeurIPS 2025 Workshop on Socially Responsible and Trustworthy Foundation Models}
+      {Nov 2025}
+      {}
+\resumeSubHeadingListEnd
+
+\end{document}
