@@ -6,7 +6,7 @@ import Layout from '../layouts/Layout.astro';
   <!-- Navigation -->
   <nav class="nav">
     <div class="nav-inner">
-      <a href="#about" class="nav-link active">About</a>
+      <a href="#about-me" class="nav-link active">About</a>
       <a href="#publications" class="nav-link">Publications</a>
       <a href="#education" class="nav-link">Education</a>
       <a href="#experience" class="nav-link">Experience</a>
@@ -15,7 +15,7 @@ import Layout from '../layouts/Layout.astro';
   </nav>
 
   <!-- Hero Section -->
-  <header class="hero" id="about">
+  <header class="hero" id="top">
     <!-- Animated background orbs -->
     <div class="hero-bg">
       <div class="orb orb-1"></div>
@@ -115,6 +115,67 @@ import Layout from '../layouts/Layout.astro';
 
   <!-- Main Content -->
   <main class="main">
+
+    <!-- About Me Section -->
+    <section class="section" id="about-me">
+      <div class="section-header reveal">
+        <div class="section-label">Who I Am</div>
+        <h2 class="section-title">
+          <span class="title-accent">01</span>
+          About Me
+        </h2>
+      </div>
+
+      <div class="about-content reveal">
+        <div class="about-text">
+          <p>
+            I am an <strong>incoming Ph.D. student</strong> at the
+            <a href="https://www.nd.edu/" target="_blank" rel="noopener" class="about-link">University of Notre Dame</a>,
+            joining in Fall 2026 under the supervision of
+            <a href="https://engineering.nd.edu/faculty/yanfang-fanny-ye/" target="_blank" rel="noopener" class="about-link">Prof. Fanny Ye</a>.
+            Prior to that, I completed my undergraduate studies in
+            <strong>Cyber Science and Engineering</strong> at
+            <a href="https://www.scu.edu.cn/" target="_blank" rel="noopener" class="about-link">Sichuan University</a>.
+          </p>
+          <p>
+            During my time at Sichuan University, I was mentored by
+            <a href="https://sites.nd.edu/xiangliang-zhang/" target="_blank" rel="noopener" class="about-link">Prof. Xiangliang Zhang</a>
+            and senior researcher <a href="https://howiehwong.github.io/" target="_blank" rel="noopener" class="about-link">Yue Huang</a>,
+            whose guidance shaped my research interests in trustworthy AI and foundation models.
+            I continue to collaborate closely with
+            <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener" class="about-link">Zheyuan Zhang</a>.
+          </p>
+          <p>
+            My research lies at the intersection of <strong>LLM alignment</strong>, <strong>agent evaluation</strong>,
+            and <strong>trustworthy AI</strong> — building systems that are not only capable but also safe, fair, and reliable.
+          </p>
+        </div>
+        <div class="about-aside">
+          <div class="about-info-card">
+            <div class="about-info-row">
+              <span class="about-info-label">Current Status</span>
+              <span class="about-info-value">Incoming Ph.D. · Fall 2026</span>
+            </div>
+            <div class="about-info-row">
+              <span class="about-info-label">Current Advisor</span>
+              <span class="about-info-value">Prof. Fanny Ye</span>
+            </div>
+            <div class="about-info-row">
+              <span class="about-info-label">Undergraduate</span>
+              <span class="about-info-value">Sichuan University</span>
+            </div>
+            <div class="about-info-row">
+              <span class="about-info-label">Former Mentors</span>
+              <span class="about-info-value">Prof. Xiangliang Zhang · Yue Huang</span>
+            </div>
+            <div class="about-info-row">
+              <span class="about-info-label">Close Collaborator</span>
+              <span class="about-info-value">Zheyuan Zhang</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Publications Section -->
     <section class="section" id="publications">
@@ -407,7 +468,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="section-header reveal">
         <div class="section-label">Academic Background</div>
         <h2 class="section-title">
-          <span class="title-accent">03</span>
+          <span class="title-accent">04</span>
           Education
         </h2>
       </div>
@@ -476,7 +537,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="section-header reveal">
         <div class="section-label">Research Trajectory</div>
         <h2 class="section-title">
-          <span class="title-accent">04</span>
+          <span class="title-accent">05</span>
           Research Experience
         </h2>
       </div>
@@ -554,7 +615,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="section-header reveal">
         <div class="section-label">Global Reach</div>
         <h2 class="section-title">
-          <span class="title-accent">05</span>
+          <span class="title-accent">06</span>
           Visitor Map
         </h2>
         <p class="section-subtitle">Visitors from around the world.</p>
@@ -576,7 +637,7 @@ import Layout from '../layouts/Layout.astro';
         <span class="footer-role">Ph.D. Student · University of Notre Dame</span>
       </div>
       <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="#about" class="footer-nav-link">About</a>
+        <a href="#about-me" class="footer-nav-link">About</a>
         <a href="#publications" class="footer-nav-link">Publications</a>
         <a href="#education" class="footer-nav-link">Education</a>
         <a href="#experience" class="footer-nav-link">Experience</a>
@@ -1011,6 +1072,109 @@ import Layout from '../layouts/Layout.astro';
     color: var(--text-muted);
     max-width: 480px;
     line-height: 1.6;
+  }
+
+  /* ===========================
+     ABOUT ME
+  =========================== */
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .about-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+
+  .about-text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .about-link {
+    color: var(--nd-gold);
+    font-weight: 500;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  .about-link::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--nd-gold);
+    opacity: 0.4;
+    transition: opacity 0.2s ease;
+  }
+
+  .about-link:hover {
+    color: var(--nd-blue);
+  }
+
+  .about-link:hover::after {
+    opacity: 1;
+  }
+
+  .about-aside {
+    position: sticky;
+    top: 80px;
+  }
+
+  .about-info-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-100);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .about-info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .about-info-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .about-info-row:first-child {
+    padding-top: 0;
+  }
+
+  .about-info-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+  }
+
+  .about-info-value {
+    font-size: 0.875rem;
+    color: var(--nd-blue);
+    font-weight: 500;
+    line-height: 1.4;
   }
 
   /* ===========================
