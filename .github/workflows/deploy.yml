@@ -24,8 +24,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'astro-website/node_modules'
+          node-version: '22'
+          cache: 'astro-website'
 
       - name: Install dependencies
         working-directory: ./astro-website
