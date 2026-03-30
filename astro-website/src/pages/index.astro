@@ -14,7 +14,7 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </nav>
 
-  <!-- Hero Section -->
+    <!-- Hero Section -->
   <header class="hero" id="top">
     <!-- Animated background orbs -->
     <div class="hero-bg">
@@ -31,18 +31,14 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <div class="hero-status">
           <span class="status-dot"></span>
-          Incoming Ph.D. · Fall 2026
+          <span class="status-text">Incoming Ph.D. · Fall 2026</span>
         </div>
       </div>
 
       <div class="hero-text">
-        <div class="hero-eyebrow">
-          <span class="eyebrow-line"></span>
-          <span>Ph.D. Student in CS</span>
-          <span class="eyebrow-line"></span>
-        </div>
         <h1 class="hero-name">Han Bao</h1>
         <p class="hero-affiliation">
+          Ph.D. Student in Computer Science ·
           <a href="https://www.nd.edu/" target="_blank" rel="noopener" class="affiliation-link">
             University of Notre Dame
           </a>
@@ -52,64 +48,47 @@ import Layout from '../layouts/Layout.astro';
           Advised by
           <a href="https://engineering.nd.edu/faculty/yanfang-fanny-ye/" target="_blank" rel="noopener" class="bio-link">Prof. Fanny Ye</a>.
         </p>
-        <div class="hero-meta">
-          <span class="meta-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
+
+        <!-- Contact Info Bar -->
+        <div class="contact-bar" id="contact">
+          <a href="mailto:hbao@nd.edu" class="contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
             </svg>
-            South Bend, IN, USA
-          </span>
-          <span class="meta-separator">·</span>
-          <span class="meta-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
+            <span>Email</span>
+          </a>
+          <span class="contact-sep">/</span>
+          <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener" class="contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
             </svg>
-            Expected Ph.D. 2031
-          </span>
+            <span>Scholar</span>
+          </a>
+          <span class="contact-sep">/</span>
+          <a href="https://github.com/wad3birch" target="_blank" rel="noopener" class="contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+              <path d="M9 18c-4.51 2-5-2-7-2"></path>
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <span class="contact-sep">/</span>
+          <a href="https://www.linkedin.com/in/han-bao-59796b379/" target="_blank" rel="noopener" class="contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <line x1="6" y1="10" x2="6" y2="17"></line>
+              <circle cx="6" cy="7" r="1"></circle>
+              <line x1="10" y1="14" x2="10" y2="17"></line>
+              <line x1="10" y1="11" x2="10" y2="11"></line>
+              <line x1="14" y1="17" x2="14" y2="10"></line>
+              <path d="M14 10c0-1 .8-2 2-2s2 1 2 2v7"></path>
+            </svg>
+            <span>LinkedIn</span>
+          </a>
         </div>
       </div>
-    </div>
-
-    <!-- Contact Info Bar -->
-    <div class="contact-bar" id="contact">
-      <a href="mailto:hbao@nd.edu" class="contact-item">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-        </svg>
-        Email
-      </a>
-      <span class="contact-sep">/</span>
-      <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener" class="contact-item">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-          <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-        </svg>
-        Scholar
-      </a>
-      <span class="contact-sep">/</span>
-      <a href="https://github.com/wad3birch" target="_blank" rel="noopener" class="contact-item">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-          <path d="M9 18c-4.51 2-5-2-7-2"></path>
-        </svg>
-        GitHub
-      </a>
-      <span class="contact-sep">/</span>
-      <a href="/cv.pdf" target="_blank" rel="noopener" class="contact-item">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="16" y1="13" x2="8" y2="13"></line>
-          <line x1="16" y1="17" x2="8" y2="17"></line>
-          <polyline points="10 9 9 9 8 9"></polyline>
-        </svg>
-        CV
-      </a>
     </div>
   </header>
 
@@ -138,15 +117,15 @@ import Layout from '../layouts/Layout.astro';
             <a href="https://www.scu.edu.cn/" target="_blank" rel="noopener" class="about-link">Sichuan University</a>.
           </p>
           <p>
-            During my time at Sichuan University, I was mentored by
+            During my visiting studies, I was mentored by
             <a href="https://sites.nd.edu/xiangliang-zhang/" target="_blank" rel="noopener" class="about-link">Prof. Xiangliang Zhang</a>
             and senior researcher <a href="https://howiehwong.github.io/" target="_blank" rel="noopener" class="about-link">Yue Huang</a>,
             whose guidance shaped my research interests in trustworthy AI and foundation models.
             I continue to collaborate closely with
-            <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener" class="about-link">Zheyuan Zhang</a>.
+            <a href="https://jasonzhangzy1757.github.io/" target="_blank" rel="noopener" class="about-link">Zheyuan Zhang</a>.
           </p>
           <p>
-            My research lies at the intersection of <strong>LLM alignment</strong>, <strong>agent evaluation</strong>,
+            My research lies at the intersection of <strong>LLM agents</strong>, <strong>reinforcement learning</strong>,
             and <strong>trustworthy AI</strong> — building systems that are not only capable but also safe, fair, and reliable.
           </p>
         </div>
@@ -717,8 +696,8 @@ import Layout from '../layouts/Layout.astro';
   =========================== */
   .hero {
     position: relative;
-    padding: calc(60px + var(--space-3xl)) var(--container-padding) var(--space-2xl);
-    min-height: 100vh;
+    padding: calc(60px + var(--space-xl)) var(--container-padding) var(--space-2xl);
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -779,34 +758,35 @@ import Layout from '../layouts/Layout.astro';
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
   }
 
-  /* Hero content */
+  /* Hero content - Compact centered layout */
   .hero-content {
     position: relative;
     z-index: 1;
-    max-width: var(--container-max);
+    max-width: 720px;
     margin: 0 auto;
     width: 100%;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
+    gap: var(--space-lg);
     animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
-  /* Avatar */
+  /* Avatar - Smaller and more elegant */
   .hero-avatar-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
 
   .hero-avatar {
-    width: 148px;
-    height: 148px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
     overflow: hidden;
-    border: 2px solid rgba(var(--nd-blue-rgb), 0.15);
+    border: 3px solid rgba(var(--nd-blue-rgb), 0.12);
     box-shadow: var(--shadow-md);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     background: var(--gray-50);
@@ -819,7 +799,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .hero-avatar:hover {
-    transform: scale(1.04);
+    transform: scale(1.05);
     box-shadow: var(--shadow-lg), 0 0 0 4px rgba(var(--nd-gold-rgb), 0.15);
   }
 
@@ -834,8 +814,7 @@ import Layout from '../layouts/Layout.astro';
     border: 1px solid rgba(var(--nd-gold-rgb), 0.2);
     padding: 4px 12px;
     border-radius: 20px;
-    white-space: nowrap;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
   }
 
   .status-dot {
@@ -846,56 +825,44 @@ import Layout from '../layouts/Layout.astro';
     animation: pulse-dot 2s ease-in-out infinite;
   }
 
+  .status-text {
+    white-space: nowrap;
+  }
+
   @keyframes pulse-dot {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.5; transform: scale(0.8); }
   }
 
-  /* Hero text */
+  /* Hero text - Compact vertical stack */
   .hero-text {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
-  }
-
-  .hero-eyebrow {
-    display: flex;
     align-items: center;
     gap: var(--space-sm);
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--nd-gold);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-  }
-
-  .eyebrow-line {
-    width: 24px;
-    height: 1px;
-    background: var(--nd-gold);
-    opacity: 0.5;
+    width: 100%;
   }
 
   .hero-name {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 3.75rem);
-    font-weight: 600;
+    font-size: clamp(2.25rem, 5vw, 3rem);
+    font-weight: 700;
     letter-spacing: -0.02em;
-    line-height: 1;
+    line-height: 1.1;
     color: var(--nd-blue);
     white-space: nowrap;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
   }
 
   .hero-affiliation {
-    font-size: 1rem;
+    font-size: 0.9375rem;
     color: var(--text-secondary);
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: 6px;
     flex-wrap: wrap;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+    justify-content: center;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
   }
 
   .affiliation-link {
@@ -904,16 +871,12 @@ import Layout from '../layouts/Layout.astro';
     transition: color 0.2s ease;
   }
 
-  .affiliation-divider {
-    color: var(--gray-300);
-  }
-
   .hero-bio {
     font-size: 0.9375rem;
     color: var(--text-secondary);
-    line-height: 1.7;
-    max-width: 480px;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+    line-height: 1.6;
+    max-width: 560px;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
   }
 
   .bio-link {
@@ -938,32 +901,7 @@ import Layout from '../layouts/Layout.astro';
     opacity: 1;
   }
 
-  .hero-meta {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
-  }
-
-  .meta-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-  }
-
-  .meta-item svg {
-    opacity: 0.6;
-  }
-
-  .meta-separator {
-    color: var(--gray-300);
-    font-size: 0.75rem;
-  }
-
-  /* Contact Bar */
+  /* Contact Bar - Compact horizontal layout */
   .contact-bar {
     position: relative;
     z-index: 1;
@@ -971,16 +909,22 @@ import Layout from '../layouts/Layout.astro';
     align-items: center;
     justify-content: center;
     gap: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
     flex-wrap: wrap;
+    margin-top: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(var(--nd-gold-rgb), 0.1);
+    backdrop-filter: blur(8px);
   }
 
   .contact-item {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 16px;
-    font-size: 0.875rem;
+    gap: 5px;
+    padding: 5px 12px;
+    font-size: 0.8125rem;
     font-weight: 500;
     color: var(--text-secondary);
     text-decoration: none;
@@ -1003,7 +947,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .contact-sep {
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     color: var(--gray-300);
     user-select: none;
     padding: 0 2px;
@@ -2076,35 +2020,35 @@ import Layout from '../layouts/Layout.astro';
      RESPONSIVE
   =========================== */
   @media (max-width: 768px) {
+    .hero {
+      min-height: auto;
+      padding: calc(60px + var(--space-lg)) var(--container-padding) var(--space-xl);
+    }
+
     .hero-content {
-      grid-template-columns: 1fr;
-      text-align: center;
-      gap: var(--space-xl);
-    }
-
-    .hero-avatar-wrapper {
-      align-items: center;
-    }
-
-    .hero-eyebrow {
-      justify-content: center;
-    }
-
-    .hero-meta {
-      justify-content: center;
-    }
-
-    .hero-affiliation {
-      justify-content: center;
-    }
-
-    .hero-bio {
-      margin: 0 auto;
+      gap: var(--space-md);
     }
 
     .hero-avatar {
-      width: 130px;
-      height: 130px;
+      width: 100px;
+      height: 100px;
+    }
+
+    .hero-name {
+      font-size: clamp(1.75rem, 8vw, 2.5rem);
+    }
+
+    .hero-bio {
+      font-size: 0.875rem;
+    }
+
+    .contact-bar {
+      padding: var(--space-xs) var(--space-sm);
+    }
+
+    .contact-item {
+      padding: 4px 8px;
+      font-size: 0.75rem;
     }
 
     .edu-item,
@@ -2161,16 +2105,28 @@ import Layout from '../layouts/Layout.astro';
 
   @media (max-width: 480px) {
     .nav-inner {
-      gap: var(--space-md);
+      gap: var(--space-sm);
       flex-wrap: wrap;
       justify-content: center;
       height: auto;
-      padding: var(--space-sm) var(--container-padding);
+      padding: var(--space-xs) var(--container-padding);
     }
 
     .section-title {
       flex-direction: column;
       gap: var(--space-xs);
+    }
+
+    .contact-bar {
+      gap: 0;
+    }
+
+    .contact-item span {
+      display: none;
+    }
+
+    .contact-item {
+      padding: 6px 10px;
     }
   }
 </style>
