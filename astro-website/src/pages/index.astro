@@ -7,6 +7,7 @@ import Layout from '../layouts/Layout.astro';
   <nav class="nav">
     <div class="nav-inner">
       <a href="#about-me" class="nav-link active">About</a>
+      <a href="#research" class="nav-link">Research</a>
       <a href="#publications" class="nav-link">Publications</a>
       <a href="#education" class="nav-link">Education</a>
       <a href="#experience" class="nav-link">Experience</a>
@@ -156,12 +157,76 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
+    <!-- Research Interest Section -->
+    <section class="section" id="research">
+      <div class="section-header reveal">
+        <div class="section-label">What I Explore</div>
+        <h2 class="section-title">
+          <span class="title-accent">02</span>
+          Research Interest
+        </h2>
+      </div>
+
+      <div class="research-content reveal">
+        <p class="research-intro">
+          My research lies at the intersection of <strong>LLM agents</strong>, <strong>reinforcement learning</strong>,
+          and <strong>trustworthy AI</strong> — building systems that are not only capable but also safe, fair, and reliable.
+        </p>
+        <div class="research-list">
+          <div class="research-item">
+            <div class="research-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <div class="research-item-content">
+              <h3 class="research-item-title">Trustworthy AI & Alignment</h3>
+              <p class="research-item-desc">
+                Investigating alignment risks introduced during training, designing guardian mechanisms to ensure LLM safety,
+                and exploring the boundaries of current alignment paradigms — particularly the "edge alignment" that goes beyond general alignment.
+              </p>
+            </div>
+          </div>
+          <div class="research-item">
+            <div class="research-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <div class="research-item-content">
+              <h3 class="research-item-title">LLM Agent Reliability</h3>
+              <p class="research-item-desc">
+                Diagnosing and improving the robustness of LLM-based agents in multi-turn interactions, especially under input faults
+                and adversarial conditions. Understanding where and why agent cooperation breaks down.
+              </p>
+            </div>
+          </div>
+          <div class="research-item">
+            <div class="research-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </div>
+            <div class="research-item-content">
+              <h3 class="research-item-title">Foundation Model Evaluation</h3>
+              <p class="research-item-desc">
+                Building automated benchmarks and diagnostic frameworks to systematically evaluate vision-language models,
+                LLMs on domain-specific tasks (e.g., public policy comprehension), and agent-level capabilities.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Publications Section -->
     <section class="section" id="publications">
       <div class="section-header reveal">
         <div class="section-label">Research Output</div>
         <h2 class="section-title">
-          <span class="title-accent">02</span>
+          <span class="title-accent">03</span>
           Publications
         </h2>
         <p class="section-subtitle">Selected works in trustworthy AI, LLM alignment, and foundation model evaluation.</p>
@@ -1016,6 +1081,78 @@ import Layout from '../layouts/Layout.astro';
     color: var(--text-muted);
     max-width: 480px;
     line-height: 1.6;
+  }
+
+  /* ===========================
+     RESEARCH
+  =========================== */
+  .research-intro {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 680px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .research-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .research-item {
+    display: flex;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+    background: white;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-100);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .research-item:hover {
+    border-color: rgba(var(--nd-gold-rgb), 0.3);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .research-item-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: rgba(var(--nd-gold-rgb), 0.08);
+    border: 1px solid rgba(var(--nd-gold-rgb), 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--nd-gold);
+    flex-shrink: 0;
+  }
+
+  .research-item-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .research-item-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--nd-blue);
+    margin-bottom: var(--space-xs);
+    line-height: 1.3;
+  }
+
+  .research-item-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 480px) {
+    .research-item {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
   }
 
   /* ===========================
