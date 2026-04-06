@@ -7,6 +7,7 @@ import Layout from '../layouts/Layout.astro';
   <nav class="nav">
     <div class="nav-inner">
       <a href="#about-me" class="nav-link active">About</a>
+      <a href="#news" class="nav-link">News</a>
       <a href="#research" class="nav-link">Research</a>
       <a href="#publications" class="nav-link">Publications</a>
       <a href="#education" class="nav-link">Education</a>
@@ -157,12 +158,54 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
+    <!-- News Section -->
+    <section class="section" id="news">
+      <div class="section-header reveal">
+        <div class="section-label">Latest Updates</div>
+        <h2 class="section-title">
+          <span class="title-accent">02</span>
+          News
+        </h2>
+      </div>
+
+      <div class="news-content reveal">
+        <div class="news-timeline">
+          <div class="news-item">
+            <div class="news-dot"></div>
+            <div class="news-date">
+              <span class="news-month">Apr</span>
+              <span class="news-year">2026</span>
+            </div>
+            <div class="news-body">
+              <p class="news-text">
+                <strong>PolicyLLM</strong> and <strong>Guardian</strong> were accepted to
+                <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="news-link">ACL 2026 Findings</a>.
+              </p>
+            </div>
+          </div>
+          <div class="news-item">
+            <div class="news-dot"></div>
+            <div class="news-date">
+              <span class="news-month">Jan</span>
+              <span class="news-year">2026</span>
+            </div>
+            <div class="news-body">
+              <p class="news-text">
+                <strong>IntraAI</strong> was accepted to
+                <a href="https://www2026.thewebconf.org/" target="_blank" rel="noopener" class="news-link">WWW 2026 Demo Track</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Research Interest Section -->
     <section class="section" id="research">
       <div class="section-header reveal">
         <div class="section-label">What I Explore</div>
         <h2 class="section-title">
-          <span class="title-accent">02</span>
+          <span class="title-accent">03</span>
           Research Interest
         </h2>
       </div>
@@ -226,7 +269,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="section-header reveal">
         <div class="section-label">Research Output</div>
         <h2 class="section-title">
-          <span class="title-accent">03</span>
+          <span class="title-accent">04</span>
           Publications
         </h2>
         <p class="section-subtitle">Selected works in trustworthy AI, LLM alignment, and foundation model evaluation.</p>
@@ -276,7 +319,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="pub-category-header">
             <span class="pub-category-line"></span>
             <span class="pub-category-name">Conference Papers</span>
-            <span class="pub-category-count">3</span>
+            <span class="pub-category-count">5</span>
           </div>
           <div class="pub-items">
             <div class="pub-row">
@@ -361,6 +404,60 @@ import Layout from '../layouts/Layout.astro';
                 <span class="pub-year-label">2026</span>
               </div>
             </div>
+
+            <div class="pub-row">
+              <div class="pub-row-main">
+                <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="pub-row-title">
+                  PolicyLLM: Towards Excellent Comprehension of Public Policy for Large Language Models
+                  <span class="pub-ext-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </span>
+                </a>
+                <p class="pub-row-meta">
+                  <strong class="author-me">Han Bao</strong>, Penghao Zhang, Yue Huang, Rui Su, Zhengqing Yuan, Yujun Zhou, Xiangqi Wang, Kehan Guo, Nitesh Chawla, Xiangliang Zhang
+                  <span class="pub-meta-sep">·</span>
+                  <span class="pub-row-venue">ACL 2026 Findings</span>
+                </p>
+              </div>
+              <div class="pub-row-aside">
+                <div class="pub-row-tags">
+                  <span class="pub-tag">LLM</span>
+                  <span class="pub-tag">Public Policy</span>
+                </div>
+                <span class="pub-year-label">2026</span>
+              </div>
+            </div>
+
+            <div class="pub-row">
+              <div class="pub-row-main">
+                <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="pub-row-title">
+                  Guardian-as-an-Advisor: Advancing Next-Generation Guardian Models for Trustworthy LLMs
+                  <span class="pub-ext-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </span>
+                </a>
+                <p class="pub-row-meta">
+                  Yue Huang, Haomin Zhuang, Jiayi Ye, <strong class="author-me">Han Bao</strong>, Yanbo Wang, Hang Hua, Siyuan Wu, Pin-Yu Chen, Xiangliang Zhang
+                  <span class="pub-meta-sep">·</span>
+                  <span class="pub-row-venue">ACL 2026 Findings</span>
+                </p>
+              </div>
+              <div class="pub-row-aside">
+                <div class="pub-row-tags">
+                  <span class="pub-tag">Trustworthy AI</span>
+                  <span class="pub-tag">Safety</span>
+                </div>
+                <span class="pub-year-label">2026</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -369,7 +466,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="pub-category-header">
             <span class="pub-category-line"></span>
             <span class="pub-category-name">Preprints &amp; Under Review</span>
-            <span class="pub-category-count">6</span>
+            <span class="pub-category-count">4</span>
           </div>
           <div class="pub-items">
             <div class="pub-row">
@@ -402,26 +499,6 @@ import Layout from '../layouts/Layout.astro';
             <div class="pub-row">
               <div class="pub-row-main">
                 <span class="pub-row-title pub-row-title--plain">
-                  PolicyLLM: Towards Excellent Comprehension of Public Policy for Large Language Models
-                </span>
-                <p class="pub-row-meta">
-                  <strong class="author-me">Han Bao</strong>, Penghao Zhang, Yue Huang, Rui Su, Zhengqing Yuan, Yujun Zhou, Xiangqi Wang, Kehan Guo, Nitesh Chawla, Xiangliang Zhang
-                  <span class="pub-meta-sep">·</span>
-                  <span class="pub-note-pill">Manuscript in preparation</span>
-                </p>
-              </div>
-              <div class="pub-row-aside">
-                <div class="pub-row-tags">
-                  <span class="pub-tag">LLM</span>
-                  <span class="pub-tag">Public Policy</span>
-                </div>
-                <span class="pub-year-label dim">2025</span>
-              </div>
-            </div>
-
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <span class="pub-row-title pub-row-title--plain">
                   Capability-Oriented Training Induced Alignment Risk
                 </span>
                 <p class="pub-row-meta">
@@ -434,24 +511,6 @@ import Layout from '../layouts/Layout.astro';
                 <div class="pub-row-tags">
                   <span class="pub-tag">Alignment</span>
                   <span class="pub-tag">LLM</span>
-                </div>
-                <span class="pub-year-label dim">2026</span>
-              </div>
-            </div>
-
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <span class="pub-row-title pub-row-title--plain">
-                  Guardian-as-an-Advisor: Advancing Next-Generation Guardian Models for Trustworthy LLMs
-                </span>
-                <p class="pub-row-meta">
-                  Yue Huang, Haomin Zhuang, Jiayi Ye, <strong class="author-me">Han Bao</strong>, Yanbo Wang, Hang Hua, Siyuan Wu, Pin-Yu Chen, Xiangliang Zhang
-                </p>
-              </div>
-              <div class="pub-row-aside">
-                <div class="pub-row-tags">
-                  <span class="pub-tag">Trustworthy AI</span>
-                  <span class="pub-tag">Safety</span>
                 </div>
                 <span class="pub-year-label dim">2026</span>
               </div>
@@ -512,7 +571,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="section-header reveal">
         <div class="section-label">Academic Background</div>
         <h2 class="section-title">
-          <span class="title-accent">04</span>
+          <span class="title-accent">05</span>
           Education
         </h2>
       </div>
@@ -581,7 +640,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="section-header reveal">
         <div class="section-label">Research Trajectory</div>
         <h2 class="section-title">
-          <span class="title-accent">05</span>
+          <span class="title-accent">06</span>
           Research Experience
         </h2>
       </div>
@@ -659,7 +718,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="section-header reveal">
         <div class="section-label">Global Reach</div>
         <h2 class="section-title">
-          <span class="title-accent">06</span>
+          <span class="title-accent">07</span>
           Visitor Map
         </h2>
         <p class="section-subtitle">Visitors from around the world.</p>
@@ -682,6 +741,8 @@ import Layout from '../layouts/Layout.astro';
       </div>
       <nav class="footer-nav" aria-label="Footer navigation">
         <a href="#about-me" class="footer-nav-link">About</a>
+        <a href="#news" class="footer-nav-link">News</a>
+        <a href="#research" class="footer-nav-link">Research</a>
         <a href="#publications" class="footer-nav-link">Publications</a>
         <a href="#education" class="footer-nav-link">Education</a>
         <a href="#experience" class="footer-nav-link">Experience</a>
@@ -1153,6 +1214,107 @@ import Layout from '../layouts/Layout.astro';
       flex-direction: column;
       gap: var(--space-sm);
     }
+  }
+
+  /* ===========================
+     NEWS
+  =========================== */
+  .news-content {
+    max-width: 700px;
+  }
+
+  .news-timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .news-timeline::before {
+    content: '';
+    position: absolute;
+    left: 52px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--border-default);
+  }
+
+  .news-item {
+    display: grid;
+    grid-template-columns: 72px 16px 1fr;
+    gap: 0 var(--space-lg);
+    align-items: start;
+    padding: var(--space-md) 0;
+    position: relative;
+  }
+
+  .news-item:not(:last-child) {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .news-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: 2px;
+    line-height: 1;
+    gap: 2px;
+  }
+
+  .news-month {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--nd-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .news-year {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .news-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--nd-gold);
+    border: 2px solid var(--bg-primary);
+    box-shadow: 0 0 0 1px var(--nd-gold);
+    margin-top: 5px;
+    position: relative;
+    z-index: 1;
+    justify-self: center;
+  }
+
+  .news-body {
+    padding-bottom: var(--space-xs);
+  }
+
+  .news-text {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .news-text strong {
+    color: var(--nd-blue);
+    font-weight: 600;
+  }
+
+  .news-link {
+    color: var(--nd-gold);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.15s;
+  }
+
+  .news-link:hover {
+    opacity: 0.75;
+    text-decoration: underline;
   }
 
   /* ===========================
