@@ -129,11 +129,11 @@ import Layout from '../layouts/Layout.astro';
       <div class="news-content reveal">
         <div class="news-timeline">
           <div class="news-item">
-            <div class="news-dot"></div>
             <div class="news-date">
               <span class="news-month">Apr</span>
               <span class="news-year">2026</span>
             </div>
+            <div class="news-dot"></div>
             <div class="news-body">
               <p class="news-text">
                 Two papers were accepted to <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="news-link">ACL 2026 Findings</a>.
@@ -141,26 +141,26 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
           <div class="news-item">
-            <div class="news-dot"></div>
             <div class="news-date">
               <span class="news-month">Jan</span>
               <span class="news-year">2026</span>
             </div>
+            <div class="news-dot"></div>
             <div class="news-body">
               <p class="news-text">
-                One paper was accepted to <a href="https://www2026.thewebconf.org/" target="_blank" rel="noopener" class="news-link">WWW 2026 Demo Track</a>.
+                One paper was accepted to <a href="https://www2026.thewebconf.org/" target="_blank" rel="noopener" class="news-link">WWW 2026 Demo Track</a> · One paper was accepted to ICLR 2026.
               </p>
             </div>
           </div>
           <div class="news-item">
-            <div class="news-dot"></div>
             <div class="news-date">
               <span class="news-month">Aug</span>
-              <span class="news-year">2025</span>
+              <span class="news-year">2024</span>
             </div>
+            <div class="news-dot"></div>
             <div class="news-body">
               <p class="news-text">
-                One paper was accepted to <a href="https://aaai.org/conference/aaai/" target="_blank" rel="noopener" class="news-link">AAAI 2026</a>.
+                One paper was accepted to <a href="https://aaai.org/conference/aaai/" target="_blank" rel="noopener" class="news-link">AAAI 2025</a>.
               </p>
             </div>
           </div>
@@ -1041,26 +1041,23 @@ import Layout from '../layouts/Layout.astro';
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 0;
-  }
-
-  .news-timeline::before {
-    content: '';
-    position: absolute;
-    left: 76px;
-    top: 10px;
-    bottom: 10px;
-    width: 1px;
-    background: var(--border-default);
   }
 
   .news-item {
     display: grid;
-    grid-template-columns: 72px 16px 1fr;
-    gap: 0 var(--space-sm);
+    grid-template-columns: 72px 24px 1fr;
+    gap: 0;
     align-items: start;
-    padding: var(--space-sm) 0;
+    padding: 0 0 var(--space-md) 0;
     position: relative;
+  }
+
+  .news-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .news-item:last-child .news-dot {
+    margin-top: 5px;
   }
 
   .news-date {
@@ -1070,6 +1067,7 @@ import Layout from '../layouts/Layout.astro';
     padding-top: 2px;
     line-height: 1;
     gap: 2px;
+    padding-right: var(--space-sm);
   }
 
   .news-month {
@@ -1091,10 +1089,26 @@ import Layout from '../layouts/Layout.astro';
     height: 8px;
     border-radius: 50%;
     background: var(--nd-gold);
-    margin-top: 5px;
+    margin-top: 4px;
     position: relative;
     z-index: 1;
     justify-self: center;
+    flex-shrink: 0;
+  }
+
+  .news-item::after {
+    content: '';
+    position: absolute;
+    left: calc(72px + var(--space-sm) + 3px);
+    top: calc(12px + 8px);
+    bottom: calc(-1 * var(--space-md) + 4px);
+    width: 1px;
+    background: var(--nd-gold);
+    opacity: 0.3;
+  }
+
+  .news-item:last-child::after {
+    display: none;
   }
 
   .news-body {
