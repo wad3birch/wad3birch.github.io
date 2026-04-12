@@ -18,40 +18,24 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Hero Section -->
   <header class="hero" id="top">
-    <!-- Animated background orbs -->
     <div class="hero-bg">
       <div class="orb orb-1"></div>
       <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="grid-overlay"></div>
     </div>
 
-    <div class="hero-content">
-      <div class="hero-avatar-wrapper">
-        <div class="hero-avatar">
-          <img src="/self.jpeg" alt="Han Bao" />
-        </div>
-        <div class="hero-status">
-          <span class="status-dot"></span>
-          <span class="status-text">Incoming Ph.D. · Fall 2026</span>
-        </div>
+    <div class="hero-inner">
+      <div class="hero-avatar">
+        <img src="/self.jpeg" alt="Han Bao" />
       </div>
 
-      <div class="hero-text">
-        <h1 class="hero-name">Han Bao</h1>
+      <div class="hero-info">
+        <h1 class="hero-name"><em>Han Bao</em></h1>
         <p class="hero-affiliation">
-          Ph.D. Student in Computer Science ·
+          Ph.D. Student in Computer Science & Engineering·
           <a href="https://www.nd.edu/" target="_blank" rel="noopener" class="affiliation-link">
             University of Notre Dame
           </a>
         </p>
-        <p class="hero-bio">
-          Researching LLM Agents, Reinforcement Learning, and Trustworthy AI.
-          Advised by
-          <a href="https://engineering.nd.edu/faculty/yanfang-fanny-ye/" target="_blank" rel="noopener" class="bio-link">Prof. Fanny Ye</a>.
-        </p>
-
-        <!-- Contact Info Bar -->
         <div class="contact-bar" id="contact">
           <a href="mailto:hbao@nd.edu" class="contact-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -100,7 +84,6 @@ import Layout from '../layouts/Layout.astro';
     <!-- About Me Section -->
     <section class="section" id="about-me">
       <div class="section-header reveal">
-        <div class="section-label">Who I Am</div>
         <h2 class="section-title">
           <span class="title-accent">01</span>
           About Me
@@ -131,37 +114,12 @@ import Layout from '../layouts/Layout.astro';
             and <strong>trustworthy AI</strong> — building systems that are not only capable but also safe, fair, and reliable.
           </p>
         </div>
-        <div class="about-aside">
-          <div class="about-info-card">
-            <div class="about-info-row">
-              <span class="about-info-label">Current Status</span>
-              <span class="about-info-value">Incoming Ph.D. · Fall 2026</span>
-            </div>
-            <div class="about-info-row">
-              <span class="about-info-label">Current Advisor</span>
-              <span class="about-info-value">Prof. Fanny Ye</span>
-            </div>
-            <div class="about-info-row">
-              <span class="about-info-label">Undergraduate</span>
-              <span class="about-info-value">Sichuan University</span>
-            </div>
-            <div class="about-info-row">
-              <span class="about-info-label">Former Mentors</span>
-              <span class="about-info-value">Prof. Xiangliang Zhang · Yue Huang</span>
-            </div>
-            <div class="about-info-row">
-              <span class="about-info-label">Close Collaborator</span>
-              <span class="about-info-value">Zheyuan Zhang</span>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
     <!-- News Section -->
     <section class="section" id="news">
       <div class="section-header reveal">
-        <div class="section-label">Latest Updates</div>
         <h2 class="section-title">
           <span class="title-accent">02</span>
           News
@@ -178,8 +136,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <div class="news-body">
               <p class="news-text">
-                <strong>PolicyLLM</strong> and <strong>Guardian</strong> were accepted to
-                <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="news-link">ACL 2026 Findings</a>.
+                Two papers were accepted to <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="news-link">ACL 2026 Findings</a>.
               </p>
             </div>
           </div>
@@ -191,8 +148,19 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <div class="news-body">
               <p class="news-text">
-                <strong>IntraAI</strong> was accepted to
-                <a href="https://www2026.thewebconf.org/" target="_blank" rel="noopener" class="news-link">WWW 2026 Demo Track</a>.
+                One paper was accepted to <a href="https://www2026.thewebconf.org/" target="_blank" rel="noopener" class="news-link">WWW 2026 Demo Track</a>.
+              </p>
+            </div>
+          </div>
+          <div class="news-item">
+            <div class="news-dot"></div>
+            <div class="news-date">
+              <span class="news-month">Aug</span>
+              <span class="news-year">2025</span>
+            </div>
+            <div class="news-body">
+              <p class="news-text">
+                One paper was accepted to <a href="https://aaai.org/conference/aaai/" target="_blank" rel="noopener" class="news-link">AAAI 2026</a>.
               </p>
             </div>
           </div>
@@ -203,7 +171,6 @@ import Layout from '../layouts/Layout.astro';
     <!-- Research Interest Section -->
     <section class="section" id="research">
       <div class="section-header reveal">
-        <div class="section-label">What I Explore</div>
         <h2 class="section-title">
           <span class="title-accent">03</span>
           Research Interest
@@ -211,10 +178,6 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <div class="research-content reveal">
-        <p class="research-intro">
-          My research lies at the intersection of <strong>LLM agents</strong>, <strong>reinforcement learning</strong>,
-          and <strong>trustworthy AI</strong> — building systems that are not only capable but also safe, fair, and reliable.
-        </p>
         <div class="research-list">
           <div class="research-item">
             <div class="research-item-icon">
@@ -224,10 +187,6 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <div class="research-item-content">
               <h3 class="research-item-title">Trustworthy AI & Alignment</h3>
-              <p class="research-item-desc">
-                Investigating alignment risks introduced during training, designing guardian mechanisms to ensure LLM safety,
-                and exploring the boundaries of current alignment paradigms — particularly the "edge alignment" that goes beyond general alignment.
-              </p>
             </div>
           </div>
           <div class="research-item">
@@ -240,10 +199,6 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <div class="research-item-content">
               <h3 class="research-item-title">LLM Agent Reliability</h3>
-              <p class="research-item-desc">
-                Diagnosing and improving the robustness of LLM-based agents in multi-turn interactions, especially under input faults
-                and adversarial conditions. Understanding where and why agent cooperation breaks down.
-              </p>
             </div>
           </div>
           <div class="research-item">
@@ -254,10 +209,6 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <div class="research-item-content">
               <h3 class="research-item-title">Foundation Model Evaluation</h3>
-              <p class="research-item-desc">
-                Building automated benchmarks and diagnostic frameworks to systematically evaluate vision-language models,
-                LLMs on domain-specific tasks (e.g., public policy comprehension), and agent-level capabilities.
-              </p>
             </div>
           </div>
         </div>
@@ -267,7 +218,6 @@ import Layout from '../layouts/Layout.astro';
     <!-- Publications Section -->
     <section class="section" id="publications">
       <div class="section-header reveal">
-        <div class="section-label">Research Output</div>
         <h2 class="section-title">
           <span class="title-accent">04</span>
           Publications
@@ -569,7 +519,6 @@ import Layout from '../layouts/Layout.astro';
     <!-- Education Section -->
     <section class="section" id="education">
       <div class="section-header reveal">
-        <div class="section-label">Academic Background</div>
         <h2 class="section-title">
           <span class="title-accent">05</span>
           Education
@@ -638,7 +587,6 @@ import Layout from '../layouts/Layout.astro';
     <!-- Experience Section -->
     <section class="section" id="experience">
       <div class="section-header reveal">
-        <div class="section-label">Research Trajectory</div>
         <h2 class="section-title">
           <span class="title-accent">06</span>
           Research Experience
@@ -669,7 +617,7 @@ import Layout from '../layouts/Layout.astro';
               <div class="exp-role">Visiting Research Student</div>
               <p class="exp-supervisor">
                 Advisor:
-                <a href="https://sites.nd.edu/xiangliang-zhang/" target="_blank" rel="noopener">Prof. Fanny Ye</a>
+                <a href="https://sites.nd.edu/xiangliang-zhang/" target="_blank" rel="noopener">Prof. Xiangliang Zhang</a>
               </p>
             </div>
             <div class="exp-areas">
@@ -716,7 +664,6 @@ import Layout from '../layouts/Layout.astro';
     <!-- Visitor Map -->
     <section class="section section--last" id="visitor">
       <div class="section-header reveal">
-        <div class="section-label">Global Reach</div>
         <h2 class="section-title">
           <span class="title-accent">07</span>
           Visitor Map
@@ -817,21 +764,14 @@ import Layout from '../layouts/Layout.astro';
     width: 100%;
   }
 
-  /* ===========================
-     HERO
-  =========================== */
+  /* Hero */
   .hero {
     position: relative;
-    padding: calc(60px + var(--space-xl)) var(--container-padding) var(--space-2xl);
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    padding: calc(60px + var(--space-lg)) var(--container-padding) var(--space-lg);
+    min-height: auto;
     overflow: hidden;
   }
 
-  /* Background */
   .hero-bg {
     position: absolute;
     inset: 0;
@@ -843,152 +783,76 @@ import Layout from '../layouts/Layout.astro';
     position: absolute;
     border-radius: 50%;
     filter: blur(80px);
-    opacity: 0.5;
+    opacity: 0.4;
   }
 
   .orb-1 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(var(--nd-gold-rgb), 0.18) 0%, transparent 70%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(var(--nd-gold-rgb), 0.15) 0%, transparent 70%);
     top: -100px;
-    right: -100px;
+    right: -80px;
     animation: float 12s ease-in-out infinite;
   }
 
   .orb-2 {
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(var(--nd-blue-rgb), 0.12) 0%, transparent 70%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(var(--nd-blue-rgb), 0.1) 0%, transparent 70%);
     bottom: -50px;
-    left: -80px;
+    left: -60px;
     animation: float 16s ease-in-out infinite reverse;
   }
 
-  .orb-3 {
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(var(--nd-gold-rgb), 0.1) 0%, transparent 70%);
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: float 20s ease-in-out infinite 5s;
-  }
-
-  .grid-overlay {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(var(--nd-gold-rgb), 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(var(--nd-gold-rgb), 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-  }
-
-  /* Hero content - Compact centered layout */
-  .hero-content {
+  .hero-inner {
     position: relative;
     z-index: 1;
-    max-width: 720px;
+    max-width: 560px;
     margin: 0 auto;
-    width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    text-align: center;
     gap: var(--space-lg);
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  /* Avatar - Smaller and more elegant */
-  .hero-avatar-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-sm);
   }
 
   .hero-avatar {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
+    width: 120px;
+    border-radius: 16px;
     overflow: hidden;
-    border: 3px solid rgba(var(--nd-blue-rgb), 0.12);
-    box-shadow: var(--shadow-md);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    background: var(--gray-50);
+    flex-shrink: 0;
   }
 
   .hero-avatar img {
     width: 100%;
-    height: 100%;
-    object-fit: contain;
+    height: auto;
+    display: block;
   }
 
-  .hero-avatar:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg), 0 0 0 4px rgba(var(--nd-gold-rgb), 0.15);
-  }
-
-  .hero-status {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    color: var(--nd-gold);
-    background: rgba(var(--nd-gold-rgb), 0.08);
-    border: 1px solid rgba(var(--nd-gold-rgb), 0.2);
-    padding: 4px 12px;
-    border-radius: 20px;
-    letter-spacing: 0.02em;
-  }
-
-  .status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--nd-gold);
-    animation: pulse-dot 2s ease-in-out infinite;
-  }
-
-  .status-text {
-    white-space: nowrap;
-  }
-
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
-  }
-
-  /* Hero text - Compact vertical stack */
-  .hero-text {
+  .hero-info {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: var(--space-sm);
-    width: 100%;
+    gap: var(--space-xs);
+    text-align: left;
   }
 
   .hero-name {
     font-family: var(--font-display);
-    font-size: clamp(2.25rem, 5vw, 3rem);
+    font-size: clamp(2rem, 5vw, 2.75rem);
     font-weight: 700;
+    font-style: italic;
     letter-spacing: -0.02em;
     line-height: 1.1;
     color: var(--nd-blue);
-    white-space: nowrap;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .hero-affiliation {
-    font-size: 0.9375rem;
+    font-size: 1.125rem;
     color: var(--text-secondary);
     display: flex;
     align-items: center;
     gap: 6px;
     flex-wrap: wrap;
-    justify-content: center;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
   }
 
   .affiliation-link {
@@ -997,50 +861,16 @@ import Layout from '../layouts/Layout.astro';
     transition: color 0.2s ease;
   }
 
-  .hero-bio {
-    font-size: 0.9375rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    max-width: 560px;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
-  }
-
-  .bio-link {
-    color: var(--nd-gold);
-    font-weight: 500;
-    position: relative;
-  }
-
-  .bio-link::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: var(--nd-gold);
-    opacity: 0.4;
-    transition: opacity 0.2s ease;
-  }
-
-  .bio-link:hover::after {
-    opacity: 1;
-  }
-
-  /* Contact Bar - Compact horizontal layout */
   .contact-bar {
-    position: relative;
-    z-index: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
     flex-wrap: wrap;
     margin-top: var(--space-xs);
-    padding: var(--space-sm) var(--space-md);
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: var(--radius-md);
+    padding: var(--space-xs) var(--space-sm);
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: var(--radius-sm);
     border: 1px solid rgba(var(--nd-gold-rgb), 0.1);
     backdrop-filter: blur(8px);
   }
@@ -1088,11 +918,9 @@ import Layout from '../layouts/Layout.astro';
     padding: 0 var(--container-padding);
   }
 
-  /* ===========================
-     SECTIONS
-  =========================== */
+  /* Section */
   .section {
-    padding: var(--space-3xl) 0;
+    padding: var(--space-2xl) 0;
     border-bottom: 1px solid var(--border);
     position: relative;
   }
@@ -1103,16 +931,8 @@ import Layout from '../layouts/Layout.astro';
 
   /* Section header */
   .section-header {
-    margin-bottom: var(--space-xl);
-  }
-
-  .section-label {
-    font-size: 0.6875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--nd-gold);
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    padding-top: var(--space-md);
   }
 
   .section-title {
@@ -1148,27 +968,28 @@ import Layout from '../layouts/Layout.astro';
      RESEARCH
   =========================== */
   .research-intro {
-    font-size: 1rem;
+    font-size: 0.9375rem;
     color: var(--text-secondary);
-    line-height: 1.7;
+    line-height: 1.6;
     max-width: 680px;
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-lg);
   }
 
   .research-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg);
+    gap: var(--space-md);
   }
 
   .research-item {
     display: flex;
-    gap: var(--space-lg);
-    padding: var(--space-lg);
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
     background: white;
     border-radius: var(--radius-md);
     border: 1px solid var(--gray-100);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    align-items: center;
   }
 
   .research-item:hover {
@@ -1177,8 +998,8 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .research-item-icon {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: var(--radius-sm);
     background: rgba(var(--nd-gold-rgb), 0.08);
     border: 1px solid rgba(var(--nd-gold-rgb), 0.15);
@@ -1199,20 +1020,13 @@ import Layout from '../layouts/Layout.astro';
     font-size: 1rem;
     font-weight: 600;
     color: var(--nd-blue);
-    margin-bottom: var(--space-xs);
     line-height: 1.3;
-  }
-
-  .research-item-desc {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.65;
   }
 
   @media (max-width: 480px) {
     .research-item {
-      flex-direction: column;
       gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-sm);
     }
   }
 
@@ -1233,9 +1047,9 @@ import Layout from '../layouts/Layout.astro';
   .news-timeline::before {
     content: '';
     position: absolute;
-    left: 52px;
-    top: 8px;
-    bottom: 8px;
+    left: 76px;
+    top: 10px;
+    bottom: 10px;
     width: 1px;
     background: var(--border-default);
   }
@@ -1243,14 +1057,10 @@ import Layout from '../layouts/Layout.astro';
   .news-item {
     display: grid;
     grid-template-columns: 72px 16px 1fr;
-    gap: 0 var(--space-lg);
+    gap: 0 var(--space-sm);
     align-items: start;
-    padding: var(--space-md) 0;
+    padding: var(--space-sm) 0;
     position: relative;
-  }
-
-  .news-item:not(:last-child) {
-    border-bottom: 1px solid var(--border-subtle);
   }
 
   .news-date {
@@ -1277,12 +1087,10 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .news-dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: var(--nd-gold);
-    border: 2px solid var(--bg-primary);
-    box-shadow: 0 0 0 1px var(--nd-gold);
     margin-top: 5px;
     position: relative;
     z-index: 1;
@@ -1321,21 +1129,18 @@ import Layout from '../layouts/Layout.astro';
      ABOUT ME
   =========================== */
   .about-content {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: var(--space-2xl);
-    align-items: start;
+    max-width: 720px;
   }
 
   .about-text {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
 
   .about-text p {
-    font-size: 1rem;
-    line-height: 1.75;
+    font-size: 0.9375rem;
+    line-height: 1.6;
     color: var(--text-secondary);
   }
 
@@ -1372,61 +1177,13 @@ import Layout from '../layouts/Layout.astro';
     opacity: 1;
   }
 
-  .about-aside {
-    position: sticky;
-    top: 80px;
-  }
-
-  .about-info-card {
-    background: white;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--gray-100);
-    box-shadow: var(--shadow-sm);
-    padding: var(--space-lg);
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .about-info-row {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    padding: var(--space-sm) 0;
-    border-bottom: 1px solid var(--gray-100);
-  }
-
-  .about-info-row:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .about-info-row:first-child {
-    padding-top: 0;
-  }
-
-  .about-info-label {
-    font-size: 0.6875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-  }
-
-  .about-info-value {
-    font-size: 0.875rem;
-    color: var(--nd-blue);
-    font-weight: 500;
-    line-height: 1.4;
-  }
-
   /* ===========================
      PUBLICATIONS
   =========================== */
   .pub-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
   }
 
   /* Category */
@@ -1438,8 +1195,8 @@ import Layout from '../layouts/Layout.astro';
   .pub-category-header {
     display: flex;
     align-items: center;
-    gap: var(--space-md);
-    padding: 0 0 var(--space-md) 0;
+    gap: var(--space-sm);
+    padding: 0 0 var(--space-sm) 0;
     margin-bottom: 2px;
   }
 
@@ -1454,7 +1211,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .pub-category:hover .pub-category-line {
-    width: 3rem;
+    width: 2.5rem;
   }
 
   .pub-category-name {
@@ -1487,9 +1244,9 @@ import Layout from '../layouts/Layout.astro';
   .pub-row {
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
     align-items: start;
-    padding: var(--space-sm) 0 var(--space-sm) var(--space-md);
+    padding: var(--space-xs) 0 var(--space-xs) var(--space-sm);
     border-left: 2px solid transparent;
     transition: border-color 0.2s ease, background 0.2s ease;
   }
@@ -1668,9 +1425,9 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: var(--space-lg) var(--space-lg);
+    padding: var(--space-md);
     background: white;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     border: 1px solid var(--gray-100);
     box-shadow: var(--shadow-xs);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1702,15 +1459,15 @@ import Layout from '../layouts/Layout.astro';
 
   .edu-left {
     display: flex;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     align-items: flex-start;
     flex: 1;
   }
 
   .edu-logo-wrap {
-    width: 52px;
-    height: 52px;
-    border-radius: var(--radius-md);
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
     background: white;
     border: 1px solid var(--gray-200);
     padding: 4px;
@@ -1913,7 +1670,7 @@ import Layout from '../layouts/Layout.astro';
 
   .exp-item {
     display: flex;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     position: relative;
   }
 
@@ -1922,7 +1679,7 @@ import Layout from '../layouts/Layout.astro';
     flex-direction: column;
     align-items: center;
     flex-shrink: 0;
-    padding-top: 6px;
+    padding-top: 4px;
   }
 
   .exp-timeline-dot {
@@ -1940,7 +1697,7 @@ import Layout from '../layouts/Layout.astro';
     width: 2px;
     flex: 1;
     background: linear-gradient(180deg, var(--nd-gold), var(--gray-200));
-    margin-top: var(--space-sm);
+    margin-top: var(--space-xs);
   }
 
   .exp-timeline-line--last {
@@ -1949,15 +1706,15 @@ import Layout from '../layouts/Layout.astro';
 
   .exp-card {
     flex: 1;
-    padding-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
   }
 
   .exp-card-header {
     background: white;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     border: 1px solid var(--gray-100);
     box-shadow: var(--shadow-xs);
-    padding: var(--space-lg);
+    padding: var(--space-md);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     overflow: hidden;
@@ -2246,8 +2003,8 @@ import Layout from '../layouts/Layout.astro';
   =========================== */
   .footer {
     border-top: 1px solid var(--gray-200);
-    margin-top: var(--space-3xl);
-    padding: var(--space-2xl) var(--container-padding);
+    margin-top: var(--space-2xl);
+    padding: var(--space-xl) var(--container-padding);
     background: var(--gray-50);
   }
 
@@ -2258,7 +2015,7 @@ import Layout from '../layouts/Layout.astro';
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
   }
 
   .footer-left {
@@ -2320,25 +2077,26 @@ import Layout from '../layouts/Layout.astro';
   =========================== */
   @media (max-width: 768px) {
     .hero {
-      min-height: auto;
-      padding: calc(60px + var(--space-lg)) var(--container-padding) var(--space-xl);
+      padding: calc(60px + var(--space-md)) var(--container-padding) var(--space-lg);
     }
 
-    .hero-content {
+    .hero-inner {
+      flex-direction: column;
+      align-items: center;
       gap: var(--space-md);
+      max-width: 100%;
     }
 
     .hero-avatar {
       width: 100px;
-      height: 100px;
+    }
+
+    .hero-info {
+      width: 100%;
     }
 
     .hero-name {
-      font-size: clamp(1.75rem, 8vw, 2.5rem);
-    }
-
-    .hero-bio {
-      font-size: 0.875rem;
+      font-size: clamp(1.5rem, 7vw, 2rem);
     }
 
     .contact-bar {
@@ -2350,6 +2108,10 @@ import Layout from '../layouts/Layout.astro';
       font-size: 0.75rem;
     }
 
+    .section {
+      padding: var(--space-xl) 0;
+    }
+
     .edu-item,
     .edu-right {
       flex-direction: column;
@@ -2357,7 +2119,7 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .edu-date-badge {
-      margin-top: var(--space-sm);
+      margin-top: var(--space-xs);
     }
 
     .edu-right {
@@ -2393,7 +2155,7 @@ import Layout from '../layouts/Layout.astro';
     .footer-inner {
       flex-direction: column;
       align-items: flex-start;
-      gap: var(--space-lg);
+      gap: var(--space-md);
     }
 
     .footer-nav {
@@ -2411,6 +2173,20 @@ import Layout from '../layouts/Layout.astro';
       padding: var(--space-xs) var(--container-padding);
     }
 
+    .hero-inner {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-avatar {
+      width: 90px;
+    }
+
+    .hero-affiliation {
+      justify-content: center;
+    }
+
     .section-title {
       flex-direction: column;
       gap: var(--space-xs);
@@ -2418,6 +2194,7 @@ import Layout from '../layouts/Layout.astro';
 
     .contact-bar {
       gap: 0;
+      justify-content: center;
     }
 
     .contact-item span {
