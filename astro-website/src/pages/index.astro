@@ -172,9 +172,41 @@ import Layout from '../layouts/Layout.astro';
       </div>
       <div class="research-content reveal">
         <ul class="research-list">
-          <li>Trustworthy AI & Alignment</li>
-          <li>LLM Agent Reliability</li>
-          <li>Foundation Model Evaluation</li>
+          <li class="research-item">
+            <h3 class="research-item-title">LLM Agent Reliability &amp; Failure Diagnosis</h3>
+            <p class="research-item-text">
+              Diagnosing multi-turn agent failures under input faults, interaction noise, and cooperative breakdowns.
+            </p>
+            <p class="research-citations">
+              This includes:
+              <span class="research-citation">Drift-Bench <span class="research-venue">(ICML'26)</span></span>,
+              <a href="https://github.com/wad3birch/Intra_AI" target="_blank" rel="noopener" class="research-citation-link">IntraAI <span class="research-venue">(WWW'26 Demo)</span></a>.
+            </p>
+          </li>
+          <li class="research-item">
+            <h3 class="research-item-title">Alignment Risk &amp; Guardrail Models</h3>
+            <p class="research-item-text">
+              Studying training-induced alignment risks and building guardian/advisor models for safer LLM behavior.
+            </p>
+            <p class="research-citations">
+              This includes:
+              <span class="research-citation">Capability-Oriented Training Induced Alignment Risk <span class="research-venue">(ICML'26)</span></span>,
+              <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="research-citation-link">Guardian-as-an-Advisor <span class="research-venue">(ACL'26 Findings)</span></a>,
+              and <span class="research-citation">Edge Alignment <span class="research-venue">(Position Paper)</span></span>.
+            </p>
+          </li>
+          <li class="research-item">
+            <h3 class="research-item-title">Trustworthiness Evaluation of Foundation Models</h3>
+            <p class="research-item-text">
+              Developing benchmarks and assessment protocols for generative, vision-language, and domain-specific foundation models.
+            </p>
+            <p class="research-citations">
+              This includes:
+              <a href="https://trustgen.github.io/" target="_blank" rel="noopener" class="research-citation-link">TrustGen <span class="research-venue">(ICLR'26)</span></a>,
+              <a href="https://arxiv.org/pdf/2410.21259" target="_blank" rel="noopener" class="research-citation-link">AutoDavis <span class="research-venue">(arXiv'25)</span></a>,
+              and <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="research-citation-link">PolicyLLM <span class="research-venue">(ACL'26 Findings)</span></a>.
+            </p>
+          </li>
         </ul>
       </div>
     </section>
@@ -876,7 +908,7 @@ import Layout from '../layouts/Layout.astro';
      RESEARCH
   =========================== */
   .research-content {
-    max-width: 640px;
+    max-width: 760px;
   }
 
   .research-list {
@@ -885,23 +917,66 @@ import Layout from '../layouts/Layout.astro';
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: var(--space-lg);
   }
 
-  .research-list li {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    padding-left: 1em;
+  .research-item {
+    padding-left: var(--space-md);
     position: relative;
   }
 
-  .research-list li::before {
-    content: '—';
+  .research-item::before {
+    content: '';
     position: absolute;
     left: 0;
-    color: var(--nd-gold);
+    top: 0.42rem;
+    bottom: 0.2rem;
+    width: 2px;
+    border-radius: 999px;
+    background: rgba(var(--nd-gold-rgb), 0.6);
+  }
+
+  .research-item-title {
+    font-size: 1rem;
     font-weight: 600;
+    color: var(--nd-blue);
+    margin: 0 0 3px;
+    line-height: 1.4;
+  }
+
+  .research-item-text {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .research-citations {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: var(--space-xs) 0 0;
+  }
+
+  .research-citation,
+  .research-citation-link {
+    color: var(--nd-gold);
+    font-weight: 500;
+  }
+
+  .research-citation-link {
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .research-citation-link:hover {
+    color: var(--nd-blue);
+  }
+
+  .research-venue {
+    color: var(--text-muted);
+    font-weight: 500;
+    white-space: nowrap;
   }
 
   /* ===========================
