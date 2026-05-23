@@ -24,7 +24,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="hero-info">
         <h1 class="hero-name"><em>Han Bao</em></h1>
         <p class="hero-affiliation">
-          Incoming Ph.D. Student in Computer Science &amp; Engineering ·
+          <span class="hero-role">Incoming Ph.D. Student in Computer Science &amp; Engineering</span>
           <a href="https://www.nd.edu/" target="_blank" rel="noopener" class="affiliation-link">
             University of Notre Dame
           </a>
@@ -466,22 +466,6 @@ import Layout from '../layouts/Layout.astro';
             <div class="pub-row">
               <div class="pub-row-main">
                 <span class="pub-row-title pub-row-title--plain">
-                  SpecAlign: Efficient Specification-Grounded Alignment of Large Language Models via Synthetic Data
-                </span>
-                <p class="pub-row-authors">
-                  Wenjie Wang, Yue Huang, Zhengqing Yuan, <strong class="author-me">Han Bao</strong>, Shiyi Du, Yuchen Ma, Yue Zhao, Yanfang Ye, Xiangliang Zhang
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-note">Preprint</span>
-                  <span class="pub-meta-sep">·</span>
-                  <span class="pub-year-label">2026</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <span class="pub-row-title pub-row-title--plain">
                   Why Semantic Entropy Fails? Geometry-Aware and Calibrated Uncertainty for Policy Optimization
                 </span>
                 <p class="pub-row-authors">
@@ -760,9 +744,9 @@ import Layout from '../layouts/Layout.astro';
     font-size: 1rem;
     color: var(--text-secondary);
     display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
   }
 
   .affiliation-link {
@@ -1585,7 +1569,7 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .hero-affiliation {
-      justify-content: center;
+      align-items: center;
     }
 
     .section {
