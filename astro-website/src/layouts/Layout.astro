@@ -10,8 +10,13 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Han Bao - Incoming Ph.D. Student in Computer Science, University of Notre Dame" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Han Bao is an incoming Ph.D. student at the University of Notre Dame studying reliable and aligned LLM agents, failure diagnosis, and trustworthy AI evaluation." />
+    <meta name="author" content="Han Bao" />
+    <meta name="keywords" content="Han Bao, trustworthy AI, LLM agents, AI alignment, foundation model evaluation, University of Notre Dame" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content="Research on reliable and aligned LLM agents, failure diagnosis, and trustworthy AI evaluation." />
+    <meta property="og:type" content="website" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">

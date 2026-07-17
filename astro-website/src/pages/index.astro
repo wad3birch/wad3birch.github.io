@@ -2,16 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Han Bao">
+<Layout title="Han Bao | Trustworthy AI and LLM Agents">
   <!-- Navigation -->
-  <nav class="nav">
+  <nav class="nav" aria-label="Primary navigation">
     <div class="nav-inner">
-      <a href="#about-me" class="nav-link active">About</a>
-      <a href="#news" class="nav-link">News</a>
-      <a href="#research" class="nav-link">Research</a>
-      <a href="#publications" class="nav-link">Publications</a>
-      <a href="#education" class="nav-link">Education</a>
-      <a href="#experience" class="nav-link">Experience</a>
+      <a href="#top" class="nav-brand">Han Bao</a>
+      <div class="nav-links">
+        <a href="#about-me" class="nav-link active">About</a>
+        <a href="#news" class="nav-link">News</a>
+        <a href="#research" class="nav-link">Research</a>
+        <a href="#publications" class="nav-link">Publications</a>
+        <a href="#education" class="nav-link">Education</a>
+        <a href="#experience" class="nav-link">Experience</a>
+      </div>
     </div>
   </nav>
 
@@ -19,53 +22,28 @@ import Layout from '../layouts/Layout.astro';
   <header class="hero" id="top">
     <div class="hero-inner">
       <div class="hero-avatar">
-        <img src="/self.jpeg" alt="Han Bao" />
+        <img src="/self.jpeg" alt="Portrait of Han Bao" />
       </div>
       <div class="hero-info">
-        <h1 class="hero-name"><em>Han Bao</em></h1>
+        <h1 class="hero-name">Han Bao</h1>
         <p class="hero-affiliation">
           <span class="hero-role">Incoming Ph.D. Student in Computer Science &amp; Engineering</span>
           <a href="https://www.nd.edu/" target="_blank" rel="noopener" class="affiliation-link">
             University of Notre Dame
           </a>
         </p>
+        <p class="hero-focus">
+          I study reliable and aligned LLM agents, with an emphasis on failure diagnosis,
+          deployment-time risks, and trustworthy evaluation.
+        </p>
         <div class="contact-bar" id="contact">
-          <a href="mailto:hbao@nd.edu" class="contact-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-            </svg>
-            Email
-          </a>
+          <a href="mailto:hbao@nd.edu" class="contact-item">Email</a>
           <span class="contact-sep">·</span>
-          <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener" class="contact-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-            </svg>
-            Scholar
-          </a>
+          <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener" class="contact-item">Google Scholar</a>
           <span class="contact-sep">·</span>
-          <a href="https://github.com/wad3birch" target="_blank" rel="noopener" class="contact-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-              <path d="M9 18c-4.51 2-5-2-7-2"></path>
-            </svg>
-            GitHub
-          </a>
+          <a href="https://github.com/wad3birch" target="_blank" rel="noopener" class="contact-item">GitHub</a>
           <span class="contact-sep">·</span>
-          <a href="https://www.linkedin.com/in/han-bao-59796b379/" target="_blank" rel="noopener" class="contact-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <line x1="6" y1="10" x2="6" y2="17"></line>
-              <circle cx="6" cy="7" r="1"></circle>
-              <line x1="10" y1="14" x2="10" y2="17"></line>
-              <line x1="10" y1="11" x2="10" y2="11"></line>
-              <line x1="14" y1="17" x2="14" y2="10"></line>
-              <path d="M14 10c0-1 .8-2 2-2s2 1 2 2v7"></path>
-            </svg>
-            LinkedIn
-          </a>
+          <a href="https://www.linkedin.com/in/han-bao-59796b379/" target="_blank" rel="noopener" class="contact-item">LinkedIn</a>
         </div>
       </div>
     </div>
@@ -99,8 +77,8 @@ import Layout from '../layouts/Layout.astro';
             <a href="https://jasonzhangzy1757.github.io/" target="_blank" rel="noopener" class="about-link">Zheyuan Zhang</a>.
           </p>
           <p>
-            My research lies at the intersection of <strong>LLM agents</strong>, <strong>reinforcement learning</strong>,
-            and <strong>trustworthy AI</strong> — building systems that are not only capable but also safe, fair, and reliable.
+            My research focuses on <strong>trustworthy AI for LLM agents</strong>, with an emphasis on reliability,
+            alignment, and evaluation under realistic training and deployment conditions.
           </p>
         </div>
       </div>
@@ -165,17 +143,18 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    <!-- Research Interest Section -->
+    <!-- Research Interests Section -->
     <section class="section" id="research">
       <div class="section-header reveal">
-        <h2 class="section-title">Research Interest</h2>
+        <h2 class="section-title">Research Interests</h2>
       </div>
       <div class="research-content reveal">
         <ul class="research-list">
           <li class="research-item">
-            <h3 class="research-item-title">LLM Agent Reliability &amp; Failure Diagnosis</h3>
+            <h3 class="research-item-title">Reliable LLM Agents and Failure Diagnosis</h3>
             <p class="research-item-text">
-              Diagnosing multi-turn agent failures under input faults, interaction noise, and cooperative breakdowns.
+              I study how LLM agents fail across multi-turn interaction, input faults, and cooperative settings,
+              and how those failures can be diagnosed before they compound into unreliable behavior.
             </p>
             <p class="research-citations">
               This includes:
@@ -184,9 +163,10 @@ import Layout from '../layouts/Layout.astro';
             </p>
           </li>
           <li class="research-item">
-            <h3 class="research-item-title">Alignment Risk &amp; Guardrail Models</h3>
+            <h3 class="research-item-title">Alignment under Training and Deployment Shifts</h3>
             <p class="research-item-text">
-              Studying training-induced alignment risks and building guardian/advisor models for safer LLM behavior.
+              I investigate how alignment risks emerge as models acquire new capabilities or move into constrained
+              deployment environments, together with guardian and advisor mechanisms for safer behavior.
             </p>
             <p class="research-citations">
               This includes:
@@ -196,9 +176,10 @@ import Layout from '../layouts/Layout.astro';
             </p>
           </li>
           <li class="research-item">
-            <h3 class="research-item-title">Trustworthiness Evaluation of Foundation Models</h3>
+            <h3 class="research-item-title">Evaluation for Trustworthy Foundation Models</h3>
             <p class="research-item-text">
-              Developing benchmarks and assessment protocols for generative, vision-language, and domain-specific foundation models.
+              I develop benchmarks and evaluation protocols that test whether generative, vision-language,
+              and domain-specific foundation models remain reliable in realistic use cases.
             </p>
             <p class="research-citations">
               This includes:
@@ -218,36 +199,6 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <div class="pub-list reveal">
-
-        <!-- Journal Articles -->
-        <div class="pub-category">
-          <div class="pub-category-header">
-            <span class="pub-category-name">Journal Articles</span>
-          </div>
-          <div class="pub-items">
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <a href="https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-025-02981-1" target="_blank" rel="noopener" class="pub-row-title">
-                  CRISP: A Causal Relationships-Guided Deep Learning Framework for Advanced ICU Mortality Prediction
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  Linna Wang, Xinyu Guo, <strong class="author-me">Han Bao</strong>, Lihua Jiang, Li Zhao, Tao Zhu, Ziliang Feng
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag pub-venue-tag--journal">BMC MDM 2025</span>
-                  <span class="pub-venue-full">BMC Medical Informatics and Decision Making</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- Conference Papers -->
         <div class="pub-category">
@@ -423,6 +374,36 @@ import Layout from '../layouts/Layout.astro';
               </div>
             </div>
 
+          </div>
+        </div>
+
+        <!-- Journal Articles -->
+        <div class="pub-category">
+          <div class="pub-category-header">
+            <span class="pub-category-name">Journal Articles</span>
+          </div>
+          <div class="pub-items">
+            <div class="pub-row">
+              <div class="pub-row-main">
+                <a href="https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-025-02981-1" target="_blank" rel="noopener" class="pub-row-title">
+                  CRISP: A Causal Relationships-Guided Deep Learning Framework for Advanced ICU Mortality Prediction
+                  <span class="pub-ext-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </span>
+                </a>
+                <p class="pub-row-authors">
+                  Linna Wang, Xinyu Guo, <strong class="author-me">Han Bao</strong>, Lihua Jiang, Li Zhao, Tao Zhu, Ziliang Feng
+                </p>
+                <p class="pub-row-details">
+                  <span class="pub-venue-tag pub-venue-tag--journal">BMC MDM 2025</span>
+                  <span class="pub-venue-full">BMC Medical Informatics and Decision Making</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -697,23 +678,9 @@ import Layout from '../layouts/Layout.astro';
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-inner">
-      <div class="footer-left">
-        <span class="footer-name">Han Bao</span>
-        <span class="footer-role">Incoming Ph.D. Student · University of Notre Dame</span>
-      </div>
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="#about-me" class="footer-nav-link">About</a>
-        <a href="#news" class="footer-nav-link">News</a>
-        <a href="#research" class="footer-nav-link">Research</a>
-        <a href="#publications" class="footer-nav-link">Publications</a>
-        <a href="#education" class="footer-nav-link">Education</a>
-        <a href="#experience" class="footer-nav-link">Experience</a>
-      </nav>
-    </div>
-    <div class="footer-bottom">
       <p class="footer-copy">
-        &copy; {new Date().getFullYear()} Han Bao · Built with
-        <a href="https://astro.build" target="_blank" rel="noopener">Astro</a>
+        &copy; {new Date().getFullYear()} Han Bao · University of Notre Dame ·
+        <a href="mailto:hbao@nd.edu">hbao@nd.edu</a>
       </p>
     </div>
   </footer>
@@ -740,19 +707,36 @@ import Layout from '../layouts/Layout.astro';
     height: 56px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: clamp(1.5rem, 4vw, 3rem);
+    justify-content: space-between;
+    gap: var(--space-xl);
+  }
+
+  .nav-brand {
+    flex: 0 0 auto;
+    color: var(--nd-blue);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.75rem;
+    min-width: 0;
     overflow-x: auto;
     scrollbar-width: none;
   }
 
-  .nav-inner::-webkit-scrollbar {
+  .nav-links::-webkit-scrollbar {
     display: none;
   }
 
   .nav-link {
-    font-size: 0.875rem;
-    font-weight: 400;
+    font-size: 0.82rem;
+    font-weight: 500;
     color: var(--text-secondary);
     padding: 4px 0;
     position: relative;
@@ -766,46 +750,61 @@ import Layout from '../layouts/Layout.astro';
     color: var(--nd-blue);
   }
 
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 1px;
+    background: var(--nd-gold);
+  }
+
   /* ===========================
      HERO
   =========================== */
   .hero {
-    padding: calc(56px + var(--space-xl)) var(--container-padding) var(--space-xl);
+    padding: calc(56px + 3.5rem) var(--container-padding) 3.5rem;
+    border-bottom: 1px solid var(--border);
   }
 
   .hero-inner {
-    max-width: 560px;
+    max-width: var(--container-max);
     margin: 0 auto;
     display: flex;
-    align-items: center;
-    gap: var(--space-lg);
+    align-items: flex-start;
+    gap: 2rem;
   }
 
   .hero-avatar {
-    width: 108px;
-    border-radius: 12px;
+    width: 132px;
+    aspect-ratio: 4 / 5;
+    border-radius: 3px;
     overflow: hidden;
     flex-shrink: 0;
   }
 
   .hero-avatar img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 24%;
     display: block;
   }
 
   .hero-info {
+    max-width: 650px;
     display: flex;
     flex-direction: column;
-    gap: var(--space-xs);
+    gap: 0.55rem;
   }
 
   .hero-name {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 2.75rem);
-    font-weight: 700;
-    font-style: italic;
-    letter-spacing: -0.02em;
+    font-size: 2.6rem;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0;
     line-height: 1.1;
     color: var(--nd-blue);
   }
@@ -819,6 +818,10 @@ import Layout from '../layouts/Layout.astro';
     gap: 2px;
   }
 
+  .hero-role {
+    color: var(--text-primary);
+  }
+
   .affiliation-link {
     color: var(--nd-blue);
     font-weight: 600;
@@ -829,42 +832,40 @@ import Layout from '../layouts/Layout.astro';
     color: var(--nd-gold);
   }
 
+  .hero-focus {
+    max-width: 620px;
+    margin: 0.15rem 0 0;
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
   .contact-bar {
     display: flex;
     align-items: center;
-    gap: 0;
+    gap: 0.55rem;
     flex-wrap: wrap;
-    margin-top: var(--space-xs);
+    margin-top: 0.2rem;
   }
 
   .contact-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.875rem;
-    font-weight: 400;
-    color: var(--text-secondary);
-    text-decoration: none;
-    padding: 4px 8px;
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--nd-blue);
+    text-decoration: underline;
+    text-decoration-color: rgba(var(--nd-blue-rgb), 0.24);
+    text-underline-offset: 3px;
+    padding: 2px 0;
     transition: color 0.2s ease;
-  }
-
-  .contact-item svg {
-    flex-shrink: 0;
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
   }
 
   .contact-item:hover {
     color: var(--nd-gold);
   }
 
-  .contact-item:hover svg {
-    opacity: 1;
-  }
-
   .contact-sep {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--gray-400);
     user-select: none;
   }
@@ -890,7 +891,7 @@ import Layout from '../layouts/Layout.astro';
 
   .section-title {
     font-family: var(--font-display);
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-size: 1.65rem;
     font-weight: 600;
     color: var(--nd-blue);
     line-height: 1.1;
@@ -911,8 +912,9 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .about-text p {
-    font-size: 1rem;
-    line-height: 1.7;
+    font-family: var(--font-display);
+    font-size: 1.01rem;
+    line-height: 1.75;
     color: var(--text-secondary);
     margin: 0;
   }
@@ -1038,51 +1040,43 @@ import Layout from '../layouts/Layout.astro';
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg);
+    gap: 0;
   }
 
   .research-item {
-    padding-left: var(--space-md);
-    position: relative;
-  }
-
-  .research-item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.42rem;
-    bottom: 0.2rem;
-    width: 2px;
-    border-radius: 999px;
-    background: rgba(var(--nd-gold-rgb), 0.6);
+    padding: 1rem 0 1.1rem;
+    border-top: 1px solid var(--gray-200);
   }
 
   .research-item-title {
-    font-size: 1rem;
+    font-family: var(--font-display);
+    font-size: 1.08rem;
     font-weight: 600;
     color: var(--nd-blue);
-    margin: 0 0 3px;
+    margin: 0 0 0.3rem;
     line-height: 1.4;
   }
 
   .research-item-text {
-    font-size: 0.9375rem;
+    max-width: 720px;
+    font-family: var(--font-display);
+    font-size: 0.96rem;
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.68;
     margin: 0;
   }
 
   .research-citations {
-    font-size: 0.875rem;
+    font-size: 0.84rem;
     color: var(--text-muted);
     line-height: 1.55;
-    margin: var(--space-xs) 0 0;
+    margin: 0.45rem 0 0;
   }
 
   .research-citation,
   .research-citation-link {
-    color: var(--nd-gold);
-    font-weight: 500;
+    color: var(--nd-blue);
+    font-weight: 600;
   }
 
   .research-citation-link {
@@ -1091,7 +1085,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .research-citation-link:hover {
-    color: var(--nd-blue);
+    color: var(--nd-gold);
   }
 
   .research-venue {
@@ -1106,7 +1100,7 @@ import Layout from '../layouts/Layout.astro';
   .pub-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg);
+    gap: 2.25rem;
   }
 
   .pub-category {
@@ -1115,63 +1109,44 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .pub-category-header {
-    padding: 0 0 var(--space-sm) 0;
-    margin-bottom: var(--space-xs);
+    padding: 0 0 0.55rem;
+    margin-bottom: 0;
     border-bottom: 1px solid var(--gray-300);
   }
 
   .pub-category-name {
-    font-size: 0.8125rem;
+    font-family: var(--font-display);
+    font-size: 1.08rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--gray-600);
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--text-primary);
   }
 
   .pub-items {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 0;
   }
 
   .pub-row {
-    padding: 1rem 1.1rem;
-    margin: 0 -1.1rem;
+    padding: 1.05rem 0 1.1rem;
+    margin: 0;
     border-bottom: 1px solid var(--gray-200);
-    border-left: 3px solid transparent;
-    border-radius: 6px;
-    transition:
-      background-color 0.18s ease,
-      border-left-color 0.18s ease;
+    border-left: 0;
+    border-radius: 0;
   }
 
   .pub-row:hover {
-    background: linear-gradient(
-      90deg,
-      rgba(var(--nd-gold-rgb), 0.08),
-      rgba(var(--nd-gold-rgb), 0.025)
-    );
-    border-left-color: rgba(var(--nd-gold-rgb), 0.82);
+    background: transparent;
   }
 
   .pub-row--selected {
-    border-left-color: rgba(var(--nd-gold-rgb), 0.68);
-    background: linear-gradient(
-      90deg,
-      rgba(var(--nd-gold-rgb), 0.055),
-      rgba(var(--nd-gold-rgb), 0.012) 68%,
-      transparent
-    );
+    background: transparent;
   }
 
   .pub-row--selected:hover {
-    border-left-color: var(--nd-gold);
-    background: linear-gradient(
-      90deg,
-      rgba(var(--nd-gold-rgb), 0.1),
-      rgba(var(--nd-gold-rgb), 0.025) 68%,
-      transparent
-    );
+    background: transparent;
   }
 
   .pub-row--selected .pub-row-title--plain {
@@ -1185,17 +1160,16 @@ import Layout from '../layouts/Layout.astro';
   .pub-row-main {
     display: flex;
     flex-direction: column;
-    gap: 0.42rem;
+    gap: 0.32rem;
   }
 
   .pub-row-title {
-    font-size: 1.03rem;
-    font-weight: 650;
+    font-family: var(--font-display);
+    font-size: 1.04rem;
+    font-weight: 600;
     color: var(--nd-blue);
-    line-height: 1.45;
-    display: inline-flex;
-    align-items: flex-start;
-    gap: 5px;
+    line-height: 1.48;
+    display: inline;
     text-decoration: none;
     transition: color 0.2s ease;
   }
@@ -1213,11 +1187,11 @@ import Layout from '../layouts/Layout.astro';
   .pub-ext-icon {
     display: inline-flex;
     align-items: center;
-    flex-shrink: 0;
-    margin-top: 3px;
-    opacity: 0.58;
+    margin-left: 0.2rem;
+    opacity: 0.45;
+    vertical-align: 0.06em;
     transition: opacity 0.2s ease;
-    color: var(--nd-gold);
+    color: var(--nd-blue);
   }
 
   .pub-row-title:hover .pub-ext-icon {
@@ -1225,9 +1199,9 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .pub-row-authors {
-    font-size: 0.9rem;
+    font-size: 0.91rem;
     color: var(--gray-600);
-    line-height: 1.55;
+    line-height: 1.5;
     margin: 0;
   }
 
@@ -1243,29 +1217,22 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .author-me {
-    color: var(--nd-blue);
-    font-weight: 600;
+    color: var(--text-primary);
+    font-weight: 700;
     white-space: nowrap;
   }
 
   .pub-venue-tag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2px 8px 2px 7px;
-    border: 1px solid rgba(var(--nd-gold-rgb), 0.28);
-    border-left: 3px solid rgba(var(--nd-gold-rgb), 0.82);
-    border-radius: 4px;
-    background: linear-gradient(
-      90deg,
-      rgba(var(--nd-gold-rgb), 0.12),
-      rgba(var(--nd-gold-rgb), 0.04)
-    );
+    display: inline;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
     color: var(--nd-blue);
-    font-family: var(--font-display);
-    font-size: 0.88rem;
+    font-family: var(--font-sans);
+    font-size: 0.84rem;
     font-weight: 700;
-    line-height: 1.15;
+    line-height: 1.4;
     letter-spacing: 0;
     text-transform: none;
     white-space: nowrap;
@@ -1282,13 +1249,8 @@ import Layout from '../layouts/Layout.astro';
   .pub-venue-tag--journal,
   .pub-venue-tag--preprint {
     color: var(--nd-blue);
-    border-color: rgba(var(--nd-blue-rgb), 0.16);
-    border-left-color: rgba(var(--nd-blue-rgb), 0.58);
-    background: linear-gradient(
-      90deg,
-      rgba(var(--nd-blue-rgb), 0.075),
-      rgba(var(--nd-blue-rgb), 0.025)
-    );
+    border: 0;
+    background: transparent;
   }
 
   .pub-venue-full {
@@ -1307,28 +1269,14 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .pub-contribution {
-    padding-left: 0.6rem;
-    border-left: 1px solid rgba(var(--nd-gold-rgb), 0.4);
-    color: #7a5a00;
-    font-family: var(--font-display);
+    padding-left: 0;
+    border-left: 0;
+    color: var(--gray-600);
+    font-family: var(--font-sans);
     font-size: 0.82rem;
     font-style: italic;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.4;
-    white-space: nowrap;
-  }
-
-  .pub-note-pill {
-    display: inline-flex;
-    align-items: center;
-    padding: 2px 8px 3px;
-    border: 1px solid rgba(var(--nd-gold-rgb), 0.32);
-    border-radius: 999px;
-    background: rgba(var(--nd-gold-rgb), 0.1);
-    color: #7a5a00;
-    font-size: 0.82rem;
-    font-weight: 600;
-    line-height: 1.2;
     white-space: nowrap;
   }
 
@@ -1620,72 +1568,26 @@ import Layout from '../layouts/Layout.astro';
   .footer {
     border-top: 1px solid var(--gray-200);
     margin-top: var(--space-2xl);
-    padding: var(--space-xl) var(--container-padding);
-    background: var(--gray-50);
+    padding: 1.5rem var(--container-padding) 2rem;
+    background: var(--bg-primary);
   }
 
   .footer-inner {
     max-width: var(--container-max);
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-lg);
-  }
-
-  .footer-left {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .footer-name {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--nd-blue);
-  }
-
-  .footer-role {
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-  }
-
-  .footer-nav {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xl);
-  }
-
-  .footer-nav-link {
-    font-size: 0.8125rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .footer-nav-link:hover {
-    color: var(--nd-gold);
-  }
-
-  .footer-bottom {
-    max-width: var(--container-max);
-    margin: var(--space-lg) auto 0;
-    padding-top: var(--space-md);
-    border-top: 1px solid var(--gray-200);
   }
 
   .footer-copy {
-    font-size: 0.8125rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
     margin: 0;
   }
 
   .footer-copy a {
-    color: var(--nd-gold);
+    color: var(--text-secondary);
     font-weight: 500;
-    text-decoration: none;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   .footer-copy a:hover {
@@ -1696,29 +1598,33 @@ import Layout from '../layouts/Layout.astro';
      RESPONSIVE
   =========================== */
   @media (max-width: 768px) {
+    .nav-links {
+      gap: 1.25rem;
+    }
+
     .hero {
       padding: calc(56px + var(--space-lg)) var(--container-padding) var(--space-xl);
     }
 
     .hero-inner {
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       gap: var(--space-md);
       max-width: 100%;
     }
 
     .hero-avatar {
-      width: 96px;
+      width: 112px;
     }
 
     .hero-info {
       width: 100%;
-      align-items: center;
-      text-align: center;
+      align-items: flex-start;
+      text-align: left;
     }
 
     .hero-affiliation {
-      align-items: center;
+      align-items: flex-start;
     }
 
     .section {
@@ -1727,8 +1633,8 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .pub-row {
-      padding: 1rem 0.85rem;
-      margin: 0 -0.85rem;
+      padding: 1rem 0;
+      margin: 0;
     }
 
     .pub-row-title {
@@ -1758,10 +1664,6 @@ import Layout from '../layouts/Layout.astro';
       margin-top: 0;
     }
 
-    .pub-note-pill {
-      margin-top: 0;
-    }
-
     .edu-item,
     .edu-right {
       flex-direction: column;
@@ -1777,25 +1679,22 @@ import Layout from '../layouts/Layout.astro';
       gap: var(--space-xs);
     }
 
-    .footer-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--space-md);
-    }
-
-    .footer-nav {
-      flex-wrap: wrap;
-      gap: var(--space-md);
-    }
   }
 
   @media (max-width: 480px) {
     .nav-inner {
-      gap: var(--space-lg);
-      flex-wrap: nowrap;
-      justify-content: flex-start;
       height: 56px;
       padding: 0 var(--container-padding);
+    }
+
+    .nav-brand {
+      display: none;
+    }
+
+    .nav-links {
+      width: 100%;
+      justify-content: flex-start;
+      gap: var(--space-lg);
     }
 
     .hero {
@@ -1804,20 +1703,16 @@ import Layout from '../layouts/Layout.astro';
 
     .hero-inner {
       flex-direction: column;
-      align-items: center;
-      text-align: center;
+      align-items: flex-start;
+      text-align: left;
     }
 
     .hero-avatar {
-      width: 90px;
+      width: 104px;
     }
 
     .contact-item {
-      padding: 4px 6px;
-    }
-
-    .footer-nav {
-      gap: var(--space-sm) var(--space-lg);
+      padding: 2px 0;
     }
   }
 </style>
