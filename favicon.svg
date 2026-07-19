@@ -1,14 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ND">
-  <rect width="64" height="64" rx="10" fill="#0c2340"/>
-  <rect x="5" y="5" width="54" height="54" rx="7" fill="none" stroke="#c99700" stroke-width="3"/>
-  <text
-    x="32"
-    y="42"
-    fill="#c99700"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="29"
-    font-weight="700"
-    letter-spacing="-2"
-    text-anchor="middle"
-  >ND</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-labelledby="title">
+  <title id="title">Notre Dame monogram</title>
+  <path fill="#ae9142" d="M13.3 14.71c0-.18.15-.34.34-.34.19 0 .33.15.33.33 0 .18-.15.33-.34.33-.18.01-.33-.14-.33-.32zm.59 0c0-.14-.11-.26-.26-.26-.15 0-.26.12-.26.26s.11.26.26.26c.15-.01.26-.12.26-.26zm-.39-.19h.16l.11.04.03.08c0 .06-.03.09-.08.11l.09.13h-.09l-.08-.11h-.06v.11h-.08v-.36zm.16.17l.06-.05-.06-.05h-.08v.1h.08zM14.31 4.01h-1.69v-.99h1.22v-1.95h-4.39v1.95h1.22v.99h-3.15L6.01 1.07H3.04v1.95h1.22v.99H.21v1.95h.88v4.17H.21v1.95h4.05v.99H3.04v1.95h4.39v-1.95H6.21v-.99h3.15l1.51 2.94h1.75v-2.94h1.69l1.48-1.48V5.48l-1.48-1.47zm-.47 5.79-.33.34h-.89V5.96h.89l.33.33V9.8zm-3.17-3.84v4.17L8.53 5.96h2.14zm-7.63 4.17V5.96h1.22v4.17H3.04zm3.17 0V5.96l2.15 4.17H6.21z"/>
 </svg>
