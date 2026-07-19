@@ -1,5 +1,320 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+type Author = {
+  name: string;
+  me?: boolean;
+  equal?: boolean;
+};
+
+type Publication = {
+  title: string;
+  authors: Author[];
+  venue: string;
+  venueFull: string;
+  href?: string;
+  kind?: 'journal' | 'preprint';
+  contribution?: string;
+  note?: string;
+};
+
+const venueParts = (venue: string) => {
+  const match = venue.match(/^(.*?)\s+(\d{4})$/);
+  return match ? { label: match[1], year: match[2] } : { label: venue, year: '' };
+};
+
+const selectedWorks: Publication[] = [
+  {
+    title: 'MemoHarness: Agent Harnesses That Learn from Experience',
+    href: 'https://arxiv.org/abs/2607.14159',
+    authors: [
+      { name: 'Yue Huang', equal: true },
+      { name: 'Wenjie Wang', equal: true },
+      { name: 'Han Bao', me: true, equal: true },
+      { name: 'Yuchen Ma' },
+      { name: 'Xiaonan Luo' },
+      { name: 'Yi Nian' },
+      { name: 'Haomin Zhuang' },
+      { name: 'Zheyuan Liu' },
+      { name: 'Yue Zhao' },
+      { name: 'Xiangliang Zhang' },
+    ],
+    venue: 'arXiv 2026',
+    venueFull: 'Preprint',
+    kind: 'preprint',
+    contribution: 'Co-first author',
+  },
+  {
+    title: 'Drift-Bench: Diagnosing CoopeRative Breakdowns in LLM Agents under Input Faults via Multi-Turn Interaction',
+    authors: [
+      { name: 'Han Bao', me: true },
+      { name: 'Zheyuan Zhang' },
+      { name: 'Pengcheng Jing' },
+      { name: 'Zhengqing Yuan' },
+      { name: 'Kaiwen Shi' },
+      { name: 'Yanfang Ye' },
+    ],
+    venue: 'ICML 2026',
+    venueFull: 'International Conference on Machine Learning',
+    contribution: 'First author',
+  },
+  {
+    title: 'Capability-Oriented Training Induced Alignment Risk',
+    authors: [
+      { name: 'Yujun Zhou', equal: true },
+      { name: 'Yue Huang', equal: true },
+      { name: 'Han Bao', me: true, equal: true },
+      { name: 'Kehan Guo' },
+      { name: 'Zhenwen Liang' },
+      { name: 'Pin-Yu Chen' },
+      { name: 'Tian Gao' },
+      { name: 'Werner Geyer' },
+      { name: 'Nuno Moniz' },
+      { name: 'Nitesh V Chawla' },
+      { name: 'Xiangliang Zhang' },
+    ],
+    venue: 'ICML 2026',
+    venueFull: 'International Conference on Machine Learning',
+    contribution: 'Co-first author',
+  },
+  {
+    title: 'AutoDavis: Automatic Benchmarking of Large Vision-Language Models on Visual Question-Answering',
+    href: 'https://arxiv.org/abs/2410.21259',
+    authors: [
+      { name: 'Han Bao', me: true, equal: true },
+      { name: 'Yue Huang', equal: true },
+      { name: 'Yanbo Wang' },
+      { name: 'Jiayi Ye' },
+      { name: 'Xiangqi Wang' },
+      { name: 'Xiuying Chen' },
+      { name: 'Mohamed Elhoseiny' },
+      { name: 'Xiangliang Zhang' },
+    ],
+    venue: 'KDD D&B 2026',
+    venueFull: 'ACM SIGKDD Conference on Knowledge Discovery and Data Mining',
+    contribution: 'Co-first author',
+  },
+  {
+    title: 'PolicyLLM: Towards Excellent Comprehension of Public Policy for Large Language Models',
+    href: 'https://2026.aclweb.org/',
+    authors: [
+      { name: 'Han Bao', me: true },
+      { name: 'Penghao Zhang' },
+      { name: 'Yue Huang' },
+      { name: 'Rui Su' },
+      { name: 'Zhengqing Yuan' },
+      { name: 'Yujun Zhou' },
+      { name: 'Xiangqi Wang' },
+      { name: 'Kehan Guo' },
+      { name: 'Nitesh Chawla' },
+      { name: 'Xiangliang Zhang' },
+    ],
+    venue: 'ACL Findings 2026',
+    venueFull: 'Association for Computational Linguistics',
+    contribution: 'First author',
+  },
+  {
+    title: 'IntraAI: Bridging Human-AI Understanding Through Intelligent Interface Design',
+    href: 'https://dl.acm.org/doi/abs/10.1145/3774905.3793130',
+    authors: [
+      { name: 'Han Bao', me: true },
+      { name: 'Yue Huang' },
+      { name: 'Xiangliang Zhang' },
+      { name: 'Yanfang Ye' },
+    ],
+    venue: 'WWW Demo 2026',
+    venueFull: 'The Web Conference Demo Track',
+    contribution: 'First author',
+  },
+  {
+    title: 'AI Alignment Breaks at the Edge',
+    href: 'https://arxiv.org/abs/2602.20042',
+    authors: [
+      { name: 'Han Bao', me: true },
+      { name: 'Yue Huang' },
+      { name: 'Xiaoda Wang' },
+      { name: 'Zheyuan Zhang' },
+      { name: 'Yujun Zhou' },
+      { name: 'Carl Yang' },
+      { name: 'Xiangliang Zhang' },
+      { name: 'Yanfang Ye' },
+    ],
+    venue: 'arXiv 2026',
+    venueFull: 'Preprint',
+    kind: 'preprint',
+    contribution: 'First author',
+  },
+];
+
+const otherWorkGroups: { label: string; works: Publication[] }[] = [
+  {
+    label: 'Conference Papers',
+    works: [
+      {
+        title: 'Guardian-as-an-Advisor: Advancing Next-Generation Guardian Models for Trustworthy LLMs',
+        href: 'https://2026.aclweb.org/',
+        authors: [
+          { name: 'Yue Huang' },
+          { name: 'Haomin Zhuang' },
+          { name: 'Jiayi Ye' },
+          { name: 'Han Bao', me: true },
+          { name: 'Yanbo Wang' },
+          { name: 'Hang Hua' },
+          { name: 'Siyuan Wu' },
+          { name: 'Pin-Yu Chen' },
+          { name: 'Xiangliang Zhang' },
+        ],
+        venue: 'ACL Findings 2026',
+        venueFull: 'Association for Computational Linguistics',
+      },
+      {
+        title: 'On the Trustworthiness of Generative Foundation Models: Guideline, Assessment, and Perspective',
+        href: 'https://trustgen.github.io/',
+        authors: [
+          { name: 'Yue Huang' },
+          { name: 'Chujie Gao' },
+          { name: 'Siyuan Wu' },
+          { name: 'Haomin Zhuang' },
+          { name: 'Jiayi Ye' },
+          { name: 'Han Bao', me: true },
+          { name: 'et al.' },
+        ],
+        venue: 'ICLR 2026',
+        venueFull: 'International Conference on Learning Representations',
+        note: 'Leader of T2I Group',
+      },
+      {
+        title: 'LiD-FL: Towards List-Decodable Federated Learning',
+        href: 'https://arxiv.org/abs/2408.04963',
+        authors: [
+          { name: 'Hong Liu' },
+          { name: 'Liren Shan' },
+          { name: 'Han Bao', me: true },
+          { name: 'Ronghui You' },
+          { name: 'Yuhao Yi' },
+          { name: 'Jiancheng Lv' },
+        ],
+        venue: 'AAAI 2025',
+        venueFull: 'AAAI Conference on Artificial Intelligence',
+      },
+    ],
+  },
+  {
+    label: 'Journal Articles',
+    works: [
+      {
+        title: 'CRISP: A Causal Relationships-Guided Deep Learning Framework for Advanced ICU Mortality Prediction',
+        href: 'https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-025-02981-1',
+        authors: [
+          { name: 'Linna Wang' },
+          { name: 'Xinyu Guo' },
+          { name: 'Han Bao', me: true },
+          { name: 'Lihua Jiang' },
+          { name: 'Li Zhao' },
+          { name: 'Tao Zhu' },
+          { name: 'Ziliang Feng' },
+        ],
+        venue: 'BMC MDM 2025',
+        venueFull: 'BMC Medical Informatics and Decision Making',
+        kind: 'journal',
+      },
+    ],
+  },
+  {
+    label: 'Preprints',
+    works: [
+      {
+        title: 'SkillGen: Verified Inference-Time Agent Skill Synthesis',
+        href: 'https://arxiv.org/abs/2605.10999',
+        authors: [
+          { name: 'Yuchen Ma' },
+          { name: 'Yue Huang' },
+          { name: 'Han Bao', me: true },
+          { name: 'Haomin Zhuang' },
+          { name: 'Swadheen Shukla' },
+          { name: 'Michel Galley' },
+          { name: 'Xiangliang Zhang' },
+          { name: 'Stefan Feuerriegel' },
+        ],
+        venue: 'arXiv 2026',
+        venueFull: 'Preprint',
+        kind: 'preprint',
+      },
+      {
+        title: 'Confidence Laundering in Agent Systems: Why Uncertainty Needs a Latent Carrier',
+        href: 'https://arxiv.org/abs/2606.20662',
+        authors: [
+          { name: 'Kaiwen Shi' },
+          { name: 'Zheyuan Zhang' },
+          { name: 'Han Bao', me: true },
+          { name: 'Colby Nelson' },
+          { name: 'Yanfang Ye' },
+        ],
+        venue: 'arXiv 2026',
+        venueFull: 'Preprint',
+        kind: 'preprint',
+      },
+      {
+        title: 'UXBench: Measuring the Actionability of LLM-Generated UX Critiques',
+        href: 'https://arxiv.org/abs/2606.16262',
+        authors: [
+          { name: 'Wenjie Wang' },
+          { name: 'Yue Huang' },
+          { name: 'Zipeng Ling' },
+          { name: 'Han Bao', me: true },
+          { name: 'Hang Hua' },
+          { name: 'Xiaonan Luo' },
+          { name: 'Yu Jiang' },
+          { name: 'Shiyi Du' },
+          { name: 'Yuexing Hao' },
+          { name: 'Xiaomin Li' },
+          { name: 'Yuchen Ma' },
+          { name: 'Dianzhuo Wang' },
+          { name: 'Yanfang Ye' },
+          { name: 'Xiangliang Zhang' },
+        ],
+        venue: 'arXiv 2026',
+        venueFull: 'Preprint',
+        kind: 'preprint',
+      },
+      {
+        title: 'SpecAlign: Efficient Specification-Grounded Alignment of Large Language Models via Synthetic Data',
+        href: 'https://arxiv.org/abs/2606.16276',
+        authors: [
+          { name: 'Wenjie Wang' },
+          { name: 'Yue Huang' },
+          { name: 'Zhengqing Yuan' },
+          { name: 'Han Bao', me: true },
+          { name: 'Shiyi Du' },
+          { name: 'Yuchen Ma' },
+          { name: 'Yue Zhao' },
+          { name: 'Yanfang Ye' },
+          { name: 'Xiangliang Zhang' },
+        ],
+        venue: 'arXiv 2026',
+        venueFull: 'Preprint',
+        kind: 'preprint',
+      },
+      {
+        title: 'Why Semantic Entropy Fails? Geometry-Aware and Calibrated Uncertainty for Policy Optimization',
+        href: 'https://arxiv.org/abs/2605.21801',
+        authors: [
+          { name: 'Zheyuan Zhang' },
+          { name: 'Kaiwen Shi' },
+          { name: 'Han Bao', me: true },
+          { name: 'Zehong Wang' },
+          { name: 'Tianyi Ma' },
+          { name: 'Yanfang Ye' },
+        ],
+        venue: 'arXiv 2026',
+        venueFull: 'Preprint',
+        kind: 'preprint',
+      },
+    ],
+  },
+];
+
+const additionalWorkCount = otherWorkGroups.reduce((total, group) => total + group.works.length, 0);
 ---
 
 <Layout title="Han Bao | Trustworthy AI and LLM Agents">
@@ -37,7 +352,13 @@ import Layout from '../layouts/Layout.astro';
           deployment-time risks, and trustworthy evaluation.
         </p>
         <div class="contact-bar" id="contact">
-          <a href="mailto:hbao@nd.edu" class="contact-item">Email</a>
+          <a href="mailto:hbao@nd.edu" class="contact-item contact-item--email">
+            <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+            <span>Email</span>
+          </a>
           <span class="contact-sep">·</span>
           <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener" class="contact-item">Google Scholar</a>
           <span class="contact-sep">·</span>
@@ -154,12 +475,13 @@ import Layout from '../layouts/Layout.astro';
             <h3 class="research-item-title">Reliable LLM Agents and Failure Diagnosis</h3>
             <p class="research-item-text">
               I study how LLM agents fail across multi-turn interaction, input faults, and cooperative settings,
-              and how those failures can be diagnosed before they compound into unreliable behavior.
+              how those failures can be diagnosed, and how execution experience can make agent harnesses more adaptive.
             </p>
             <p class="research-citations">
               This includes:
+              <a href="https://arxiv.org/abs/2607.14159" target="_blank" rel="noopener" class="research-citation-link">MemoHarness <span class="research-venue">(arXiv'26)</span></a>,
               <span class="research-citation">Drift-Bench <span class="research-venue">(ICML'26)</span></span>,
-              <a href="https://dl.acm.org/doi/abs/10.1145/3774905.3793130" target="_blank" rel="noopener" class="research-citation-link">IntraAI <span class="research-venue">(WWW'26 Demo)</span></a>.
+              and <a href="https://dl.acm.org/doi/abs/10.1145/3774905.3793130" target="_blank" rel="noopener" class="research-citation-link">IntraAI <span class="research-venue">(WWW'26 Demo)</span></a>.
             </p>
           </li>
           <li class="research-item">
@@ -199,355 +521,109 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <div class="pub-list reveal">
-
-        <!-- Conference Papers -->
-        <div class="pub-category">
+        <div class="pub-category pub-category--selected">
           <div class="pub-category-header">
-            <span class="pub-category-name">Conference Papers</span>
+            <span class="pub-category-name">Selected Work</span>
           </div>
           <div class="pub-items">
-            <div class="pub-row pub-row--selected">
-              <div class="pub-row-main">
-                <span class="pub-row-title pub-row-title--plain">
-                  Drift-Bench: Diagnosing CoopeRative Breakdowns in LLM Agents under Input Faults via Multi-Turn Interaction
-                </span>
-                <p class="pub-row-authors">
-                  <strong class="author-me">Han Bao</strong>, Zheyuan Zhang, Pengcheng Jing, Zhengqing Yuan, Kaiwen Shi, Yanfang Ye
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag">ICML 2026</span>
-                  <span class="pub-venue-full">International Conference on Machine Learning</span>
-                  <span class="pub-contribution">First author</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row pub-row--selected">
-              <div class="pub-row-main">
-                <span class="pub-row-title pub-row-title--plain">
-                  Capability-Oriented Training Induced Alignment Risk
-                </span>
-                <p class="pub-row-authors">
-                  Yujun Zhou*, Yue Huang*, <strong class="author-me">Han Bao*</strong>, Kehan Guo, Zhenwen Liang, Pin-Yu Chen, Tian Gao, Werner Geyer, Nuno Moniz, Nitesh V Chawla, Xiangliang Zhang
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag">ICML 2026</span>
-                  <span class="pub-venue-full">International Conference on Machine Learning</span>
-                  <span class="pub-contribution">Co-first author</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row pub-row--selected">
-              <div class="pub-row-main">
-                <a href="https://dl.acm.org/doi/abs/10.1145/3774905.3793130" target="_blank" rel="noopener" class="pub-row-title">
-                  IntraAI: Bridging Human-AI Understanding Through Intelligent Interface Design
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  <strong class="author-me">Han Bao</strong>, Yue Huang, Xiangliang Zhang, Yanfang Ye
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag">WWW Demo 2026</span>
-                  <span class="pub-venue-full">The Web Conference Demo Track</span>
-                  <span class="pub-contribution">First author</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row pub-row--selected">
-              <div class="pub-row-main">
-                <a href="https://arxiv.org/pdf/2410.21259" target="_blank" rel="noopener" class="pub-row-title">
-                  AutoDavis: Automatic Benchmarking of Large Vision-Language Models on Visual Question-Answering
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  <strong class="author-me">Han Bao*</strong>, Yue Huang*, Yanbo Wang, Jiayi Ye, Xiangqi Wang, Xiuying Chen, Mohamed Elhoseiny, Xiangliang Zhang
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag">KDD D&amp;B 2026</span>
-                  <span class="pub-venue-full">ACM SIGKDD Conference on Knowledge Discovery and Data Mining</span>
-                  <span class="pub-contribution">Co-first author</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row pub-row--selected">
-              <div class="pub-row-main">
-                <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="pub-row-title">
-                  PolicyLLM: Towards Excellent Comprehension of Public Policy for Large Language Models
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  <strong class="author-me">Han Bao</strong>, Penghao Zhang, Yue Huang, Rui Su, Zhengqing Yuan, Yujun Zhou, Xiangqi Wang, Kehan Guo, Nitesh Chawla, Xiangliang Zhang
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag">ACL Findings 2026</span>
-                  <span class="pub-venue-full">Association for Computational Linguistics</span>
-                  <span class="pub-contribution">First author</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="pub-row-title">
-                  Guardian-as-an-Advisor: Advancing Next-Generation Guardian Models for Trustworthy LLMs
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  Yue Huang, Haomin Zhuang, Jiayi Ye, <strong class="author-me">Han Bao</strong>, Yanbo Wang, Hang Hua, Siyuan Wu, Pin-Yu Chen, Xiangliang Zhang
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag">ACL Findings 2026</span>
-                  <span class="pub-venue-full">Association for Computational Linguistics</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <a href="https://trustgen.github.io/" target="_blank" rel="noopener" class="pub-row-title">
-                  On the Trustworthiness of Generative Foundation Models: Guideline, Assessment, and Perspective
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  Yue Huang, Chujie Gao, Siyuan Wu, Haomin Zhuang, Jiayi Ye, <strong class="author-me">Han Bao</strong>, et al.
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag">ICLR 2026</span>
-                  <span class="pub-venue-full">International Conference on Learning Representations</span>
-                  <em class="pub-row-role">Leader of T2I Group</em>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <a href="https://arxiv.org/pdf/2408.04963" target="_blank" rel="noopener" class="pub-row-title">
-                  LiD-FL: Towards List-Decodable Federated Learning
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  Hong Liu, Liren Shan, <strong class="author-me">Han Bao</strong>, Ronghui You, Yuhao Yi, Jiancheng Lv
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag">AAAI 2025</span>
-                  <span class="pub-venue-full">Association for the Advancement of Artificial Intelligence</span>
-                </p>
-              </div>
-            </div>
-
+            {selectedWorks.map((paper) => (
+              <article class="pub-row pub-row--selected">
+                <div class:list={['pub-row-venue', paper.kind && `pub-row-venue--${paper.kind}`]} aria-label={paper.venue}>
+                  <span class="pub-row-venue-label">{venueParts(paper.venue).label}</span>
+                  {venueParts(paper.venue).year && <span class="pub-row-venue-year">{venueParts(paper.venue).year}</span>}
+                </div>
+                <div class="pub-row-main">
+                  {paper.href ? (
+                    <a href={paper.href} target="_blank" rel="noopener" class="pub-row-title">
+                      {paper.title}
+                      <span class="pub-ext-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                      </span>
+                    </a>
+                  ) : (
+                    <span class="pub-row-title pub-row-title--plain">{paper.title}</span>
+                  )}
+                  <p class="pub-row-authors">
+                    {paper.authors.map((author, index) => (
+                      <>
+                        {index > 0 && ', '}
+                        {author.me ? (
+                          <strong class="author-me">{author.name}{author.equal && '*'}</strong>
+                        ) : (
+                          <span>{author.name}{author.equal && '*'}</span>
+                        )}
+                      </>
+                    ))}
+                  </p>
+                  <p class="pub-row-details">
+                    <span class="pub-venue-full">{paper.venueFull}</span>
+                    {paper.contribution && <span class="pub-contribution">{paper.contribution}</span>}
+                    {paper.authors.some((author) => author.equal) && <span class="pub-equal-note">* Equal contribution</span>}
+                  </p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
 
-        <!-- Journal Articles -->
-        <div class="pub-category">
-          <div class="pub-category-header">
-            <span class="pub-category-name">Journal Articles</span>
+        <details class="pub-more">
+          <summary class="pub-more-summary">
+            <span>More Publications</span>
+            <span class="pub-more-count">{additionalWorkCount} additional works</span>
+          </summary>
+          <div class="pub-more-content">
+            {otherWorkGroups.map((group) => (
+              <div class="pub-category">
+                <div class="pub-category-header">
+                  <span class="pub-category-name">{group.label}</span>
+                </div>
+                <div class="pub-items">
+                  {group.works.map((paper) => (
+                    <article class="pub-row">
+                      <div class="pub-row-main">
+                        {paper.href ? (
+                          <a href={paper.href} target="_blank" rel="noopener" class="pub-row-title">
+                            {paper.title}
+                            <span class="pub-ext-icon" aria-hidden="true">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                              </svg>
+                            </span>
+                          </a>
+                        ) : (
+                          <span class="pub-row-title pub-row-title--plain">{paper.title}</span>
+                        )}
+                        <p class="pub-row-authors">
+                          {paper.authors.map((author, index) => (
+                            <>
+                              {index > 0 && ', '}
+                              {author.me ? (
+                                <strong class="author-me">{author.name}{author.equal && '*'}</strong>
+                              ) : (
+                                <span>{author.name}{author.equal && '*'}</span>
+                              )}
+                            </>
+                          ))}
+                        </p>
+                        <p class="pub-row-details">
+                          <span class:list={['pub-venue-tag', paper.kind && `pub-venue-tag--${paper.kind}`]}>{paper.venue}</span>
+                          <span class="pub-venue-full">{paper.venueFull}</span>
+                          {paper.note && <em class="pub-row-role">{paper.note}</em>}
+                        </p>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
-          <div class="pub-items">
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <a href="https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-025-02981-1" target="_blank" rel="noopener" class="pub-row-title">
-                  CRISP: A Causal Relationships-Guided Deep Learning Framework for Advanced ICU Mortality Prediction
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  Linna Wang, Xinyu Guo, <strong class="author-me">Han Bao</strong>, Lihua Jiang, Li Zhao, Tao Zhu, Ziliang Feng
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag pub-venue-tag--journal">BMC MDM 2025</span>
-                  <span class="pub-venue-full">BMC Medical Informatics and Decision Making</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Preprints & Under Review -->
-        <div class="pub-category">
-          <div class="pub-category-header">
-            <span class="pub-category-name">Preprints &amp; Under Review</span>
-          </div>
-          <div class="pub-items">
-            <div class="pub-row pub-row--selected">
-              <div class="pub-row-main">
-                <a href="https://arxiv.org/pdf/2602.20042" target="_blank" rel="noopener" class="pub-row-title">
-                  AI Alignment Breaks at the Edge
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  <strong class="author-me">Han Bao</strong>, Yue Huang, Xiaoda Wang, Zheyuan Zhang, Yujun Zhou, Carl Yang, Xiangliang Zhang, Yanfang Ye
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag pub-venue-tag--preprint">arXiv 2026</span>
-                  <span class="pub-venue-full">Preprint</span>
-                  <span class="pub-contribution">First author</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <a href="https://arxiv.org/pdf/2605.10999" target="_blank" rel="noopener" class="pub-row-title">
-                  SkillGen: Verified Inference-Time Agent Skill Synthesis
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  Yuchen Ma, Yue Huang, <strong class="author-me">Han Bao</strong>, Haomin Zhuang, Swadheen Shukla, Michel Galley, Xiangliang Zhang, Stefan Feuerriegel
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag pub-venue-tag--preprint">arXiv 2026</span>
-                  <span class="pub-venue-full">Preprint</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <a href="https://arxiv.org/pdf/2606.20662" target="_blank" rel="noopener" class="pub-row-title">
-                  Confidence Laundering in Agent Systems: Why Uncertainty Needs a Latent Carrier
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  Kaiwen Shi, Zheyuan Zhang, <strong class="author-me">Han Bao</strong>, Colby Nelson, Yanfang Ye
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag pub-venue-tag--preprint">arXiv 2026</span>
-                  <span class="pub-venue-full">Preprint</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <a href="https://arxiv.org/pdf/2606.16262" target="_blank" rel="noopener" class="pub-row-title">
-                  UXBench: Measuring the Actionability of LLM-Generated UX Critiques
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  Wenjie Wang, Yue Huang, Zipeng Ling, <strong class="author-me">Han Bao</strong>, Hang Hua, Xiaonan Luo, Yu Jiang, Shiyi Du, Yuexing Hao, Xiaomin Li, Yuchen Ma, Dianzhuo Wang, Yanfang Ye, Xiangliang Zhang
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag pub-venue-tag--preprint">arXiv 2026</span>
-                  <span class="pub-venue-full">Preprint</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <a href="https://arxiv.org/pdf/2606.16276" target="_blank" rel="noopener" class="pub-row-title">
-                  SpecAlign: Efficient Specification-Grounded Alignment of Large Language Models via Synthetic Data
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  Wenjie Wang, Yue Huang, Zhengqing Yuan, <strong class="author-me">Han Bao</strong>, Shiyi Du, Yuchen Ma, Yue Zhao, Yanfang Ye, Xiangliang Zhang
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag pub-venue-tag--preprint">arXiv 2026</span>
-                  <span class="pub-venue-full">Preprint</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="pub-row">
-              <div class="pub-row-main">
-                <a href="https://arxiv.org/pdf/2605.21801" target="_blank" rel="noopener" class="pub-row-title">
-                  Why Semantic Entropy Fails? Geometry-Aware and Calibrated Uncertainty for Policy Optimization
-                  <span class="pub-ext-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </span>
-                </a>
-                <p class="pub-row-authors">
-                  Zheyuan Zhang, Kaiwen Shi, <strong class="author-me">Han Bao</strong>, Zehong Wang, Tianyi Ma, Yanfang Ye
-                </p>
-                <p class="pub-row-details">
-                  <span class="pub-venue-tag pub-venue-tag--preprint">arXiv 2026</span>
-                  <span class="pub-venue-full">Preprint</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        </details>
       </div>
     </section>
 
@@ -772,6 +848,7 @@ import Layout from '../layouts/Layout.astro';
     max-width: var(--container-max);
     margin: 0 auto;
     display: flex;
+    justify-content: center;
     align-items: flex-start;
     gap: 2rem;
   }
@@ -850,6 +927,9 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
     font-size: 0.84rem;
     font-weight: 500;
     color: var(--nd-blue);
@@ -858,6 +938,13 @@ import Layout from '../layouts/Layout.astro';
     text-underline-offset: 3px;
     padding: 2px 0;
     transition: color 0.2s ease;
+  }
+
+  .contact-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    flex: 0 0 auto;
+    stroke-width: 1.8;
   }
 
   .contact-item:hover {
@@ -1142,6 +1229,11 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .pub-row--selected {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr);
+    align-items: start;
+    gap: 1.6rem;
+    padding: 1.3rem 0 1.35rem;
     background: transparent;
   }
 
@@ -1151,6 +1243,50 @@ import Layout from '../layouts/Layout.astro';
 
   .pub-row--selected .pub-row-title--plain {
     color: var(--nd-blue);
+  }
+
+  .pub-row-venue {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.05rem;
+    min-width: 0;
+    padding-top: 0.1rem;
+    color: var(--nd-blue);
+    font-family: var(--font-display);
+    font-style: italic;
+    line-height: 1.25;
+  }
+
+  .pub-row-venue::after {
+    content: '';
+    width: 1.75rem;
+    height: 1px;
+    margin-top: 0.42rem;
+    background: var(--nd-gold);
+    opacity: 0.72;
+  }
+
+  .pub-row-venue-label {
+    max-width: 100%;
+    font-size: 0.87rem;
+    font-weight: 600;
+  }
+
+  .pub-row-venue-year {
+    color: var(--gray-600);
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+
+  .pub-row-venue--preprint .pub-row-venue-label {
+    color: var(--gray-600);
+  }
+
+  .pub-row--selected .pub-row-title {
+    font-size: 1.08rem;
+    line-height: 1.42;
   }
 
   .pub-row:last-child {
@@ -1278,6 +1414,67 @@ import Layout from '../layouts/Layout.astro';
     font-weight: 500;
     line-height: 1.4;
     white-space: nowrap;
+  }
+
+  .pub-equal-note {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  .pub-more {
+    border-top: 1px solid var(--gray-300);
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .pub-more-summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.9rem 0;
+    color: var(--nd-blue);
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    list-style: none;
+  }
+
+  .pub-more-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .pub-more-summary::before {
+    content: '+';
+    color: var(--nd-gold);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .pub-more[open] .pub-more-summary {
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .pub-more[open] .pub-more-summary::before {
+    content: '\2212';
+  }
+
+  .pub-more-count {
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  .pub-more-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1.75rem 0 0.25rem;
   }
 
   /* ===========================
@@ -1608,6 +1805,7 @@ import Layout from '../layouts/Layout.astro';
 
     .hero-inner {
       flex-direction: column;
+      justify-content: flex-start;
       align-items: flex-start;
       gap: var(--space-md);
       max-width: 100%;
@@ -1635,6 +1833,12 @@ import Layout from '../layouts/Layout.astro';
     .pub-row {
       padding: 1rem 0;
       margin: 0;
+    }
+
+    .pub-row--selected {
+      grid-template-columns: 5.6rem minmax(0, 1fr);
+      gap: 1rem;
+      padding: 1.15rem 0 1.2rem;
     }
 
     .pub-row-title {
@@ -1709,6 +1913,27 @@ import Layout from '../layouts/Layout.astro';
 
     .hero-avatar {
       width: 104px;
+    }
+
+    .pub-row--selected {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.5rem;
+    }
+
+    .pub-row-venue {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.35rem;
+      padding-top: 0;
+    }
+
+    .pub-row-venue::after {
+      display: none;
+    }
+
+    .pub-row-venue-label,
+    .pub-row-venue-year {
+      font-size: 0.8rem;
     }
 
     .contact-item {
