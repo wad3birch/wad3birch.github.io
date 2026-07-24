@@ -23,7 +23,7 @@ const venueParts = (venue: string) => {
   return match ? { label: match[1], year: match[2] } : { label: venue, year: '' };
 };
 
-const selectedWorks: Publication[] = [
+const recentPreprints: Publication[] = [
   {
     title: 'MemoHarness: Agent Harnesses That Learn from Experience',
     href: 'https://arxiv.org/abs/2607.14159',
@@ -44,6 +44,27 @@ const selectedWorks: Publication[] = [
     kind: 'preprint',
     contribution: 'Co-first author',
   },
+  {
+    title: 'AI Alignment Breaks at the Edge',
+    href: 'https://arxiv.org/abs/2602.20042',
+    authors: [
+      { name: 'Han Bao', me: true },
+      { name: 'Yue Huang' },
+      { name: 'Xiaoda Wang' },
+      { name: 'Zheyuan Zhang' },
+      { name: 'Yujun Zhou' },
+      { name: 'Carl Yang' },
+      { name: 'Xiangliang Zhang' },
+      { name: 'Yanfang Ye' },
+    ],
+    venue: 'arXiv 2026',
+    venueFull: 'Preprint',
+    kind: 'preprint',
+    contribution: 'First author',
+  },
+];
+
+const selectedWorks: Publication[] = [
   {
     title: 'Drift-Bench: Diagnosing CoopeRative Breakdowns in LLM Agents under Input Faults via Multi-Turn Interaction',
     authors: [
@@ -124,24 +145,6 @@ const selectedWorks: Publication[] = [
     ],
     venue: 'WWW Demo 2026',
     venueFull: 'The Web Conference Demo Track',
-    contribution: 'First author',
-  },
-  {
-    title: 'AI Alignment Breaks at the Edge',
-    href: 'https://arxiv.org/abs/2602.20042',
-    authors: [
-      { name: 'Han Bao', me: true },
-      { name: 'Yue Huang' },
-      { name: 'Xiaoda Wang' },
-      { name: 'Zheyuan Zhang' },
-      { name: 'Yujun Zhou' },
-      { name: 'Carl Yang' },
-      { name: 'Xiangliang Zhang' },
-      { name: 'Yanfang Ye' },
-    ],
-    venue: 'arXiv 2026',
-    venueFull: 'Preprint',
-    kind: 'preprint',
     contribution: 'First author',
   },
 ];
@@ -573,6 +576,55 @@ const additionalWorkCount = otherWorkGroups.reduce((total, group) => total + gro
       </div>
 
       <div class="pub-list reveal">
+        <div class="pub-category pub-category--preprints">
+          <div class="pub-category-header">
+            <span class="pub-category-name">Recent Preprints</span>
+          </div>
+          <div class="pub-items">
+            {recentPreprints.map((paper) => (
+              <article class="pub-row pub-row--selected">
+                <div class:list={['pub-row-venue', paper.kind && `pub-row-venue--${paper.kind}`]} aria-label={paper.venue}>
+                  <span class="pub-row-venue-label">{venueParts(paper.venue).label}</span>
+                  {venueParts(paper.venue).year && <span class="pub-row-venue-year">{venueParts(paper.venue).year}</span>}
+                </div>
+                <div class="pub-row-main">
+                  {paper.href ? (
+                    <a href={paper.href} target="_blank" rel="noopener" class="pub-row-title">
+                      {paper.title}
+                      <span class="pub-ext-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                      </span>
+                    </a>
+                  ) : (
+                    <span class="pub-row-title pub-row-title--plain">{paper.title}</span>
+                  )}
+                  <p class="pub-row-authors">
+                    {paper.authors.map((author, index) => (
+                      <>
+                        {index > 0 && ', '}
+                        {author.me ? (
+                          <strong class="author-me">{author.name}{author.equal && '*'}</strong>
+                        ) : (
+                          <span>{author.name}{author.equal && '*'}</span>
+                        )}
+                      </>
+                    ))}
+                  </p>
+                  <p class="pub-row-details">
+                    <span class="pub-venue-full">{paper.venueFull}</span>
+                    {paper.contribution && <span class="pub-contribution">{paper.contribution}</span>}
+                    {paper.authors.some((author) => author.equal) && <span class="pub-equal-note">* Equal contribution</span>}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
         <div class="pub-category pub-category--selected">
           <div class="pub-category-header">
             <span class="pub-category-name">Selected Work</span>
