@@ -589,10 +589,6 @@ const additionalWorkCount = otherWorkGroups.reduce((total, group) => total + gro
           <div class="pub-items">
             {recentPreprints.map((paper) => (
               <article class="pub-row pub-row--featured">
-                <div class:list={['pub-row-venue', paper.kind && `pub-row-venue--${paper.kind}`]} aria-label={paper.venue}>
-                  <span class="pub-row-venue-label">{venueParts(paper.venue).label}</span>
-                  {venueParts(paper.venue).year && <span class="pub-row-venue-year">{venueParts(paper.venue).year}</span>}
-                </div>
                 {paper.image && (
                   <a href={paper.href} target="_blank" rel="noopener" class="pub-row-figure" aria-label={`View ${paper.title}`}>
                     <img
@@ -1458,7 +1454,7 @@ const additionalWorkCount = otherWorkGroups.reduce((total, group) => total + gro
 
   .pub-row--featured {
     display: grid;
-    grid-template-columns: 6rem minmax(14rem, 20rem) minmax(0, 1fr);
+    grid-template-columns: minmax(14rem, 20rem) minmax(0, 1fr);
     align-items: start;
     gap: 1.35rem;
     padding: 1.45rem 0 1.5rem;
@@ -2115,7 +2111,7 @@ const additionalWorkCount = otherWorkGroups.reduce((total, group) => total + gro
     }
 
     .pub-row--featured {
-      grid-template-columns: 5.6rem minmax(11rem, 16rem) minmax(0, 1fr);
+      grid-template-columns: minmax(11rem, 16rem) minmax(0, 1fr);
       gap: 1rem;
       padding: 1.2rem 0 1.25rem;
     }
