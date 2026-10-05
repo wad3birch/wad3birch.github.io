@@ -1,22 +1,63 @@
 ---
+import { getImage } from 'astro:assets';
+import portrait from '../assets/self.jpeg';
+
 interface Props {
   title: string;
 }
 
 const { title } = Astro.props;
+const description = 'Han Bao is a first-year Ph.D. student at the University of Notre Dame studying reliable and aligned LLM agents, failure diagnosis, and trustworthy AI evaluation.';
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const ogImage = await getImage({ src: portrait, width: 600, format: 'jpeg' });
+const ogImageUrl = new URL(ogImage.src, Astro.site);
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Han Bao',
+  url: canonicalUrl.href,
+  image: ogImageUrl.href,
+  email: 'mailto:hbao@nd.edu',
+  jobTitle: 'Ph.D. Student',
+  affiliation: {
+    '@type': 'CollegeOrUniversity',
+    name: 'University of Notre Dame',
+    url: 'https://www.nd.edu/',
+  },
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Sichuan University',
+    url: 'https://www.scu.edu.cn/',
+  },
+  knowsAbout: ['Trustworthy AI', 'LLM Agents', 'AI Alignment', 'Foundation Model Evaluation'],
+  sameAs: [
+    'https://scholar.google.com/citations?user=X8gcICcAAAAJ',
+    'https://github.com/wad3birch',
+    'https://www.linkedin.com/in/han-bao-59796b379/',
+  ],
+};
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Han Bao is a first-year Ph.D. student at the University of Notre Dame studying reliable and aligned LLM agents, failure diagnosis, and trustworthy AI evaluation." />
+    <meta name="description" content={description} />
     <meta name="author" content="Han Bao" />
     <meta name="keywords" content="Han Bao, trustworthy AI, LLM agents, AI alignment, foundation model evaluation, University of Notre Dame" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content="Research on reliable and aligned LLM agents, failure diagnosis, and trustworthy AI evaluation." />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content={canonicalUrl.href} />
+    <meta property="og:image" content={ogImageUrl.href} />
+    <meta property="og:image:alt" content="Portrait of Han Bao" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content="Research on reliable and aligned LLM agents, failure diagnosis, and trustworthy AI evaluation." />
+    <meta name="twitter:image" content={ogImageUrl.href} />
+    <link rel="canonical" href={canonicalUrl.href} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
     <link rel="apple-touch-icon" href="/favicon.svg?v=2" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +65,8 @@ const { title } = Astro.props;
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lato:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>
   <body>
     <slot />
@@ -139,14 +182,26 @@ const { title } = Astro.props;
     display: block;
   }
 
-  /* Scroll reveal */
-  .reveal {
+  /* Scroll reveal (only hides content once JS is known to be running) */
+  .js .reveal {
     opacity: 0;
     transform: translateY(12px);
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
-  .reveal.visible {
+  .js .reveal.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    .js .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 </style>
