@@ -322,7 +322,41 @@ const otherWorkGroups: { label: string; works: Publication[] }[] = [
   },
 ];
 
-const additionalWorkCount = otherWorkGroups.reduce((total, group) => total + group.works.length, 0);
+const researchAreas: {
+  title: string;
+  text: string;
+  works: { name: string; venue: string; href?: string }[];
+}[] = [
+  {
+    title: 'Reliable LLM Agents and Failure Diagnosis',
+    text: 'I study how LLM agents fail across multi-turn interaction, input faults, and cooperative settings, how those failures can be diagnosed, and how execution experience can make agent harnesses more adaptive.',
+    works: [
+      { name: 'MemoHarness', venue: "arXiv'26", href: 'https://arxiv.org/abs/2607.14159' },
+      { name: 'Drift-Bench', venue: "ICML'26" },
+      { name: 'IntraAI', venue: "WWW'26 Demo", href: 'https://dl.acm.org/doi/abs/10.1145/3774905.3793130' },
+    ],
+  },
+  {
+    title: 'Alignment under Training and Deployment Shifts',
+    text: 'I investigate how alignment risks emerge as models acquire new capabilities or move into constrained deployment environments, together with guardian and advisor mechanisms for safer behavior.',
+    works: [
+      { name: 'Capability-Oriented Training Induced Alignment Risk', venue: "ICML'26" },
+      { name: 'Guardian-as-an-Advisor', venue: "ACL'26 Findings", href: 'https://2026.aclweb.org/' },
+      { name: 'AI Alignment Breaks at the Edge', venue: 'Position Paper', href: 'https://arxiv.org/pdf/2602.20042' },
+    ],
+  },
+  {
+    title: 'Evaluation for Trustworthy Foundation Models',
+    text: 'I develop benchmarks and evaluation protocols that test whether generative, vision-language, and domain-specific foundation models remain reliable in realistic use cases.',
+    works: [
+      { name: 'TrustGen', venue: "ICLR'26", href: 'https://trustgen.github.io/' },
+      { name: 'AutoDavis', venue: "KDD'26 D&B", href: 'https://arxiv.org/abs/2410.21259' },
+      { name: 'PolicyLLM', venue: "ACL'26 Findings", href: 'https://2026.aclweb.org/' },
+    ],
+  },
+];
+
+const additionalWorkCount =otherWorkGroups.reduce((total, group) => total + group.works.length, 0);
 ---
 
 <Layout title="Han Bao | Trustworthy AI and LLM Agents">
@@ -510,70 +544,32 @@ const additionalWorkCount = otherWorkGroups.reduce((total, group) => total + gro
       <div class="section-header reveal">
         <h2 class="section-title">Research Interests</h2>
       </div>
-      <div class="research-content reveal">
-        <ul class="research-list">
-          <li class="research-item">
-            <span class="research-index" aria-hidden="true">01</span>
-            <div class="research-item-main">
-              <div class="research-item-intro">
-                <h3 class="research-item-title">Reliable LLM Agents and Failure Diagnosis</h3>
-                <p class="research-item-text">
-                  I study how LLM agents fail across multi-turn interaction, input faults, and cooperative settings,
-                  how those failures can be diagnosed, and how execution experience can make agent harnesses more adaptive.
-                </p>
-              </div>
-              <div class="research-citations">
-                <span class="research-works-label">Selected works</span>
-                <span class="research-works-list">
-                  <a href="https://arxiv.org/abs/2607.14159" target="_blank" rel="noopener" class="research-citation-link research-work">MemoHarness <span class="research-venue">arXiv'26</span></a>
-                  <span class="research-citation research-work">Drift-Bench <span class="research-venue">ICML'26</span></span>
-                  <a href="https://dl.acm.org/doi/abs/10.1145/3774905.3793130" target="_blank" rel="noopener" class="research-citation-link research-work">IntraAI <span class="research-venue">WWW'26 Demo</span></a>
-                </span>
-              </div>
-            </div>
+      <ol class="research-grid reveal">
+        {researchAreas.map((area, index) => (
+          <li class="research-card">
+            <span class="research-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <h3 class="research-card-title">{area.title}</h3>
+            <p class="research-card-text">{area.text}</p>
+            <ul class="research-works" aria-label={`Selected works on ${area.title}`}>
+              {area.works.map((work) => (
+                <li>
+                  {work.href ? (
+                    <a href={work.href} target="_blank" rel="noopener" class="research-work research-work--link">
+                      <span class="research-work-name">{work.name}</span>
+                      <span class="research-work-venue">{work.venue}</span>
+                    </a>
+                  ) : (
+                    <span class="research-work">
+                      <span class="research-work-name">{work.name}</span>
+                      <span class="research-work-venue">{work.venue}</span>
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
           </li>
-          <li class="research-item">
-            <span class="research-index" aria-hidden="true">02</span>
-            <div class="research-item-main">
-              <div class="research-item-intro">
-                <h3 class="research-item-title">Alignment under Training and Deployment Shifts</h3>
-                <p class="research-item-text">
-                  I investigate how alignment risks emerge as models acquire new capabilities or move into constrained
-                  deployment environments, together with guardian and advisor mechanisms for safer behavior.
-                </p>
-              </div>
-              <div class="research-citations">
-                <span class="research-works-label">Selected works</span>
-                <span class="research-works-list">
-                  <span class="research-citation research-work">Capability-Oriented Training Induced Alignment Risk <span class="research-venue">ICML'26</span></span>
-                  <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="research-citation-link research-work">Guardian-as-an-Advisor <span class="research-venue">ACL'26 Findings</span></a>
-                  <a href="https://arxiv.org/pdf/2602.20042" target="_blank" rel="noopener" class="research-citation-link research-work">AI Alignment Breaks at the Edge <span class="research-venue">Position Paper</span></a>
-                </span>
-              </div>
-            </div>
-          </li>
-          <li class="research-item">
-            <span class="research-index" aria-hidden="true">03</span>
-            <div class="research-item-main">
-              <div class="research-item-intro">
-                <h3 class="research-item-title">Evaluation for Trustworthy Foundation Models</h3>
-                <p class="research-item-text">
-                  I develop benchmarks and evaluation protocols that test whether generative, vision-language,
-                  and domain-specific foundation models remain reliable in realistic use cases.
-                </p>
-              </div>
-              <div class="research-citations">
-                <span class="research-works-label">Selected works</span>
-                <span class="research-works-list">
-                  <a href="https://trustgen.github.io/" target="_blank" rel="noopener" class="research-citation-link research-work">TrustGen <span class="research-venue">ICLR'26</span></a>
-                  <a href="https://arxiv.org/pdf/2410.21259" target="_blank" rel="noopener" class="research-citation-link research-work">AutoDavis <span class="research-venue">KDD'26 D&amp;B</span></a>
-                  <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="research-citation-link research-work">PolicyLLM <span class="research-venue">ACL'26 Findings</span></a>
-                </span>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+        ))}
+      </ol>
     </section>
 
     <!-- Publications Section -->
@@ -1281,135 +1277,124 @@ const additionalWorkCount = otherWorkGroups.reduce((total, group) => total + gro
   /* ===========================
      RESEARCH
   =========================== */
-  .research-content {
-    max-width: 100%;
-  }
-
-  .research-list {
+  .research-grid {
     list-style: none;
-    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto 1fr auto;
+    column-gap: clamp(1.5rem, 3vw, 2.5rem);
+    padding: 1.15rem 0 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
     border-top: 1px solid var(--gray-300);
   }
 
-  .research-item {
+  .research-card {
     display: grid;
-    grid-template-columns: 2.75rem minmax(0, 1fr);
-    gap: 1rem;
-    padding: 1.3rem 0 1.35rem;
-    border-bottom: 1px solid var(--gray-200);
-  }
-
-  .research-item-main {
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    row-gap: 0.55rem;
     min-width: 0;
   }
 
   .research-index {
-    display: block;
-    padding-top: 0.22rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     color: var(--nd-gold);
-    font-family: var(--font-sans);
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     font-weight: 700;
+    letter-spacing: 0.08em;
     line-height: 1;
   }
 
   .research-index::after {
     content: '';
-    display: block;
-    width: 1.25rem;
+    width: 1.5rem;
     height: 1px;
-    margin-top: 0.55rem;
     background: currentColor;
     opacity: 0.7;
   }
 
-  .research-item-intro {
-    display: grid;
-    grid-template-columns: minmax(13.5rem, 0.78fr) minmax(0, 1.42fr);
-    align-items: start;
-    gap: clamp(1.5rem, 3vw, 2.25rem);
-  }
-
-  .research-item-title {
-    font-family: var(--font-serif);
-    font-size: 1.18rem;
-    font-weight: 600;
+  .research-card-title {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 700;
     color: var(--nd-blue);
+    line-height: 1.32;
     margin: 0;
-    line-height: 1.28;
   }
 
-  .research-item-text {
-    max-width: 100%;
-    font-family: var(--font-serif);
-    font-size: 1rem;
+  .research-card-text {
+    font-size: 0.93rem;
     color: var(--text-secondary);
-    line-height: 1.58;
+    line-height: 1.6;
     margin: 0;
   }
 
-  .research-citations {
-    display: grid;
-    grid-template-columns: 6.75rem minmax(0, 1fr);
-    align-items: start;
-    gap: 0.8rem;
-    margin-top: 0.85rem;
-    padding-top: 0.7rem;
+  .research-works {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin: 0.35rem 0 0;
+    padding: 0.7rem 0 0;
     border-top: 1px solid var(--gray-200);
   }
 
-  .research-works-label {
-    display: block;
-    color: var(--gray-600);
-    font-size: 0.7rem;
-    font-weight: 700;
-    line-height: 1.35;
+  .research-work {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+    color: var(--nd-blue);
+    font-size: 0.84rem;
+    line-height: 1.4;
+  }
+
+  .research-work-name {
+    min-width: 0;
+    font-weight: 600;
+  }
+
+  .research-work-venue {
+    flex: 0 0 auto;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    font-weight: 500;
     white-space: nowrap;
   }
 
-  .research-works-list {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.8rem;
-    min-width: 0;
-  }
-
-  .research-citation,
-  .research-citation-link {
-    display: block;
-    color: var(--nd-blue);
-    font-size: 0.82rem;
-    font-weight: 600;
-    line-height: 1.38;
-  }
-
-  .research-work {
-    min-width: 0;
-    padding-left: 0.65rem;
-    border-left: 1px solid rgba(var(--nd-gold-rgb), 0.55);
-  }
-
-  .research-citation-link {
-    text-decoration: none;
+  .research-work--link {
     transition: color 0.2s ease;
   }
 
-  .research-citation-link:hover {
+  .research-work--link:hover {
     color: var(--nd-gold);
   }
 
-  .research-venue {
-    display: block;
-    color: var(--text-muted);
-    font-family: var(--font-sans);
-    font-size: 0.7rem;
-    font-weight: 500;
-    line-height: 1.35;
-    margin-top: 0.2rem;
+  @media (max-width: 860px) {
+    .research-grid {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: none;
+      padding-top: 0;
+    }
+
+    .research-card {
+      grid-row: auto;
+      grid-template-rows: none;
+      row-gap: 0.45rem;
+      padding: 1.1rem 0 1.2rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .research-card:last-child {
+      border-bottom: none;
+      padding-bottom: 0.2rem;
+    }
+
+    .research-works {
+      max-width: 34rem;
+    }
   }
 
   /* ===========================
@@ -2106,28 +2091,6 @@ const additionalWorkCount = otherWorkGroups.reduce((total, group) => total + gro
       scroll-margin-top: 72px;
     }
 
-    .research-item {
-      grid-template-columns: 2rem minmax(0, 1fr);
-      gap: 0.7rem;
-      padding: 1.1rem 0 1.15rem;
-    }
-
-    .research-item-intro {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 0.55rem;
-    }
-
-    .research-citations {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 0.55rem;
-      margin-top: 0.9rem;
-      padding-top: 0.75rem;
-    }
-
-    .research-works-list {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
     .pub-row {
       padding: 0.82rem 0;
       margin: 0;
@@ -2222,15 +2185,6 @@ const additionalWorkCount = otherWorkGroups.reduce((total, group) => total + gro
 
     .hero-institutions {
       margin-top: 0;
-    }
-
-    .research-index {
-      font-size: 0.7rem;
-    }
-
-    .research-works-list {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 0.65rem;
     }
 
     .pub-row--selected {
