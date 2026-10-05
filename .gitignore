@@ -10,3 +10,9 @@ push.sh
 
 # Google Scholar data (old Jekyll)
 google_scholar_crawler/
+
+# CV PDF is compiled from cv.tex during deploy
+astro-website/public/cv.pdf
+
+# Local Claude Code preview config
+.claude/

@@ -4,8 +4,6 @@ import Layout from '../layouts/Layout.astro';
 import portrait from '../assets/self.jpeg';
 import ndLogo from '../assets/ND.png';
 import scuLogo from '../assets/scu.png';
-import memoharnessPipeline from '../assets/memoharness-pipeline.png';
-import alignmentPillars from '../assets/alignment-pillars.png';
 
 type Author = {
   name: string;
@@ -17,66 +15,19 @@ type Publication = {
   title: string;
   authors: Author[];
   venue: string;
-  venueFull: string;
-  href?: string;
-  kind?: 'journal' | 'preprint';
-  contribution?: string;
+  venueFull?: string;
+  year: number;
+  kind: 'conference' | 'journal' | 'preprint';
+  selected?: boolean;
+  arxiv?: string;
+  paper?: string;
+  code?: string;
+  project?: string;
   note?: string;
-  image?: ImageMetadata;
-  imageAlt?: string;
 };
 
-const venueParts = (venue: string) => {
-  const match = venue.match(/^(.*?)\s+(\d{4})$/);
-  return match ? { label: match[1], year: match[2] } : { label: venue, year: '' };
-};
-
-const recentPreprints: Publication[] = [
-  {
-    title: 'MemoHarness: Agent Harnesses That Learn from Experience',
-    href: 'https://arxiv.org/abs/2607.14159',
-    authors: [
-      { name: 'Yue Huang', equal: true },
-      { name: 'Wenjie Wang', equal: true },
-      { name: 'Han Bao', me: true, equal: true },
-      { name: 'Yuchen Ma' },
-      { name: 'Xiaonan Luo' },
-      { name: 'Yi Nian' },
-      { name: 'Haomin Zhuang' },
-      { name: 'Zheyuan Liu' },
-      { name: 'Yue Zhao' },
-      { name: 'Xiangliang Zhang' },
-    ],
-    venue: 'arXiv 2026',
-    venueFull: 'Preprint',
-    kind: 'preprint',
-    contribution: 'Co-first author',
-    image: memoharnessPipeline,
-    imageAlt: 'Overview of the MemoHarness training-time harness search and test-time case adaptation pipeline',
-  },
-  {
-    title: 'AI Alignment Breaks at the Edge',
-    href: 'https://arxiv.org/abs/2602.20042',
-    authors: [
-      { name: 'Han Bao', me: true },
-      { name: 'Yue Huang' },
-      { name: 'Xiaoda Wang' },
-      { name: 'Zheyuan Zhang' },
-      { name: 'Yujun Zhou' },
-      { name: 'Carl Yang' },
-      { name: 'Xiangliang Zhang' },
-      { name: 'Yanfang Ye' },
-    ],
-    venue: 'arXiv 2026',
-    venueFull: 'Preprint',
-    kind: 'preprint',
-    contribution: 'First author',
-    image: alignmentPillars,
-    imageAlt: 'The three pillars of edge alignment: objective structure, normative governance, and dynamic cognition',
-  },
-];
-
-const selectedWorks: Publication[] = [
+// Ordered by year, then by how prominently each paper should appear within that year.
+const publications: Publication[] = [
   {
     title: 'Drift-Bench: Diagnosing CoopeRative Breakdowns in LLM Agents under Input Faults via Multi-Turn Interaction',
     authors: [
@@ -89,7 +40,9 @@ const selectedWorks: Publication[] = [
     ],
     venue: 'ICML 2026',
     venueFull: 'International Conference on Machine Learning',
-    contribution: 'First author',
+    year: 2026,
+    kind: 'conference',
+    selected: true,
   },
   {
     title: 'Capability-Oriented Training Induced Alignment Risk',
@@ -108,11 +61,51 @@ const selectedWorks: Publication[] = [
     ],
     venue: 'ICML 2026',
     venueFull: 'International Conference on Machine Learning',
-    contribution: 'Co-first author',
+    year: 2026,
+    kind: 'conference',
+    selected: true,
+  },
+  {
+    title: 'MemoHarness: Agent Harnesses That Learn from Experience',
+    authors: [
+      { name: 'Yue Huang', equal: true },
+      { name: 'Wenjie Wang', equal: true },
+      { name: 'Han Bao', me: true, equal: true },
+      { name: 'Yuchen Ma' },
+      { name: 'Xiaonan Luo' },
+      { name: 'Yi Nian' },
+      { name: 'Haomin Zhuang' },
+      { name: 'Zheyuan Liu' },
+      { name: 'Yue Zhao' },
+      { name: 'Xiangliang Zhang' },
+    ],
+    venue: 'arXiv 2026',
+    year: 2026,
+    kind: 'preprint',
+    selected: true,
+    arxiv: '2607.14159',
+  },
+  {
+    title: 'AI Alignment Breaks at the Edge',
+    authors: [
+      { name: 'Han Bao', me: true },
+      { name: 'Yue Huang' },
+      { name: 'Xiaoda Wang' },
+      { name: 'Zheyuan Zhang' },
+      { name: 'Yujun Zhou' },
+      { name: 'Carl Yang' },
+      { name: 'Xiangliang Zhang' },
+      { name: 'Yanfang Ye' },
+    ],
+    venue: 'arXiv 2026',
+    year: 2026,
+    kind: 'preprint',
+    selected: true,
+    arxiv: '2602.20042',
+    note: 'Position paper',
   },
   {
     title: 'AutoDavis: Automatic Benchmarking of Large Vision-Language Models on Visual Question-Answering',
-    href: 'https://arxiv.org/abs/2410.21259',
     authors: [
       { name: 'Han Bao', me: true, equal: true },
       { name: 'Yue Huang', equal: true },
@@ -123,13 +116,15 @@ const selectedWorks: Publication[] = [
       { name: 'Mohamed Elhoseiny' },
       { name: 'Xiangliang Zhang' },
     ],
-    venue: 'KDD D&B 2026',
-    venueFull: 'ACM SIGKDD Conference on Knowledge Discovery and Data Mining',
-    contribution: 'Co-first author',
+    venue: 'KDD 2026',
+    venueFull: 'ACM SIGKDD Conference on Knowledge Discovery and Data Mining, Datasets and Benchmarks Track',
+    year: 2026,
+    kind: 'conference',
+    selected: true,
+    arxiv: '2410.21259',
   },
   {
     title: 'PolicyLLM: Towards Excellent Comprehension of Public Policy for Large Language Models',
-    href: 'https://2026.aclweb.org/',
     authors: [
       { name: 'Han Bao', me: true },
       { name: 'Penghao Zhang' },
@@ -143,190 +138,224 @@ const selectedWorks: Publication[] = [
       { name: 'Xiangliang Zhang' },
     ],
     venue: 'ACL Findings 2026',
-    venueFull: 'Association for Computational Linguistics',
-    contribution: 'First author',
+    venueFull: 'Findings of the Association for Computational Linguistics',
+    year: 2026,
+    kind: 'conference',
+    selected: true,
   },
   {
     title: 'IntraAI: Bridging Human-AI Understanding Through Intelligent Interface Design',
-    href: 'https://dl.acm.org/doi/abs/10.1145/3774905.3793130',
     authors: [
       { name: 'Han Bao', me: true },
       { name: 'Yue Huang' },
       { name: 'Xiangliang Zhang' },
       { name: 'Yanfang Ye' },
     ],
-    venue: 'WWW Demo 2026',
-    venueFull: 'The Web Conference Demo Track',
-    contribution: 'First author',
+    venue: 'WWW 2026 Demo',
+    venueFull: 'The ACM Web Conference, Demo Track',
+    year: 2026,
+    kind: 'conference',
+    selected: true,
+    paper: 'https://dl.acm.org/doi/abs/10.1145/3774905.3793130',
+  },
+  {
+    title: 'SpecAlign: Efficient Specification-Grounded Alignment of Large Language Models via Synthetic Data',
+    authors: [
+      { name: 'Wenjie Wang' },
+      { name: 'Yue Huang' },
+      { name: 'Zhengqing Yuan' },
+      { name: 'Han Bao', me: true },
+      { name: 'Shiyi Du' },
+      { name: 'Yuchen Ma' },
+      { name: 'Yue Zhao' },
+      { name: 'Yanfang Ye' },
+      { name: 'Xiangliang Zhang' },
+    ],
+    venue: 'EMNLP 2026',
+    venueFull: 'Conference on Empirical Methods in Natural Language Processing',
+    year: 2026,
+    kind: 'conference',
+    arxiv: '2606.16276',
+  },
+  {
+    title: 'Guardian-as-an-Advisor: Advancing Next-Generation Guardian Models for Trustworthy LLMs',
+    authors: [
+      { name: 'Yue Huang' },
+      { name: 'Haomin Zhuang' },
+      { name: 'Jiayi Ye' },
+      { name: 'Han Bao', me: true },
+      { name: 'Yanbo Wang' },
+      { name: 'Hang Hua' },
+      { name: 'Siyuan Wu' },
+      { name: 'Pin-Yu Chen' },
+      { name: 'Xiangliang Zhang' },
+    ],
+    venue: 'ACL Findings 2026',
+    venueFull: 'Findings of the Association for Computational Linguistics',
+    year: 2026,
+    kind: 'conference',
+  },
+  {
+    title: 'On the Trustworthiness of Generative Foundation Models: Guideline, Assessment, and Perspective',
+    authors: [
+      { name: 'Yue Huang' },
+      { name: 'Chujie Gao' },
+      { name: 'Siyuan Wu' },
+      { name: 'Haomin Zhuang' },
+      { name: 'Jiayi Ye' },
+      { name: 'Han Bao', me: true },
+      { name: 'et al.' },
+    ],
+    venue: 'ICLR 2026',
+    venueFull: 'International Conference on Learning Representations',
+    year: 2026,
+    kind: 'conference',
+    project: 'https://trustgen.github.io/',
+    note: 'Leader of T2I Group',
+  },
+  {
+    title: 'SkillGen: Verified Inference-Time Agent Skill Synthesis',
+    authors: [
+      { name: 'Yuchen Ma' },
+      { name: 'Yue Huang' },
+      { name: 'Han Bao', me: true },
+      { name: 'Haomin Zhuang' },
+      { name: 'Swadheen Shukla' },
+      { name: 'Michel Galley' },
+      { name: 'Xiangliang Zhang' },
+      { name: 'Stefan Feuerriegel' },
+    ],
+    venue: 'arXiv 2026',
+    year: 2026,
+    kind: 'preprint',
+    arxiv: '2605.10999',
+  },
+  {
+    title: 'Confidence Laundering in Agent Systems: Why Uncertainty Needs a Latent Carrier',
+    authors: [
+      { name: 'Kaiwen Shi' },
+      { name: 'Zheyuan Zhang' },
+      { name: 'Han Bao', me: true },
+      { name: 'Colby Nelson' },
+      { name: 'Yanfang Ye' },
+    ],
+    venue: 'arXiv 2026',
+    year: 2026,
+    kind: 'preprint',
+    arxiv: '2606.20662',
+  },
+  {
+    title: 'UXBench: Measuring the Actionability of LLM-Generated UX Critiques',
+    authors: [
+      { name: 'Wenjie Wang' },
+      { name: 'Yue Huang' },
+      { name: 'Zipeng Ling' },
+      { name: 'Han Bao', me: true },
+      { name: 'Hang Hua' },
+      { name: 'Xiaonan Luo' },
+      { name: 'Yu Jiang' },
+      { name: 'Shiyi Du' },
+      { name: 'Yuexing Hao' },
+      { name: 'Xiaomin Li' },
+      { name: 'Yuchen Ma' },
+      { name: 'Dianzhuo Wang' },
+      { name: 'Yanfang Ye' },
+      { name: 'Xiangliang Zhang' },
+    ],
+    venue: 'arXiv 2026',
+    year: 2026,
+    kind: 'preprint',
+    arxiv: '2606.16262',
+  },
+  {
+    title: 'Why Semantic Entropy Fails? Geometry-Aware and Calibrated Uncertainty for Policy Optimization',
+    authors: [
+      { name: 'Zheyuan Zhang' },
+      { name: 'Kaiwen Shi' },
+      { name: 'Han Bao', me: true },
+      { name: 'Zehong Wang' },
+      { name: 'Tianyi Ma' },
+      { name: 'Yanfang Ye' },
+    ],
+    venue: 'arXiv 2026',
+    year: 2026,
+    kind: 'preprint',
+    arxiv: '2605.21801',
+  },
+  {
+    title: 'LiD-FL: Towards List-Decodable Federated Learning',
+    authors: [
+      { name: 'Hong Liu' },
+      { name: 'Liren Shan' },
+      { name: 'Han Bao', me: true },
+      { name: 'Ronghui You' },
+      { name: 'Yuhao Yi' },
+      { name: 'Jiancheng Lv' },
+    ],
+    venue: 'AAAI 2025',
+    venueFull: 'AAAI Conference on Artificial Intelligence',
+    year: 2025,
+    kind: 'conference',
+    arxiv: '2408.04963',
+  },
+  {
+    title: 'CRISP: A Causal Relationships-Guided Deep Learning Framework for Advanced ICU Mortality Prediction',
+    authors: [
+      { name: 'Linna Wang' },
+      { name: 'Xinyu Guo' },
+      { name: 'Han Bao', me: true },
+      { name: 'Lihua Jiang' },
+      { name: 'Li Zhao' },
+      { name: 'Tao Zhu' },
+      { name: 'Ziliang Feng' },
+    ],
+    venue: 'BMC MIDM 2025',
+    venueFull: 'BMC Medical Informatics and Decision Making',
+    year: 2025,
+    kind: 'journal',
+    paper: 'https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-025-02981-1',
   },
 ];
 
-const otherWorkGroups: { label: string; works: Publication[] }[] = [
-  {
-    label: 'Conference Papers',
-    works: [
-      {
-        title: 'SpecAlign: Efficient Specification-Grounded Alignment of Large Language Models via Synthetic Data',
-        href: 'https://arxiv.org/abs/2606.16276',
-        authors: [
-          { name: 'Wenjie Wang' },
-          { name: 'Yue Huang' },
-          { name: 'Zhengqing Yuan' },
-          { name: 'Han Bao', me: true },
-          { name: 'Shiyi Du' },
-          { name: 'Yuchen Ma' },
-          { name: 'Yue Zhao' },
-          { name: 'Yanfang Ye' },
-          { name: 'Xiangliang Zhang' },
-        ],
-        venue: 'EMNLP 2026',
-        venueFull: 'Conference on Empirical Methods in Natural Language Processing',
-      },
-      {
-        title: 'Guardian-as-an-Advisor: Advancing Next-Generation Guardian Models for Trustworthy LLMs',
-        href: 'https://2026.aclweb.org/',
-        authors: [
-          { name: 'Yue Huang' },
-          { name: 'Haomin Zhuang' },
-          { name: 'Jiayi Ye' },
-          { name: 'Han Bao', me: true },
-          { name: 'Yanbo Wang' },
-          { name: 'Hang Hua' },
-          { name: 'Siyuan Wu' },
-          { name: 'Pin-Yu Chen' },
-          { name: 'Xiangliang Zhang' },
-        ],
-        venue: 'ACL Findings 2026',
-        venueFull: 'Association for Computational Linguistics',
-      },
-      {
-        title: 'On the Trustworthiness of Generative Foundation Models: Guideline, Assessment, and Perspective',
-        href: 'https://trustgen.github.io/',
-        authors: [
-          { name: 'Yue Huang' },
-          { name: 'Chujie Gao' },
-          { name: 'Siyuan Wu' },
-          { name: 'Haomin Zhuang' },
-          { name: 'Jiayi Ye' },
-          { name: 'Han Bao', me: true },
-          { name: 'et al.' },
-        ],
-        venue: 'ICLR 2026',
-        venueFull: 'International Conference on Learning Representations',
-        note: 'Leader of T2I Group',
-      },
-      {
-        title: 'LiD-FL: Towards List-Decodable Federated Learning',
-        href: 'https://arxiv.org/abs/2408.04963',
-        authors: [
-          { name: 'Hong Liu' },
-          { name: 'Liren Shan' },
-          { name: 'Han Bao', me: true },
-          { name: 'Ronghui You' },
-          { name: 'Yuhao Yi' },
-          { name: 'Jiancheng Lv' },
-        ],
-        venue: 'AAAI 2025',
-        venueFull: 'AAAI Conference on Artificial Intelligence',
-      },
-    ],
-  },
-  {
-    label: 'Journal Articles',
-    works: [
-      {
-        title: 'CRISP: A Causal Relationships-Guided Deep Learning Framework for Advanced ICU Mortality Prediction',
-        href: 'https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-025-02981-1',
-        authors: [
-          { name: 'Linna Wang' },
-          { name: 'Xinyu Guo' },
-          { name: 'Han Bao', me: true },
-          { name: 'Lihua Jiang' },
-          { name: 'Li Zhao' },
-          { name: 'Tao Zhu' },
-          { name: 'Ziliang Feng' },
-        ],
-        venue: 'BMC MDM 2025',
-        venueFull: 'BMC Medical Informatics and Decision Making',
-        kind: 'journal',
-      },
-    ],
-  },
-  {
-    label: 'Preprints',
-    works: [
-      {
-        title: 'SkillGen: Verified Inference-Time Agent Skill Synthesis',
-        href: 'https://arxiv.org/abs/2605.10999',
-        authors: [
-          { name: 'Yuchen Ma' },
-          { name: 'Yue Huang' },
-          { name: 'Han Bao', me: true },
-          { name: 'Haomin Zhuang' },
-          { name: 'Swadheen Shukla' },
-          { name: 'Michel Galley' },
-          { name: 'Xiangliang Zhang' },
-          { name: 'Stefan Feuerriegel' },
-        ],
-        venue: 'arXiv 2026',
-        venueFull: 'Preprint',
-        kind: 'preprint',
-      },
-      {
-        title: 'Confidence Laundering in Agent Systems: Why Uncertainty Needs a Latent Carrier',
-        href: 'https://arxiv.org/abs/2606.20662',
-        authors: [
-          { name: 'Kaiwen Shi' },
-          { name: 'Zheyuan Zhang' },
-          { name: 'Han Bao', me: true },
-          { name: 'Colby Nelson' },
-          { name: 'Yanfang Ye' },
-        ],
-        venue: 'arXiv 2026',
-        venueFull: 'Preprint',
-        kind: 'preprint',
-      },
-      {
-        title: 'UXBench: Measuring the Actionability of LLM-Generated UX Critiques',
-        href: 'https://arxiv.org/abs/2606.16262',
-        authors: [
-          { name: 'Wenjie Wang' },
-          { name: 'Yue Huang' },
-          { name: 'Zipeng Ling' },
-          { name: 'Han Bao', me: true },
-          { name: 'Hang Hua' },
-          { name: 'Xiaonan Luo' },
-          { name: 'Yu Jiang' },
-          { name: 'Shiyi Du' },
-          { name: 'Yuexing Hao' },
-          { name: 'Xiaomin Li' },
-          { name: 'Yuchen Ma' },
-          { name: 'Dianzhuo Wang' },
-          { name: 'Yanfang Ye' },
-          { name: 'Xiangliang Zhang' },
-        ],
-        venue: 'arXiv 2026',
-        venueFull: 'Preprint',
-        kind: 'preprint',
-      },
-      {
-        title: 'Why Semantic Entropy Fails? Geometry-Aware and Calibrated Uncertainty for Policy Optimization',
-        href: 'https://arxiv.org/abs/2605.21801',
-        authors: [
-          { name: 'Zheyuan Zhang' },
-          { name: 'Kaiwen Shi' },
-          { name: 'Han Bao', me: true },
-          { name: 'Zehong Wang' },
-          { name: 'Tianyi Ma' },
-          { name: 'Yanfang Ye' },
-        ],
-        venue: 'arXiv 2026',
-        venueFull: 'Preprint',
-        kind: 'preprint',
-      },
-    ],
-  },
-];
+const primaryLink = (paper: Publication) =>
+  paper.arxiv ? `https://arxiv.org/abs/${paper.arxiv}` : paper.paper ?? paper.project;
+
+const paperLinks = (paper: Publication) =>
+  [
+    paper.arxiv && { label: 'arXiv', href: `https://arxiv.org/abs/${paper.arxiv}` },
+    paper.arxiv && { label: 'PDF', href: `https://arxiv.org/pdf/${paper.arxiv}` },
+    paper.paper && { label: 'Paper', href: paper.paper },
+    paper.code && { label: 'Code', href: paper.code },
+    paper.project && { label: 'Project', href: paper.project },
+  ].filter(Boolean) as { label: string; href: string }[];
+
+const bibStopWords = new Set(['a', 'an', 'the', 'on', 'of', 'for', 'and', 'why', 'how', 'towards']);
+
+const bibKey = (paper: Publication) => {
+  const surname = paper.authors[0].name.split(' ').at(-1)!.toLowerCase();
+  const word = paper.title
+    .split(/[^A-Za-z]+/)
+    .find((w) => w && !bibStopWords.has(w.toLowerCase()))!
+    .toLowerCase();
+  return `${surname}${paper.year}${word}`;
+};
+
+const toBibtex = (paper: Publication) => {
+  const authors = paper.authors.map((a) => (a.name === 'et al.' ? 'others' : a.name)).join(' and ');
+  const fields: [string, string][] = [
+    ['title', `{${paper.title}}`],
+    ['author', authors],
+  ];
+  if (paper.kind === 'conference') fields.push(['booktitle', paper.venueFull!]);
+  if (paper.kind === 'journal') fields.push(['journal', paper.venueFull!]);
+  if (paper.kind === 'preprint') fields.push(['journal', `arXiv preprint arXiv:${paper.arxiv}`]);
+  fields.push(['year', String(paper.year)]);
+  const type = paper.kind === 'conference' ? 'inproceedings' : 'article';
+  const body = fields.map(([k, v]) => `  ${k.padEnd(9)} = {${v}}`).join(',\n');
+  return `@${type}{${bibKey(paper)},\n${body}\n}`;
+};
+
+const publicationYears = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
 
 const researchAreas: {
   title: string;
@@ -347,8 +376,8 @@ const researchAreas: {
     text: 'I investigate how alignment risks emerge as models acquire new capabilities or move into constrained deployment environments, together with guardian and advisor mechanisms for safer behavior.',
     works: [
       { name: 'Capability-Oriented Training Induced Alignment Risk', venue: "ICML'26" },
-      { name: 'Guardian-as-an-Advisor', venue: "ACL'26 Findings", href: 'https://2026.aclweb.org/' },
-      { name: 'AI Alignment Breaks at the Edge', venue: 'Position Paper', href: 'https://arxiv.org/pdf/2602.20042' },
+      { name: 'Guardian-as-an-Advisor', venue: "ACL'26 Findings" },
+      { name: 'AI Alignment Breaks at the Edge', venue: 'Position Paper', href: 'https://arxiv.org/abs/2602.20042' },
     ],
   },
   {
@@ -357,528 +386,316 @@ const researchAreas: {
     works: [
       { name: 'TrustGen', venue: "ICLR'26", href: 'https://trustgen.github.io/' },
       { name: 'AutoDavis', venue: "KDD'26 D&B", href: 'https://arxiv.org/abs/2410.21259' },
-      { name: 'PolicyLLM', venue: "ACL'26 Findings", href: 'https://2026.aclweb.org/' },
+      { name: 'PolicyLLM', venue: "ACL'26 Findings" },
     ],
   },
 ];
 
-const additionalWorkCount =otherWorkGroups.reduce((total, group) => total + group.works.length, 0);
+const awards = [
+  {
+    title: 'Provincial Third Prize, China Undergraduate Mathematical Contest in Modeling',
+    org: 'Chinese Society for Industrial and Applied Mathematics (CSIAM)',
+    date: 'Nov 2023',
+  },
+  {
+    title: 'Second-Class Scholarship (Top 10%)',
+    org: 'School of Cyber Science and Engineering, Sichuan University',
+    date: 'Sep 2023',
+  },
+];
+
+const service = [
+  {
+    role: 'Program Committee / Reviewer',
+    venue: 'NeurIPS 2025 Workshop on Socially Responsible and Trustworthy Foundation Models',
+    date: '2025',
+  },
+];
 ---
 
 <Layout title="Han Bao | Trustworthy AI and LLM Agents">
-  <!-- Navigation -->
   <nav class="nav" aria-label="Primary navigation">
     <div class="nav-inner">
       <a href="#top" class="nav-brand">Han Bao</a>
       <div class="nav-links">
-        <a href="#about-me" class="nav-link active">About</a>
         <a href="#news" class="nav-link">News</a>
         <a href="#research" class="nav-link">Research</a>
         <a href="#publications" class="nav-link">Publications</a>
         <a href="#education" class="nav-link">Education</a>
-        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#service" class="nav-link">Service</a>
+        <a href="/cv.pdf" class="nav-link nav-link--cv" target="_blank" rel="noopener">CV</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
   <header class="hero" id="top">
-    <div class="hero-inner">
-      <div class="hero-profile">
-        <div class="hero-avatar">
-          <Image src={portrait} alt="Portrait of Han Bao" widths={[164, 328]} sizes="164px" format="webp" loading="eager" />
-        </div>
-        <div class="contact-bar" id="contact" aria-label="Contact and academic profiles">
-          <a href="mailto:hbao@nd.edu" class="contact-item" aria-label="Email Han Bao" title="Email">
-            <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-            </svg>
-          </a>
-          <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener" class="contact-item" aria-label="Google Scholar profile" title="Google Scholar">
-            <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M22 10 12 5 2 10l10 5 10-5Z"></path>
-              <path d="M6 12.4V17c0 1.1 2.7 2 6 2s6-.9 6-2v-4.6"></path>
-              <path d="M22 10v6"></path>
-            </svg>
-          </a>
-          <a href="https://github.com/wad3birch" target="_blank" rel="noopener" class="contact-item" aria-label="GitHub profile" title="GitHub">
-            <svg class="contact-icon contact-icon--fill" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 .5A12 12 0 0 0 8.2 23.9c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.4-4-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0C17.9 4.4 18.9 4.7 18.9 4.7c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.4 5.9.4.4.8 1.1.8 2.2v4.1c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"></path>
-            </svg>
-          </a>
-          <a href="https://www.linkedin.com/in/han-bao-59796b379/" target="_blank" rel="noopener" class="contact-item" aria-label="LinkedIn profile" title="LinkedIn">
-            <svg class="contact-icon contact-icon--fill" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.95v5.67H9.34V8.98h3.41v1.57h.05a3.74 3.74 0 0 1 3.37-1.85c3.61 0 4.28 2.38 4.28 5.47v6.28ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.04H3.54V8.98H7.1v11.47ZM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0Z"></path>
-            </svg>
-          </a>
-        </div>
+    <div class="hero-avatar">
+      <Image src={portrait} alt="Portrait of Han Bao" widths={[160, 320]} sizes="160px" format="webp" loading="eager" />
+    </div>
+    <div class="hero-info">
+      <h1 class="hero-name">Han Bao</h1>
+      <p class="hero-affiliation">
+        First-year Ph.D. Student in Computer Science &amp; Engineering<br />
+        <a href="https://www.nd.edu/" target="_blank" rel="noopener">University of Notre Dame</a>
+      </p>
+      <div class="hero-institutions" aria-label="Institution affiliations">
+        <a href="https://www.nd.edu/" target="_blank" rel="noopener" class="hero-institution">
+          <Image src={ndLogo} alt="University of Notre Dame" width={72} height={72} format="webp" />
+        </a>
+        <a href="https://www.scu.edu.cn/" target="_blank" rel="noopener" class="hero-institution">
+          <Image src={scuLogo} alt="Sichuan University" width={64} height={64} format="webp" />
+        </a>
       </div>
-      <div class="hero-info">
-        <h1 class="hero-name">Han Bao</h1>
-        <p class="hero-affiliation">
-          <span class="hero-role">First-year Ph.D. Student in Computer Science &amp; Engineering</span>
-          <a href="https://www.nd.edu/" target="_blank" rel="noopener" class="affiliation-link">
-            University of Notre Dame
-          </a>
-        </p>
-        <div class="hero-institutions" aria-label="Institution affiliations">
-          <a href="https://www.nd.edu/" target="_blank" rel="noopener" class="hero-institution hero-institution--nd">
-            <Image src={ndLogo} alt="University of Notre Dame" width={72} height={72} format="webp" />
-          </a>
-          <a href="https://www.scu.edu.cn/" target="_blank" rel="noopener" class="hero-institution hero-institution--scu">
-            <Image src={scuLogo} alt="Sichuan University" width={64} height={64} format="webp" />
-          </a>
-        </div>
-        <p class="hero-focus">
-          I study reliable and aligned LLM agents, with an emphasis on failure diagnosis,
-          deployment-time risks, and trustworthy evaluation.
-        </p>
-      </div>
+      <p class="hero-focus">
+        I study reliable and aligned LLM agents, with an emphasis on failure diagnosis,
+        deployment-time risks, and trustworthy evaluation.
+      </p>
+      <p class="hero-links" id="contact">
+        <a href="mailto:hbao@nd.edu">Email</a>
+        <a href="/cv.pdf" target="_blank" rel="noopener">CV</a>
+        <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+        <a href="https://github.com/wad3birch" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/han-bao-59796b379/" target="_blank" rel="noopener">LinkedIn</a>
+      </p>
     </div>
   </header>
 
-  <!-- Main Content -->
   <main class="main">
-
-    <!-- About Me Section -->
     <section class="section" id="about-me">
-      <div class="section-header reveal">
-        <h2 class="section-title">About Me</h2>
-      </div>
-      <div class="about-content reveal">
-        <div class="about-text">
-          <p>
-            I am a <strong>first-year Ph.D. student</strong> at the
-            <a href="https://www.nd.edu/" target="_blank" rel="noopener" class="about-link">University of Notre Dame</a>,
-            advised by
-            <a href="https://engineering.nd.edu/faculty/yanfang-fanny-ye/" target="_blank" rel="noopener" class="about-link">Prof. Fanny Ye</a>.
-            Prior to that, I completed my undergraduate studies in
-            <strong>Cyber Science and Engineering</strong> at
-            <a href="https://www.scu.edu.cn/" target="_blank" rel="noopener" class="about-link">Sichuan University</a>.
-          </p>
-          <p>
-            During my visiting studies, I was mentored by
-            <a href="https://sites.nd.edu/xiangliang-zhang/" target="_blank" rel="noopener" class="about-link">Prof. Xiangliang Zhang</a>
-            and senior researcher <a href="https://howiehwong.github.io/" target="_blank" rel="noopener" class="about-link">Yue Huang</a>,
-            whose guidance shaped my research interests in trustworthy AI and foundation models.
-            I continue to collaborate closely with
-            <a href="https://jasonzhangzy1757.github.io/" target="_blank" rel="noopener" class="about-link">Zheyuan Zhang</a>.
-          </p>
-          <p>
-            My research focuses on <strong>trustworthy AI for LLM agents</strong>, with an emphasis on reliability,
-            alignment, and evaluation under realistic training and deployment conditions.
-          </p>
-        </div>
+      <h2 class="section-title">About Me</h2>
+      <div class="prose">
+        <p>
+          I am a <strong>first-year Ph.D. student</strong> at the
+          <a href="https://www.nd.edu/" target="_blank" rel="noopener">University of Notre Dame</a>,
+          advised by
+          <a href="https://engineering.nd.edu/faculty/yanfang-fanny-ye/" target="_blank" rel="noopener">Prof. Fanny Ye</a>.
+          Prior to that, I completed my undergraduate studies in
+          <strong>Cyber Science and Engineering</strong> at
+          <a href="https://www.scu.edu.cn/" target="_blank" rel="noopener">Sichuan University</a>.
+        </p>
+        <p>
+          During my visiting studies, I was mentored by
+          <a href="https://sites.nd.edu/xiangliang-zhang/" target="_blank" rel="noopener">Prof. Xiangliang Zhang</a>
+          and senior researcher <a href="https://howiehwong.github.io/" target="_blank" rel="noopener">Yue Huang</a>,
+          whose guidance shaped my research interests in trustworthy AI and foundation models.
+          I continue to collaborate closely with
+          <a href="https://jasonzhangzy1757.github.io/" target="_blank" rel="noopener">Zheyuan Zhang</a>.
+        </p>
+        <p>
+          My research focuses on <strong>trustworthy AI for LLM agents</strong>, with an emphasis on reliability,
+          alignment, and evaluation under realistic training and deployment conditions.
+        </p>
       </div>
     </section>
 
-    <!-- News Section -->
     <section class="section" id="news">
-      <div class="section-header reveal">
-        <h2 class="section-title">News</h2>
-      </div>
-      <div class="news-content reveal">
-        <div class="news-timeline">
-          <div class="news-item">
-            <div class="news-date">
-              <span class="news-month">Aug</span>
-              <span class="news-year">2026</span>
-            </div>
-            <div class="news-dot"></div>
-            <div class="news-body">
-              <p class="news-text">
-                One paper was accepted to the <a href="https://2026.emnlp.org/" target="_blank" rel="noopener" class="news-link">EMNLP 2026 Main Conference</a>.
-              </p>
-            </div>
-          </div>
+      <h2 class="section-title">News</h2>
+      <ul class="dated-list">
+        <li>
+          <span class="dated-list-date">Aug 2026</span>
+          <span>One paper was accepted to the <a href="https://2026.emnlp.org/" target="_blank" rel="noopener">EMNLP 2026 Main Conference</a>.</span>
+        </li>
+        <li>
+          <span class="dated-list-date">May 2026</span>
+          <span><em>AutoDavis</em> was accepted to the <a href="https://kdd2026.kdd.org/datasets-and-benchmarks-track-call-for-papers/" target="_blank" rel="noopener">KDD 2026 Datasets &amp; Benchmarks Track</a>. Two papers were accepted to <a href="https://icml.cc/Conferences/2026" target="_blank" rel="noopener">ICML 2026</a>: <em>Capability-Oriented Training Induced Alignment Risk</em> and <em>Drift-Bench</em>.</span>
+        </li>
+        <li>
+          <span class="dated-list-date">Apr 2026</span>
+          <span>Two papers were accepted to <a href="https://2026.aclweb.org/" target="_blank" rel="noopener">ACL 2026 Findings</a>.</span>
+        </li>
+        <li>
+          <span class="dated-list-date">Jan 2026</span>
+          <span>One paper was accepted to <a href="https://www2026.thewebconf.org/" target="_blank" rel="noopener">WWW 2026 Demo Track</a>. One paper was accepted to ICLR 2026.</span>
+        </li>
+        <li>
+          <span class="dated-list-date">Aug 2024</span>
+          <span>One paper was accepted to <a href="https://aaai.org/conference/aaai/" target="_blank" rel="noopener">AAAI 2025</a>.</span>
+        </li>
+      </ul>
+    </section>
 
-          <div class="news-item">
-            <div class="news-date">
-              <span class="news-month">May</span>
-              <span class="news-year">2026</span>
-            </div>
-            <div class="news-dot"></div>
-            <div class="news-body">
-              <p class="news-text">
-                <em>AutoDavis</em> was accepted to the <a href="https://kdd2026.kdd.org/datasets-and-benchmarks-track-call-for-papers/" target="_blank" rel="noopener" class="news-link">KDD 2026 Datasets &amp; Benchmarks Track</a>. Two papers were accepted to <a href="https://icml.cc/Conferences/2026" target="_blank" rel="noopener" class="news-link">ICML 2026</a>: <em>Capability-Oriented Training Induced Alignment Risk</em> and <em>Drift-Bench</em>.
-              </p>
-            </div>
+    <section class="section" id="research">
+      <h2 class="section-title">Research Interests</h2>
+      <div class="research-list">
+        {researchAreas.map((area) => (
+          <div class="research-area">
+            <h3 class="research-title">{area.title}</h3>
+            <p class="research-text">{area.text}</p>
+            <p class="research-works">
+              <span class="research-works-label">Selected work:</span>
+              {area.works.map((work, index) => (
+                <>
+                  {index > 0 && <span class="sep" aria-hidden="true"> · </span>}
+                  {work.href ? (
+                    <a href={work.href} target="_blank" rel="noopener">{work.name}</a>
+                  ) : (
+                    <span>{work.name}</span>
+                  )}
+                  {' '}<span class="research-venue">({work.venue})</span>
+                </>
+              ))}
+            </p>
           </div>
-          <div class="news-item">
-            <div class="news-date">
-              <span class="news-month">Apr</span>
-              <span class="news-year">2026</span>
-            </div>
-            <div class="news-dot"></div>
-            <div class="news-body">
-              <p class="news-text">
-                Two papers were accepted to <a href="https://2026.aclweb.org/" target="_blank" rel="noopener" class="news-link">ACL 2026 Findings</a>.
-              </p>
-            </div>
-          </div>
-          <div class="news-item">
-            <div class="news-date">
-              <span class="news-month">Jan</span>
-              <span class="news-year">2026</span>
-            </div>
-            <div class="news-dot"></div>
-            <div class="news-body">
-              <p class="news-text">
-                One paper was accepted to <a href="https://www2026.thewebconf.org/" target="_blank" rel="noopener" class="news-link">WWW 2026 Demo Track</a>. One paper was accepted to ICLR 2026.
-              </p>
-            </div>
-          </div>
-          <div class="news-item">
-            <div class="news-date">
-              <span class="news-month">Aug</span>
-              <span class="news-year">2024</span>
-            </div>
-            <div class="news-dot"></div>
-            <div class="news-body">
-              <p class="news-text">
-                One paper was accepted to <a href="https://aaai.org/conference/aaai/" target="_blank" rel="noopener" class="news-link">AAAI 2025</a>.
-              </p>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
 
-    <!-- Research Interests Section -->
-    <section class="section" id="research">
-      <div class="section-header reveal">
-        <h2 class="section-title">Research Interests</h2>
+    <section class="section" id="publications">
+      <div class="section-title-row">
+        <h2 class="section-title">Publications</h2>
+        <div class="pub-filter" role="group" aria-label="Filter publications">
+          <button type="button" class="pub-filter-btn" data-filter="selected" aria-pressed="true">Selected</button>
+          <button type="button" class="pub-filter-btn" data-filter="all" aria-pressed="false">All ({publications.length})</button>
+        </div>
       </div>
-      <ol class="research-grid reveal">
-        {researchAreas.map((area, index) => (
-          <li class="research-card">
-            <span class="research-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-            <h3 class="research-card-title">{area.title}</h3>
-            <p class="research-card-text">{area.text}</p>
-            <ul class="research-works" aria-label={`Selected works on ${area.title}`}>
-              {area.works.map((work) => (
-                <li>
-                  {work.href ? (
-                    <a href={work.href} target="_blank" rel="noopener" class="research-work research-work--link">
-                      <span class="research-work-name">{work.name}</span>
-                      <span class="research-work-venue">{work.venue}</span>
-                    </a>
-                  ) : (
-                    <span class="research-work">
-                      <span class="research-work-name">{work.name}</span>
-                      <span class="research-work-venue">{work.venue}</span>
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
+      <p class="pub-legend">
+        * Equal contribution. See also
+        <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener">Google Scholar</a>.
+      </p>
+
+      <div class="pub-list" data-filter="selected">
+        {publicationYears.map((year) => {
+          const papers = publications.filter((p) => p.year === year);
+          return (
+            <div class:list={['pub-year', papers.some((p) => p.selected) && 'pub-year--has-selected']}>
+              <h3 class="pub-year-label">{year}</h3>
+              <ol class="pub-entries">
+                {papers.map((paper) => {
+                  const href = primaryLink(paper);
+                  const key = bibKey(paper);
+                  return (
+                    <li class:list={['pub', paper.selected && 'pub--selected']} id={`pub-${key}`}>
+                      <div class="pub-title">
+                        {href ? (
+                          <a href={href} target="_blank" rel="noopener">{paper.title}</a>
+                        ) : (
+                          paper.title
+                        )}
+                      </div>
+                      <div class="pub-authors">
+                        {paper.authors.map((author, index) => (
+                          <>
+                            {index > 0 && ', '}
+                            {author.me ? (
+                              <strong>{author.name}{author.equal && '*'}</strong>
+                            ) : (
+                              <>{author.name}{author.equal && '*'}</>
+                            )}
+                          </>
+                        ))}
+                      </div>
+                      <div class="pub-venue">
+                        <strong class="pub-venue-short">{paper.venue}</strong>
+                        {paper.venueFull && <em class="pub-venue-full">{paper.venueFull}</em>}
+                        {paper.note && <span class="pub-note">{paper.note}</span>}
+                      </div>
+                      <div class="pub-links">
+                        {paperLinks(paper).map((link) => (
+                          <a href={link.href} target="_blank" rel="noopener" class="pub-link">{link.label}</a>
+                        ))}
+                        <button
+                          type="button"
+                          class="pub-link pub-bib-toggle"
+                          aria-expanded="false"
+                          aria-controls={`bib-${key}`}
+                        >BibTeX</button>
+                      </div>
+                      <div class="pub-bib" id={`bib-${key}`} hidden>
+                        <pre>{toBibtex(paper)}</pre>
+                        <button type="button" class="pub-bib-copy">Copy</button>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="section" id="education">
+      <h2 class="section-title">Education</h2>
+      <ul class="cv-list">
+        <li class="cv-item">
+          <div class="cv-main">
+            <div class="cv-heading"><strong>University of Notre Dame</strong></div>
+            <div>Ph.D. in Computer Science</div>
+            <div class="cv-detail">
+              Advisor: <a href="https://engineering.nd.edu/faculty/yanfang-fanny-ye/" target="_blank" rel="noopener">Prof. Fanny Ye</a>
+            </div>
+          </div>
+          <div class="cv-date">Sep 2026 – Present</div>
+        </li>
+        <li class="cv-item">
+          <div class="cv-main">
+            <div class="cv-heading"><strong>Sichuan University</strong></div>
+            <div>B.Eng. in Cyber Science and Engineering</div>
+          </div>
+          <div class="cv-date">Sep 2021 – Jun 2026</div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section" id="experience">
+      <h2 class="section-title">Research Experience</h2>
+      <ul class="cv-list">
+        <li class="cv-item">
+          <div class="cv-main">
+            <div class="cv-heading"><strong>University of Notre Dame</strong>, Visiting Research Student</div>
+            <div class="cv-detail">
+              Advisor: <a href="https://sites.nd.edu/xiangliang-zhang/" target="_blank" rel="noopener">Prof. Xiangliang Zhang</a>
+              · Trustworthy Generative Models, LLM Alignment, Agent Evaluation
+            </div>
+          </div>
+          <div class="cv-date">Aug 2024 – Present</div>
+        </li>
+        <li class="cv-item">
+          <div class="cv-main">
+            <div class="cv-heading"><strong>National University of Singapore</strong>, Summer Workshop Participant</div>
+            <div class="cv-detail">Advisor: Prof. Tianbai Ma · Cloud Computing, Network Traffic Analysis</div>
+          </div>
+          <div class="cv-date">Jul 2024</div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section" id="awards">
+      <h2 class="section-title">Honors &amp; Awards</h2>
+      <ul class="cv-list">
+        {awards.map((award) => (
+          <li class="cv-item">
+            <div class="cv-main">
+              <div class="cv-heading">{award.title}</div>
+              <div class="cv-detail">{award.org}</div>
+            </div>
+            <div class="cv-date">{award.date}</div>
           </li>
         ))}
-      </ol>
+      </ul>
     </section>
 
-    <!-- Publications Section -->
-    <section class="section" id="publications">
-      <div class="section-header reveal">
-        <h2 class="section-title">Publications</h2>
-      </div>
-
-      <div class="pub-list reveal">
-        <div class="pub-category pub-category--preprints">
-          <div class="pub-category-header">
-            <span class="pub-category-name">Recent Preprints</span>
-          </div>
-          <div class="pub-items">
-            {recentPreprints.map((paper) => (
-              <article class="pub-row pub-row--featured">
-                {paper.image && (
-                  <a href={paper.href} target="_blank" rel="noopener" class="pub-row-figure" aria-label={`View ${paper.title}`}>
-                    <Image
-                      src={paper.image}
-                      alt={paper.imageAlt || ''}
-                      widths={[320, 640, 960]}
-                      sizes="(max-width: 768px) calc(100vw - 2.5rem), 288px"
-                      format="webp"
-                    />
-                  </a>
-                )}
-                <div class="pub-row-main">
-                  {paper.href ? (
-                    <a href={paper.href} target="_blank" rel="noopener" class="pub-row-title">
-                      {paper.title}
-                      <span class="pub-ext-icon" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                          <polyline points="15 3 21 3 21 9"></polyline>
-                          <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                      </span>
-                    </a>
-                  ) : (
-                    <span class="pub-row-title pub-row-title--plain">{paper.title}</span>
-                  )}
-                  <p class="pub-row-authors">
-                    {paper.authors.map((author, index) => (
-                      <>
-                        {index > 0 && ', '}
-                        {author.me ? (
-                          <strong class="author-me">{author.name}{author.equal && '*'}</strong>
-                        ) : (
-                          <span>{author.name}{author.equal && '*'}</span>
-                        )}
-                      </>
-                    ))}
-                  </p>
-                  <p class="pub-row-details">
-                    <span class="pub-venue-full">{paper.venueFull}</span>
-                    {paper.contribution && <span class="pub-contribution">{paper.contribution}</span>}
-                    {paper.authors.some((author) => author.equal) && <span class="pub-equal-note">* Equal contribution</span>}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div class="pub-category pub-category--selected">
-          <div class="pub-category-header">
-            <span class="pub-category-name">Selected Work</span>
-          </div>
-          <div class="pub-items">
-            {selectedWorks.map((paper) => (
-              <article class="pub-row pub-row--selected">
-                <div class:list={['pub-row-venue', paper.kind && `pub-row-venue--${paper.kind}`]} aria-label={paper.venue}>
-                  <span class="pub-row-venue-label">{venueParts(paper.venue).label}</span>
-                  {venueParts(paper.venue).year && <span class="pub-row-venue-year">{venueParts(paper.venue).year}</span>}
-                </div>
-                <div class="pub-row-main">
-                  {paper.href ? (
-                    <a href={paper.href} target="_blank" rel="noopener" class="pub-row-title">
-                      {paper.title}
-                      <span class="pub-ext-icon" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                          <polyline points="15 3 21 3 21 9"></polyline>
-                          <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                      </span>
-                    </a>
-                  ) : (
-                    <span class="pub-row-title pub-row-title--plain">{paper.title}</span>
-                  )}
-                  <p class="pub-row-authors">
-                    {paper.authors.map((author, index) => (
-                      <>
-                        {index > 0 && ', '}
-                        {author.me ? (
-                          <strong class="author-me">{author.name}{author.equal && '*'}</strong>
-                        ) : (
-                          <span>{author.name}{author.equal && '*'}</span>
-                        )}
-                      </>
-                    ))}
-                  </p>
-                  <p class="pub-row-details">
-                    <span class="pub-venue-full">{paper.venueFull}</span>
-                    {paper.contribution && <span class="pub-contribution">{paper.contribution}</span>}
-                    {paper.authors.some((author) => author.equal) && <span class="pub-equal-note">* Equal contribution</span>}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <details class="pub-more">
-          <summary class="pub-more-summary">
-            <span>More Publications</span>
-            <span class="pub-more-count">{additionalWorkCount} additional works</span>
-          </summary>
-          <div class="pub-more-content">
-            {otherWorkGroups.map((group) => (
-              <div class="pub-category">
-                <div class="pub-category-header">
-                  <span class="pub-category-name">{group.label}</span>
-                </div>
-                <div class="pub-items">
-                  {group.works.map((paper) => (
-                    <article class="pub-row">
-                      <div class="pub-row-main">
-                        {paper.href ? (
-                          <a href={paper.href} target="_blank" rel="noopener" class="pub-row-title">
-                            {paper.title}
-                            <span class="pub-ext-icon" aria-hidden="true">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                              </svg>
-                            </span>
-                          </a>
-                        ) : (
-                          <span class="pub-row-title pub-row-title--plain">{paper.title}</span>
-                        )}
-                        <p class="pub-row-authors">
-                          {paper.authors.map((author, index) => (
-                            <>
-                              {index > 0 && ', '}
-                              {author.me ? (
-                                <strong class="author-me">{author.name}{author.equal && '*'}</strong>
-                              ) : (
-                                <span>{author.name}{author.equal && '*'}</span>
-                              )}
-                            </>
-                          ))}
-                        </p>
-                        <p class="pub-row-details">
-                          <span class:list={['pub-venue-tag', paper.kind && `pub-venue-tag--${paper.kind}`]}>{paper.venue}</span>
-                          <span class="pub-venue-full">{paper.venueFull}</span>
-                          {paper.note && <em class="pub-row-role">{paper.note}</em>}
-                        </p>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </details>
-      </div>
+    <section class="section" id="service">
+      <h2 class="section-title">Academic Service</h2>
+      <ul class="cv-list">
+        {service.map((item) => (
+          <li class="cv-item">
+            <div class="cv-main">
+              <div class="cv-heading">{item.role}</div>
+              <div class="cv-detail">{item.venue}</div>
+            </div>
+            <div class="cv-date">{item.date}</div>
+          </li>
+        ))}
+      </ul>
     </section>
-
-    <!-- Education Section -->
-    <section class="section" id="education">
-      <div class="section-header reveal">
-        <h2 class="section-title">Education</h2>
-      </div>
-      <div class="edu-list reveal">
-        <div class="edu-item">
-          <div class="edu-left">
-            <div class="edu-logo-wrap">
-              <Image src={ndLogo} alt="Notre Dame" class="edu-logo" width={88} height={88} format="webp" />
-            </div>
-            <div class="edu-info">
-              <div class="edu-top">
-                <h3 class="edu-school">University of Notre Dame</h3>
-                <span class="edu-degree-type">Ph.D.</span>
-              </div>
-              <p class="edu-degree">Ph.D. in Computer Science</p>
-              <p class="edu-supervisor">
-                Supervisor:
-                <a href="https://engineering.nd.edu/faculty/yanfang-fanny-ye/" target="_blank" rel="noopener" class="edu-supervisor-link">
-                  Prof. Fanny Ye
-                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
-                </a>
-              </p>
-              <p class="edu-research-label">Research Areas</p>
-              <p class="edu-research-text">Trustworthy AI · LLM Alignment · Foundation Models</p>
-            </div>
-          </div>
-          <div class="edu-right">
-            <span class="edu-date-badge">Sep 2026 — Present</span>
-            <span class="edu-status-badge status-current">First Year</span>
-          </div>
-        </div>
-
-        <div class="edu-item">
-          <div class="edu-left">
-            <div class="edu-logo-wrap">
-              <Image src={scuLogo} alt="Sichuan University" class="edu-logo" width={88} height={88} format="webp" />
-            </div>
-            <div class="edu-info">
-              <div class="edu-top">
-                <h3 class="edu-school">Sichuan University</h3>
-                <span class="edu-degree-type">B.Eng.</span>
-              </div>
-              <p class="edu-degree">B.Eng. in Cyber Science and Engineering</p>
-            </div>
-          </div>
-          <div class="edu-right">
-            <span class="edu-date-badge">Sep 2021 — June 2026</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section class="section" id="experience">
-      <div class="section-header reveal">
-        <h2 class="section-title">Research Experience</h2>
-      </div>
-      <div class="exp-list reveal">
-        <div class="exp-item">
-          <div class="exp-timeline">
-            <div class="exp-timeline-dot"></div>
-            <div class="exp-timeline-line"></div>
-          </div>
-          <div class="exp-card">
-            <div class="exp-card-header">
-              <div class="exp-card-top">
-                <div class="exp-institution">
-                  <h3 class="exp-name">University of Notre Dame</h3>
-                  <a href="https://www.nd.edu/" target="_blank" rel="noopener" class="exp-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </a>
-                </div>
-                <span class="exp-date">Aug 2024 — Present</span>
-              </div>
-              <div class="exp-role">Visiting Research Student</div>
-              <p class="exp-supervisor">
-                Advisor: <a href="https://sites.nd.edu/xiangliang-zhang/" target="_blank" rel="noopener">Prof. Xiangliang Zhang</a>
-              </p>
-              <p class="exp-areas">Trustworthy Generative Models · LLM Alignment · Agent Evaluation</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="exp-item">
-          <div class="exp-timeline">
-            <div class="exp-timeline-dot"></div>
-            <div class="exp-timeline-line exp-timeline-line--last"></div>
-          </div>
-          <div class="exp-card">
-            <div class="exp-card-header">
-              <div class="exp-card-top">
-                <div class="exp-institution">
-                  <h3 class="exp-name">National University of Singapore</h3>
-                  <a href="https://nus.edu.sg/" target="_blank" rel="noopener" class="exp-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </a>
-                </div>
-                <span class="exp-date">July 2024</span>
-              </div>
-              <div class="exp-role">Summer Workshop Participant</div>
-              <p class="exp-supervisor">Advisor: Prof. Tianbai Ma</p>
-              <p class="exp-areas">Cloud Computing · Network Traffic Analysis</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-inner">
-      <p class="footer-copy">
-        &copy; {new Date().getFullYear()} Han Bao · University of Notre Dame ·
-        <a href="mailto:hbao@nd.edu">hbao@nd.edu</a>
-      </p>
-    </div>
+    <p>
+      &copy; {new Date().getFullYear()} Han Bao · University of Notre Dame ·
+      <a href="mailto:hbao@nd.edu">hbao@nd.edu</a>
+    </p>
   </footer>
 </Layout>
 
@@ -891,7 +708,7 @@ const additionalWorkCount =otherWorkGroups.reduce((total, group) => total + grou
     top: 0;
     left: 0;
     right: 0;
-    background: #fff;
+    background: var(--bg-primary);
     border-bottom: 1px solid var(--border);
     z-index: 100;
   }
@@ -900,27 +717,24 @@ const additionalWorkCount =otherWorkGroups.reduce((total, group) => total + grou
     max-width: var(--container-max);
     margin: 0 auto;
     padding: 0 var(--container-padding);
-    height: 56px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
   }
 
   .nav-brand {
     flex: 0 0 auto;
     color: var(--nd-blue);
-    font-family: var(--font-sans);
-    font-size: 0.88rem;
-    font-weight: 700;
-    line-height: 1;
+    font-weight: 600;
+    font-size: 1.02rem;
   }
 
   .nav-links {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 1.75rem;
+    gap: 1.35rem;
     min-width: 0;
     overflow-x: auto;
     scrollbar-width: none;
@@ -931,14 +745,11 @@ const additionalWorkCount =otherWorkGroups.reduce((total, group) => total + grou
   }
 
   .nav-link {
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    padding: 4px 0;
-    position: relative;
-    white-space: nowrap;
     flex: 0 0 auto;
-    transition: color 0.2s ease;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    white-space: nowrap;
   }
 
   .nav-link:hover,
@@ -946,46 +757,34 @@ const additionalWorkCount =otherWorkGroups.reduce((total, group) => total + grou
     color: var(--nd-blue);
   }
 
-  .nav-link.active::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -4px;
-    height: 1px;
-    background: var(--nd-gold);
+  .nav-link.active {
+    text-decoration: underline;
+    text-decoration-color: var(--nd-gold);
+    text-underline-offset: 6px;
+  }
+
+  .nav-link--cv {
+    color: var(--nd-blue);
+    font-weight: 600;
   }
 
   /* ===========================
      HERO
   =========================== */
   .hero {
-    padding: calc(56px + 2.75rem) var(--container-padding) 2.75rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .hero-inner {
     max-width: var(--container-max);
     margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    padding: calc(52px + 2.5rem) var(--container-padding) 1.25rem;
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
     gap: 1.75rem;
-  }
-
-  .hero-profile {
-    width: 164px;
-    flex: 0 0 164px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    align-items: start;
   }
 
   .hero-avatar {
-    width: 100%;
     aspect-ratio: 4 / 5;
-    border-radius: 3px;
     overflow: hidden;
+    border-radius: 2px;
   }
 
   .hero-avatar img {
@@ -993,139 +792,61 @@ const additionalWorkCount =otherWorkGroups.reduce((total, group) => total + grou
     height: 100%;
     object-fit: cover;
     object-position: center 24%;
-    display: block;
-  }
-
-  .hero-info {
-    max-width: 720px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
   }
 
   .hero-name {
-    font-family: var(--font-display);
-    font-size: 2.75rem;
-    font-weight: 700;
-    font-style: normal;
-    letter-spacing: 0;
-    line-height: 1.02;
+    font-size: 2.1rem;
+    font-weight: 600;
     color: var(--nd-blue);
+    line-height: 1.1;
   }
 
   .hero-affiliation {
-    font-size: 1rem;
+    margin-top: 0.45rem;
     color: var(--text-secondary);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-  }
-
-  .hero-role {
-    color: var(--text-primary);
-  }
-
-  .affiliation-link {
-    color: var(--nd-blue);
-    font-weight: 600;
-    transition: color 0.2s ease;
-  }
-
-  .affiliation-link:hover {
-    color: var(--nd-gold);
+    line-height: 1.5;
   }
 
   .hero-institutions {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    margin: 0.05rem 0 0.15rem;
+    gap: 0.75rem;
+    margin-top: 0.6rem;
   }
 
   .hero-institution {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 34px;
-    padding: 0.15rem 0;
-    opacity: 0.88;
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s ease;
-  }
-
-  .hero-institution:hover {
-    opacity: 1;
-    transform: translateY(-1px);
+    display: block;
+    height: 30px;
   }
 
   .hero-institution img {
-    display: block;
     width: auto;
     height: 100%;
-    object-fit: contain;
-  }
-
-  .hero-institution--nd {
-    height: 36px;
-  }
-
-  .hero-institution--scu {
-    height: 32px;
   }
 
   .hero-focus {
-    max-width: 680px;
-    margin: 0.15rem 0 0;
+    margin-top: 0.65rem;
     color: var(--text-secondary);
-    font-family: var(--font-serif);
-    font-size: 1rem;
     line-height: 1.55;
   }
 
-  .contact-bar {
+  .hero-links {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.45rem;
-    margin-top: 0.65rem;
+    flex-wrap: wrap;
+    gap: 0.25rem 0;
+    margin-top: 0.7rem;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
   }
 
-  .contact-item {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    flex: 0 0 1.75rem;
-    color: var(--nd-blue);
-    border-radius: 50%;
-    transition:
-      color 0.2s ease,
-      background-color 0.2s ease,
-      transform 0.2s ease;
-  }
-
-  .contact-icon {
-    width: 1.05rem;
-    height: 1.05rem;
-    flex: 0 0 auto;
-    stroke-width: 1.8;
-  }
-
-  .contact-icon--fill {
-    stroke: none;
-  }
-
-  .contact-item:hover {
-    color: var(--nd-gold);
-    background: var(--gray-50);
-    transform: translateY(-1px);
+  .hero-links a:not(:last-child)::after {
+    content: '/';
+    margin: 0 0.6rem;
+    color: var(--gray-300);
   }
 
   /* ===========================
-     MAIN CONTENT
+     SECTIONS
   =========================== */
   .main {
     max-width: var(--container-max);
@@ -1134,1131 +855,446 @@ const additionalWorkCount =otherWorkGroups.reduce((total, group) => total + grou
   }
 
   .section {
-    padding: var(--space-2xl) 0;
-    border-bottom: 1px solid var(--border);
-    scroll-margin-top: 88px;
+    padding: 1.5rem 0 0.5rem;
+    scroll-margin-top: 64px;
   }
 
-  .section-header {
-    margin-bottom: 1.15rem;
+  .section-title,
+  .section-title-row {
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.9rem;
+    border-bottom: 1px solid var(--gray-300);
   }
 
   .section-title {
-    font-family: var(--font-display);
-    font-size: 1.85rem;
-    font-weight: 700;
+    font-size: 1.32rem;
+    font-weight: 600;
     color: var(--nd-blue);
-    line-height: 1.05;
-    margin: 0;
   }
 
-  /* ===========================
-     ABOUT ME
-  =========================== */
-  .about-content {
-    max-width: 820px;
-  }
-
-  .about-text {
+  .section-title-row {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
   }
 
-  .about-text p {
-    font-family: var(--font-serif);
-    font-size: 1rem;
-    line-height: 1.62;
-    color: var(--text-secondary);
+  .section-title-row .section-title {
+    padding: 0;
     margin: 0;
+    border: 0;
   }
 
-  .about-text strong {
+  .prose p {
+    color: var(--text-secondary);
+  }
+
+  .prose p + p {
+    margin-top: 0.6rem;
+  }
+
+  .prose strong {
     color: var(--text-primary);
     font-weight: 600;
-  }
-
-  .about-link {
-    color: var(--nd-gold);
-    font-weight: 500;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .about-link:hover {
-    color: var(--nd-blue);
   }
 
   /* ===========================
      NEWS
   =========================== */
-  .news-content {
-    max-width: 800px;
-  }
-
-  .news-timeline {
-    position: relative;
+  .dated-list {
+    list-style: none;
     display: flex;
     flex-direction: column;
+    gap: 0.4rem;
   }
 
-  .news-item {
+  .dated-list li {
     display: grid;
-    grid-template-columns: 72px 24px 1fr;
-    padding: 0 0 0.75rem 0;
-    position: relative;
-  }
-
-  .news-item:last-child {
-    padding-bottom: 0;
-  }
-
-  .news-date {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    padding-top: 2px;
-    line-height: 1;
-    gap: 2px;
-    padding-right: var(--space-sm);
-  }
-
-  .news-month {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--nd-gold);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
-
-  .news-year {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
-
-  .news-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--nd-gold);
-    margin-top: 5px;
-    position: relative;
-    z-index: 1;
-    justify-self: center;
-    flex-shrink: 0;
-  }
-
-  .news-item::after {
-    content: '';
-    position: absolute;
-    left: calc(72px + var(--space-sm) + 3px);
-    top: calc(12px + 8px);
-    bottom: calc(-1 * var(--space-md) + 4px);
-    width: 1px;
-    background: var(--nd-gold);
-    opacity: 0.3;
-  }
-
-  .news-item:last-child::after {
-    display: none;
-  }
-
-  .news-text {
-    font-size: 1rem;
+    grid-template-columns: 5.25rem minmax(0, 1fr);
+    gap: 0.75rem;
     color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0;
+    line-height: 1.55;
   }
 
-  .news-link {
-    color: var(--nd-gold);
-    font-weight: 500;
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-
-  .news-link:hover {
-    color: var(--nd-blue);
+  .dated-list-date {
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    padding-top: 0.15rem;
+    white-space: nowrap;
   }
 
   /* ===========================
      RESEARCH
   =========================== */
-  .research-grid {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: auto auto 1fr auto;
-    column-gap: clamp(1.5rem, 3vw, 2.5rem);
-    padding: 1.15rem 0 0;
-    margin: 0;
-    border-top: 1px solid var(--gray-300);
-  }
-
-  .research-card {
-    display: grid;
-    grid-row: span 4;
-    grid-template-rows: subgrid;
-    row-gap: 0.55rem;
-    min-width: 0;
-  }
-
-  .research-index {
+  .research-list {
     display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    color: var(--nd-gold);
-    font-size: 0.74rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    line-height: 1;
+    flex-direction: column;
+    gap: 1rem;
   }
 
-  .research-index::after {
-    content: '';
-    width: 1.5rem;
-    height: 1px;
-    background: currentColor;
-    opacity: 0.7;
+  .research-title {
+    font-size: 1.04rem;
+    font-weight: 600;
+    color: var(--text-primary);
   }
 
-  .research-card-title {
-    font-family: var(--font-sans);
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--nd-blue);
-    line-height: 1.32;
-    margin: 0;
-  }
-
-  .research-card-text {
-    font-size: 0.93rem;
+  .research-text {
+    margin-top: 0.2rem;
     color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0;
+    line-height: 1.55;
   }
 
   .research-works {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    margin: 0.35rem 0 0;
-    padding: 0.7rem 0 0;
-    border-top: 1px solid var(--gray-200);
+    margin-top: 0.25rem;
+    font-size: 0.92rem;
+    line-height: 1.55;
   }
 
-  .research-work {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 0.75rem;
-    color: var(--nd-blue);
-    font-size: 0.84rem;
-    line-height: 1.4;
+  .research-works-label {
+    color: var(--text-primary);
+    font-style: italic;
+    margin-right: 0.3rem;
   }
 
-  .research-work-name {
-    min-width: 0;
-    font-weight: 600;
-  }
-
-  .research-work-venue {
-    flex: 0 0 auto;
+  .research-venue,
+  .research-works .sep {
     color: var(--text-muted);
-    font-size: 0.74rem;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-
-  .research-work--link {
-    transition: color 0.2s ease;
-  }
-
-  .research-work--link:hover {
-    color: var(--nd-gold);
-  }
-
-  @media (max-width: 860px) {
-    .research-grid {
-      grid-template-columns: minmax(0, 1fr);
-      grid-template-rows: none;
-      padding-top: 0;
-    }
-
-    .research-card {
-      grid-row: auto;
-      grid-template-rows: none;
-      row-gap: 0.45rem;
-      padding: 1.1rem 0 1.2rem;
-      border-bottom: 1px solid var(--gray-200);
-    }
-
-    .research-card:last-child {
-      border-bottom: none;
-      padding-bottom: 0.2rem;
-    }
-
-    .research-works {
-      max-width: 34rem;
-    }
   }
 
   /* ===========================
      PUBLICATIONS
   =========================== */
-  .pub-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.6rem;
+  .pub-filter {
+    display: none;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
   }
 
-  .pub-category {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .pub-category-header {
-    padding: 0 0 0.42rem;
-    margin-bottom: 0;
-    border-bottom: 1px solid var(--gray-300);
-  }
-
-  .pub-category-name {
-    font-family: var(--font-serif);
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-transform: none;
-    letter-spacing: 0;
-    color: var(--text-primary);
-  }
-
-  .pub-items {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .pub-row {
-    padding: 0.85rem 0 0.9rem;
-    margin: 0;
-    border-bottom: 1px solid var(--gray-200);
-    border-left: 0;
-    border-radius: 0;
-  }
-
-  .pub-row:hover {
-    background: transparent;
-  }
-
-  .pub-row--selected {
-    display: grid;
-    grid-template-columns: 7rem minmax(0, 1fr);
-    align-items: start;
-    gap: 1.35rem;
-    padding: 1rem 0 1.05rem;
-    background: transparent;
-  }
-
-  .pub-row--featured {
-    display: grid;
-    grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
-    align-items: start;
-    gap: 1.2rem;
-    padding: 1.1rem 0 1.15rem;
-    background: transparent;
-  }
-
-  .pub-row-figure {
-    display: block;
-    overflow: hidden;
-    border: 1px solid var(--gray-200);
-    border-radius: 4px;
-    background: #fff;
-    box-shadow: 0 3px 12px rgba(15, 36, 62, 0.07);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-  }
-
-  .pub-row-figure:hover {
-    border-color: rgba(201, 151, 0, 0.52);
-    box-shadow: 0 6px 18px rgba(15, 36, 62, 0.11);
-    transform: translateY(-1px);
-  }
-
-  .pub-row-figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .pub-row--selected:hover {
-    background: transparent;
-  }
-
-  .pub-row--selected .pub-row-title--plain {
-    color: var(--nd-blue);
-  }
-
-  .pub-row-venue {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.05rem;
-    min-width: 0;
-    padding-top: 0.1rem;
-    color: var(--nd-blue);
-    font-family: var(--font-serif);
-    font-style: italic;
-    line-height: 1.25;
-  }
-
-  .pub-row-venue::after {
-    content: '';
-    width: 1.75rem;
-    height: 1px;
-    margin-top: 0.42rem;
-    background: var(--nd-gold);
-    opacity: 0.72;
-  }
-
-  .pub-row-venue-label {
-    max-width: 100%;
-    font-size: 0.87rem;
-    font-weight: 600;
-  }
-
-  .pub-row-venue-year {
-    color: var(--gray-600);
-    font-size: 0.82rem;
-    font-weight: 500;
-  }
-
-  .pub-row-venue--preprint .pub-row-venue-label {
-    color: var(--gray-600);
-  }
-
-  .pub-row--selected .pub-row-title,
-  .pub-row--featured .pub-row-title {
-    font-size: 1.08rem;
-    line-height: 1.42;
-  }
-
-  .pub-row:last-child {
-    border-bottom: none;
-  }
-
-  .pub-row-main {
-    display: flex;
-    flex-direction: column;
-    gap: 0.32rem;
-  }
-
-  .pub-row-title {
-    font-family: var(--font-serif);
-    font-size: 1.02rem;
-    font-weight: 600;
-    color: var(--nd-blue);
-    line-height: 1.42;
-    display: inline;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .pub-row-title:hover {
-    color: #8a6500;
-  }
-
-  .pub-row-title--plain {
-    color: var(--text-primary);
-    cursor: default;
-    font-style: normal;
-  }
-
-  .pub-ext-icon {
+  :global(.js) .pub-filter {
     display: inline-flex;
-    align-items: center;
-    margin-left: 0.2rem;
-    opacity: 0.45;
-    vertical-align: 0.06em;
-    transition: opacity 0.2s ease;
-    color: var(--nd-blue);
   }
 
-  .pub-row-title:hover .pub-ext-icon {
-    opacity: 1;
-  }
-
-  .pub-row-authors {
-    font-size: 0.91rem;
-    color: var(--gray-600);
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  .pub-row-details {
-    font-size: 0.82rem;
-    color: var(--gray-700);
-    line-height: 1.5;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.32rem 0.6rem;
-    margin: 0;
-  }
-
-  .author-me {
-    color: var(--text-primary);
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  .pub-venue-tag {
-    display: inline;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    color: var(--nd-blue);
-    font-family: var(--font-sans);
-    font-size: 0.84rem;
-    font-weight: 700;
-    line-height: 1.4;
-    letter-spacing: 0;
-    text-transform: none;
-    white-space: nowrap;
-  }
-
-  .pub-venue-tag::before {
-    content: none;
-  }
-
-  .pub-venue-tag::after {
-    content: none;
-  }
-
-  .pub-venue-tag--journal,
-  .pub-venue-tag--preprint {
-    color: var(--nd-blue);
-    border: 0;
-    background: transparent;
-  }
-
-  .pub-venue-full {
-    color: var(--gray-600);
-    font-size: 0.84rem;
-    line-height: 1.4;
-  }
-
-  .pub-row-role {
-    color: var(--nd-blue);
-    font-size: 0.82rem;
-    font-style: italic;
-    font-weight: 500;
-    line-height: 1.4;
-    white-space: nowrap;
-  }
-
-  .pub-contribution {
-    padding-left: 0;
-    border-left: 0;
-    color: var(--gray-600);
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-style: italic;
-    font-weight: 500;
-    line-height: 1.4;
-    white-space: nowrap;
-  }
-
-  .pub-equal-note {
-    color: var(--text-muted);
-    font-size: 0.8rem;
-    font-style: italic;
-    white-space: nowrap;
-  }
-
-  .pub-more {
-    border-top: 1px solid var(--gray-300);
-    border-bottom: 1px solid var(--gray-200);
-  }
-
-  .pub-more-summary {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: baseline;
-    gap: 0.75rem;
-    padding: 0.72rem 0;
-    color: var(--nd-blue);
+  .pub-filter-btn {
+    padding: 0.15rem 0.6rem;
+    border: 1px solid var(--gray-300);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    font: inherit;
     cursor: pointer;
-    font-family: var(--font-serif);
-    font-size: 1rem;
+  }
+
+  .pub-filter-btn + .pub-filter-btn {
+    border-left: 0;
+  }
+
+  .pub-filter-btn[aria-pressed='true'] {
+    background: var(--nd-blue);
+    border-color: var(--nd-blue);
+    color: #fff;
+  }
+
+  .pub-legend {
+    margin: -0.35rem 0 0.2rem;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-style: italic;
+  }
+
+  .pub-year-label {
+    margin: 0.7rem 0 0;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
     font-weight: 600;
+  }
+
+  .pub-entries {
     list-style: none;
   }
 
-  .pub-more-summary::-webkit-details-marker {
+  .pub {
+    padding: 0.6rem 0;
+    line-height: 1.45;
+  }
+
+  .pub + .pub {
+    border-top: 1px dotted var(--gray-200);
+  }
+
+  :global(.js) .pub-list[data-filter='selected'] .pub:not(.pub--selected),
+  :global(.js) .pub-list[data-filter='selected'] .pub-year:not(.pub-year--has-selected) {
     display: none;
   }
 
-  .pub-more-summary::before {
-    content: '+';
-    color: var(--nd-gold);
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    font-weight: 500;
-  }
-
-  .pub-more[open] .pub-more-summary {
-    border-bottom: 1px solid var(--gray-200);
-  }
-
-  .pub-more[open] .pub-more-summary::before {
-    content: '\2212';
-  }
-
-  .pub-more-count {
-    color: var(--text-muted);
-    font-family: var(--font-sans);
-    font-size: 0.76rem;
-    font-weight: 400;
-    white-space: nowrap;
-  }
-
-  .pub-more-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.25rem 0 0.2rem;
-  }
-
-  /* ===========================
-     EDUCATION
-  =========================== */
-  .edu-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.15rem;
-  }
-
-  .edu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1.15rem;
-  }
-
-  .edu-left {
-    display: flex;
-    gap: var(--space-md);
-    align-items: flex-start;
-    flex: 1;
-  }
-
-  .edu-logo-wrap {
-    width: 44px;
-    height: 44px;
-    border-radius: 6px;
-    background: white;
-    border: 1px solid var(--gray-200);
-    padding: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .edu-logo {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  .edu-info {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-
-  .edu-top {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
-  }
-
-  .edu-school {
-    font-size: 1rem;
+  .pub-title {
     font-weight: 600;
-    color: var(--nd-blue);
-    margin: 0;
-  }
-
-  .edu-degree-type {
-    font-size: 0.6875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 2px 7px;
-    border-radius: 3px;
-    background: rgba(var(--nd-blue-rgb), 0.08);
-    color: var(--nd-blue);
-  }
-
-  .edu-degree {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin: 0;
-  }
-
-  .edu-supervisor {
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-    margin: 0;
-  }
-
-  .edu-supervisor-link {
-    color: var(--nd-gold);
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .edu-supervisor-link:hover {
-    color: var(--nd-blue);
-  }
-
-  .edu-research-label {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    margin: var(--space-xs) 0 0;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .edu-research-text {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin: 0;
-  }
-
-  .edu-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: var(--space-sm);
-    flex-shrink: 0;
-  }
-
-  .edu-date-badge {
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
-
-  .edu-status-badge {
-    font-size: 0.6875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 3px 10px;
-    border-radius: 20px;
-  }
-
-  .status-current {
-    background: rgba(var(--nd-gold-rgb), 0.12);
-    color: var(--nd-gold);
-    border: 1px solid rgba(var(--nd-gold-rgb), 0.2);
-  }
-
-  /* ===========================
-     EXPERIENCE
-  =========================== */
-  .exp-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .exp-item {
-    display: flex;
-    gap: var(--space-md);
-    position: relative;
-  }
-
-  .exp-timeline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-    padding-top: 4px;
-  }
-
-  .exp-timeline-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--nd-gold);
-    border: 2px solid white;
-    box-shadow: 0 0 0 1.5px var(--nd-gold);
-    flex-shrink: 0;
-    z-index: 1;
-  }
-
-  .exp-timeline-line {
-    width: 1.5px;
-    flex: 1;
-    background: var(--gray-200);
-    margin-top: 6px;
-  }
-
-  .exp-timeline-line--last {
-    background: transparent;
-  }
-
-  .exp-card {
-    flex: 1;
-    padding-bottom: 1.1rem;
-  }
-
-  .exp-card-header {
-    padding-bottom: var(--space-xs);
-  }
-
-  .exp-card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-bottom: 4px;
-  }
-
-  .exp-institution {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .exp-name {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--nd-blue);
-    margin: 0;
-  }
-
-  .exp-link {
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    transition: color 0.2s ease;
-    text-decoration: none;
-  }
-
-  .exp-link:hover {
-    color: var(--nd-gold);
-  }
-
-  .exp-date {
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
-
-  .exp-role {
-    font-size: 0.9375rem;
-    font-weight: 500;
     color: var(--text-primary);
-    margin: 0 0 3px;
   }
 
-  .exp-supervisor {
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-    margin: 0 0 5px;
+  .pub-title a {
+    color: var(--link);
   }
 
-  .exp-supervisor a {
-    color: var(--nd-gold);
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .exp-supervisor a:hover {
-    color: var(--nd-blue);
-  }
-
-  .exp-areas {
-    font-size: 0.875rem;
+  .pub-authors {
+    margin-top: 0.1rem;
     color: var(--text-secondary);
-    margin: 0;
+    font-size: 0.94rem;
+  }
+
+  .pub-authors strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .pub-venue {
+    margin-top: 0.1rem;
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+  }
+
+  .pub-venue-short {
+    color: var(--nd-blue);
+    font-weight: 600;
+  }
+
+  .pub-venue-full::before,
+  .pub-note::before {
+    content: ' · ';
+    font-style: normal;
+    color: var(--text-muted);
+  }
+
+  .pub-note {
+    color: var(--text-primary);
+  }
+
+  .pub-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.35rem;
+  }
+
+  .pub-link {
+    padding: 0.05rem 0.45rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--link);
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    line-height: 1.6;
+    cursor: pointer;
+  }
+
+  .pub-link:hover,
+  .pub-bib-toggle[aria-expanded='true'] {
+    border-color: var(--link);
+    background: var(--gray-50);
+    text-decoration: none;
+  }
+
+  .pub-bib {
+    position: relative;
+    margin-top: 0.45rem;
+  }
+
+  .pub-bib pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    padding: 0.65rem 4rem 0.65rem 0.8rem;
+    border: 1px solid var(--gray-200);
+    border-radius: 3px;
+    background: var(--gray-50);
+    color: var(--text-primary);
+    font-size: 0.75rem;
     line-height: 1.5;
   }
 
-  /* ===========================
-     MAP
-  =========================== */
-  .map-wrapper {
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--gray-200);
+  .pub-bib-copy {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    padding: 0.05rem 0.45rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 3px;
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    cursor: pointer;
   }
 
-  .map-container {
-    width: 100%;
-    height: 190px;
-    background: var(--gray-50);
+  /* ===========================
+     CV-STYLE LISTS
+  =========================== */
+  .cv-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .cv-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    line-height: 1.5;
+  }
+
+  .cv-main {
+    min-width: 0;
+  }
+
+  .cv-heading {
+    color: var(--text-primary);
+  }
+
+  .cv-heading strong {
+    font-weight: 600;
+  }
+
+  .cv-detail {
+    color: var(--text-secondary);
+    font-size: 0.94rem;
+  }
+
+  .cv-date {
+    flex: 0 0 auto;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    white-space: nowrap;
   }
 
   /* ===========================
      FOOTER
   =========================== */
   .footer {
-    border-top: 1px solid var(--gray-200);
-    margin-top: var(--space-2xl);
-    padding: 1.15rem var(--container-padding) 1.5rem;
-    background: var(--bg-primary);
-  }
-
-  .footer-inner {
     max-width: var(--container-max);
-    margin: 0 auto;
-  }
-
-  .footer-copy {
-    font-size: 0.78rem;
+    margin: 2rem auto 0;
+    padding: 1.25rem var(--container-padding) 2rem;
+    border-top: 1px solid var(--border);
     color: var(--text-muted);
-    margin: 0;
-  }
-
-  .footer-copy a {
-    color: var(--text-secondary);
-    font-weight: 500;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .footer-copy a:hover {
-    color: var(--nd-blue);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
   }
 
   /* ===========================
      RESPONSIVE
   =========================== */
-  @media (max-width: 768px) {
-    .nav-links {
-      gap: 1.25rem;
-    }
-
-    .hero {
-      padding: calc(56px + 1.25rem) var(--container-padding) 1.6rem;
-    }
-
-    .hero-inner {
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      gap: var(--space-md);
-      max-width: 100%;
-    }
-
-    .hero-profile {
-      width: 132px;
-      flex-basis: 132px;
-    }
-
-    .hero-info {
-      width: 100%;
-      align-items: flex-start;
-      text-align: left;
-    }
-
-    .hero-affiliation {
-      align-items: flex-start;
-    }
-
-    .hero-institutions {
-      gap: 0.75rem;
-    }
-
-    .hero-institution--nd {
-      height: 32px;
-    }
-
-    .hero-institution--scu {
-      height: 29px;
-    }
-
-    .section {
-      padding: 1.6rem 0;
-      scroll-margin-top: 72px;
-    }
-
-    .pub-row {
-      padding: 0.82rem 0;
-      margin: 0;
-    }
-
-    .pub-row--selected {
-      grid-template-columns: 5.6rem minmax(0, 1fr);
-      gap: 1rem;
-      padding: 0.95rem 0 1rem;
-    }
-
-    .pub-row--featured {
-      grid-template-columns: minmax(11rem, 16rem) minmax(0, 1fr);
-      gap: 1rem;
-      padding: 1rem 0 1.05rem;
-    }
-
-    .pub-row-title {
-      display: flex;
-      font-size: 0.98rem;
-      line-height: 1.4;
-    }
-
-    .pub-row-authors {
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-
-    .pub-row-details {
-      display: flex;
-      font-size: 0.84rem;
-      line-height: 1.5;
-      gap: 0.35rem 0.45rem;
-    }
-
-    .pub-venue-full {
-      flex-basis: 100%;
-      margin-top: 0;
-    }
-
-    .pub-row-role {
-      margin-top: 0;
-    }
-
-    .edu-item,
-    .edu-right {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .edu-right {
-      align-items: flex-start;
-    }
-
-    .exp-card-top {
-      flex-direction: column;
-      gap: var(--space-xs);
-    }
-
-  }
-
-  @media (max-width: 480px) {
-    .nav-inner {
-      height: 56px;
-      padding: 0 var(--container-padding);
-    }
-
+  @media (max-width: 640px) {
     .nav-brand {
       display: none;
     }
 
+    .nav-inner {
+      justify-content: center;
+    }
+
     .nav-links {
-      width: 100%;
-      justify-content: flex-start;
-      gap: var(--space-lg);
+      gap: 1rem;
     }
 
-    .hero {
-      padding-top: calc(56px + var(--space-md));
-    }
-
-    .hero-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      text-align: left;
-    }
-
-    .hero-profile {
-      width: 124px;
-      flex-basis: 124px;
-    }
-
-    .hero-institutions {
-      margin-top: 0;
-    }
-
-    .pub-row--selected {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 0.5rem;
-    }
-
-    .pub-row--featured {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 0.75rem;
-    }
-
-    .pub-row-venue {
-      flex-direction: row;
-      align-items: baseline;
-      gap: 0.35rem;
-      padding-top: 0;
-    }
-
-    .pub-row-venue::after {
+    /* News sits right under the hero, so drop it to keep the bar on one line */
+    .nav-link[href='#news'] {
       display: none;
     }
 
-    .pub-row-venue-label,
-    .pub-row-venue-year {
-      font-size: 0.8rem;
+    .hero {
+      grid-template-columns: 104px minmax(0, 1fr);
+      gap: 1rem;
+      padding-top: calc(52px + 1.5rem);
     }
 
-    .contact-bar {
-      gap: 0.2rem;
+    .hero-name {
+      font-size: 1.7rem;
+    }
+
+    .hero-info {
+      display: contents;
+    }
+
+    .hero-avatar {
+      grid-row: span 3;
+    }
+
+    .hero-name,
+    .hero-affiliation,
+    .hero-institutions {
+      grid-column: 2;
+    }
+
+    .hero-focus,
+    .hero-links {
+      grid-column: 1 / -1;
+    }
+
+    .dated-list li {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+
+    .cv-item {
+      flex-direction: column;
+      gap: 0.1rem;
     }
   }
 </style>
 
 <script>
-  // Scroll reveal
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.1,
-      rootMargin: '0px 0px -20px 0px',
-    }
-  );
+  // Publication filter (Selected / All)
+  const pubList = document.querySelector<HTMLElement>('.pub-list');
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>('.pub-filter-btn');
 
-  revealEls.forEach((el) => revealObserver.observe(el));
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      pubList!.dataset.filter = button.dataset.filter;
+      filterButtons.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+    });
+  });
 
-  // Active nav link on scroll
-  const sections = [...document.querySelectorAll<HTMLElement>('section[id]')];
-  const navLinks = document.querySelectorAll('.nav-link');
+  // BibTeX toggle and copy
+  document.querySelectorAll<HTMLButtonElement>('.pub-bib-toggle').forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+      const panel = document.getElementById(toggle.getAttribute('aria-controls')!)!;
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      panel.hidden = open;
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.pub-bib-copy').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const pre = button.previousElementSibling!;
+      try {
+        await navigator.clipboard.writeText(pre.textContent ?? '');
+        button.textContent = 'Copied';
+      } catch {
+        getSelection()?.selectAllChildren(pre);
+        button.textContent = 'Selected';
+      }
+      setTimeout(() => (button.textContent = 'Copy'), 1600);
+    });
+  });
+
+  // Active nav link on scroll; sections without a nav link count toward the one above them
+  const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('.nav-link[href^="#"]')];
+  const sections = navLinks
+    .map((link) => document.querySelector<HTMLElement>(link.getAttribute('href')!))
+    .filter((section): section is HTMLElement => section !== null);
 
   const updateActiveLink = () => {
     const atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
-    let current = sections[0]?.id ?? '';
+    let current = '';
 
     if (atBottom) {
-      current = sections[sections.length - 1]?.id ?? current;
+      current = sections[sections.length - 1]?.id ?? '';
     } else {
       sections.forEach((section) => {
-        if (scrollY >= section.offsetTop - 200) {
+        if (scrollY >= section.offsetTop - 160) {
           current = section.id;
         }
       });

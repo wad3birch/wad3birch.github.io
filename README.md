@@ -17,12 +17,20 @@ pnpm build    # outputs to astro-website/dist
 astro-website/
 ├── public/favicon.svg
 ├── src/
-│   ├── assets/              # Portrait, logos, paper figures (optimized at build time)
+│   ├── assets/              # Portrait and logos (optimized at build time)
 │   ├── layouts/Layout.astro # <head>, SEO/social metadata, global styles
-│   └── pages/index.astro    # Page content: publications and research areas are data arrays at the top
+│   └── pages/index.astro    # Page content: publications, research areas, awards and service are data arrays at the top
 └── astro.config.mjs
+```
+
+## CV
+
+`cv.tex` is compiled to `/cv.pdf` during deployment. To preview it locally:
+
+```bash
+tectonic -o astro-website/public cv.tex
 ```
 
 ## Deployment
 
-Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes `astro-website/dist` to GitHub Pages.
+Pushing to `main` runs `.github/workflows/deploy.yml`, which compiles the CV, builds the site and publishes `astro-website/dist` to GitHub Pages.
