@@ -355,6 +355,8 @@ const toBibtex = (paper: Publication) => {
   return `@${type}{${bibKey(paper)},\n${body}\n}`;
 };
 
+const lastUpdated = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
 const publicationYears = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
 
 const researchAreas: {
@@ -471,6 +473,16 @@ const service = [
   </header>
 
   <main class="main">
+    <aside class="notice" aria-label="Opportunities">
+      <span class="notice-dot" aria-hidden="true"></span>
+      <p>
+        <strong>Open to opportunities.</strong>
+        I am actively looking for research collaborations and internship opportunities in
+        trustworthy AI and LLM agents. Feel free to
+        <a href="mailto:hbao@nd.edu">reach out by email</a>!
+      </p>
+    </aside>
+
     <section class="section" id="about-me">
       <h2 class="section-title">About Me</h2>
       <div class="prose">
@@ -575,44 +587,49 @@ const service = [
                   const key = bibKey(paper);
                   return (
                     <li class:list={['pub', paper.selected && 'pub--selected']} id={`pub-${key}`}>
-                      <div class="pub-title">
-                        {href ? (
-                          <a href={href} target="_blank" rel="noopener">{paper.title}</a>
-                        ) : (
-                          paper.title
-                        )}
-                      </div>
-                      <div class="pub-authors">
-                        {paper.authors.map((author, index) => (
-                          <>
-                            {index > 0 && ', '}
-                            {author.me ? (
-                              <strong>{author.name}{author.equal && '*'}</strong>
-                            ) : (
-                              <>{author.name}{author.equal && '*'}</>
-                            )}
-                          </>
-                        ))}
-                      </div>
-                      <div class="pub-venue">
-                        <strong class="pub-venue-short">{paper.venue}</strong>
-                        {paper.venueFull && <em class="pub-venue-full">{paper.venueFull}</em>}
-                        {paper.note && <span class="pub-note">{paper.note}</span>}
-                      </div>
-                      <div class="pub-links">
-                        {paperLinks(paper).map((link) => (
-                          <a href={link.href} target="_blank" rel="noopener" class="pub-link">{link.label}</a>
-                        ))}
-                        <button
-                          type="button"
-                          class="pub-link pub-bib-toggle"
-                          aria-expanded="false"
-                          aria-controls={`bib-${key}`}
-                        >BibTeX</button>
-                      </div>
-                      <div class="pub-bib" id={`bib-${key}`} hidden>
-                        <pre>{toBibtex(paper)}</pre>
-                        <button type="button" class="pub-bib-copy">Copy</button>
+                      <span class:list={['pub-badge', paper.kind === 'preprint' && 'pub-badge--preprint']} aria-hidden="true">
+                        {paper.venue.split(' ')[0]}
+                      </span>
+                      <div class="pub-body">
+                        <div class="pub-title">
+                          {href ? (
+                            <a href={href} target="_blank" rel="noopener">{paper.title}</a>
+                          ) : (
+                            paper.title
+                          )}
+                        </div>
+                        <div class="pub-authors">
+                          {paper.authors.map((author, index) => (
+                            <>
+                              {index > 0 && ', '}
+                              {author.me ? (
+                                <strong>{author.name}{author.equal && '*'}</strong>
+                              ) : (
+                                <>{author.name}{author.equal && '*'}</>
+                              )}
+                            </>
+                          ))}
+                        </div>
+                        <div class="pub-venue">
+                          <strong class="pub-venue-short">{paper.venue}</strong>
+                          {paper.venueFull && <em class="pub-venue-full">{paper.venueFull}</em>}
+                          {paper.note && <span class="pub-note">{paper.note}</span>}
+                        </div>
+                        <div class="pub-links">
+                          {paperLinks(paper).map((link) => (
+                            <a href={link.href} target="_blank" rel="noopener" class="pub-link">{link.label}</a>
+                          ))}
+                          <button
+                            type="button"
+                            class="pub-link pub-bib-toggle"
+                            aria-expanded="false"
+                            aria-controls={`bib-${key}`}
+                          >BibTeX</button>
+                        </div>
+                        <div class="pub-bib" id={`bib-${key}`} hidden>
+                          <pre>{toBibtex(paper)}</pre>
+                          <button type="button" class="pub-bib-copy">Copy</button>
+                        </div>
                       </div>
                     </li>
                   );
@@ -706,6 +723,7 @@ const service = [
       &copy; {new Date().getFullYear()} Han Bao · University of Notre Dame ·
       <a href="mailto:hbao@nd.edu">hbao@nd.edu</a>
     </p>
+    <p>Last updated {lastUpdated}</p>
   </footer>
 </Layout>
 
@@ -876,6 +894,22 @@ const service = [
     border-bottom: 1px solid var(--gray-300);
   }
 
+  .section > .section-title,
+  .section-title-row {
+    position: relative;
+  }
+
+  .section > .section-title::after,
+  .section-title-row::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.25rem;
+    height: 2px;
+    background: var(--nd-gold);
+  }
+
   .section-title {
     font-size: 1.32rem;
     font-weight: 600;
@@ -909,6 +943,39 @@ const service = [
   }
 
   /* ===========================
+     OPPORTUNITIES NOTICE
+  =========================== */
+  .notice {
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(var(--nd-gold-rgb), 0.35);
+    border-left: 3px solid var(--nd-gold);
+    border-radius: 3px;
+    background: rgba(var(--nd-gold-rgb), 0.07);
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .notice strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .notice-dot {
+    flex: 0 0 auto;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2e9d5b;
+    box-shadow: 0 0 0 3px rgba(46, 157, 91, 0.18);
+    transform: translateY(-1px);
+  }
+
+  /* ===========================
      NEWS
   =========================== */
   .dated-list {
@@ -927,7 +994,8 @@ const service = [
   }
 
   .dated-list-date {
-    color: var(--text-muted);
+    color: var(--nd-gold-text);
+    font-weight: 600;
     font-family: var(--font-sans);
     font-size: 0.82rem;
     padding-top: 0.15rem;
@@ -941,6 +1009,11 @@ const service = [
     display: flex;
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .research-area {
+    padding-left: 0.9rem;
+    border-left: 2px solid rgba(var(--nd-gold-rgb), 0.55);
   }
 
   .research-title {
@@ -1024,8 +1097,37 @@ const service = [
   }
 
   .pub {
-    padding: 0.6rem 0;
+    display: grid;
+    grid-template-columns: 4.25rem minmax(0, 1fr);
+    gap: 0.9rem;
+    align-items: start;
+    padding: 0.65rem 0;
     line-height: 1.45;
+  }
+
+  .pub-badge {
+    margin-top: 0.15rem;
+    padding: 0.1rem 0.25rem;
+    border: 1px solid var(--nd-blue);
+    border-radius: 3px;
+    background: var(--nd-blue);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .pub-badge--preprint {
+    background: transparent;
+    border-color: var(--gray-300);
+    color: var(--text-muted);
+  }
+
+  .pub-body {
+    min-width: 0;
   }
 
   .pub + .pub {
@@ -1183,6 +1285,10 @@ const service = [
      FOOTER
   =========================== */
   .footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
     max-width: var(--container-max);
     margin: 2rem auto 0;
     padding: 1.25rem var(--container-padding) 2rem;
@@ -1250,6 +1356,17 @@ const service = [
     .cv-item {
       flex-direction: column;
       gap: 0.1rem;
+    }
+
+    .pub {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.3rem;
+    }
+
+    .pub-badge {
+      justify-self: start;
+      margin-top: 0;
+      padding: 0.05rem 0.4rem;
     }
   }
 </style>
