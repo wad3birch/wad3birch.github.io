@@ -1,0 +1,67 @@
+---
+interface Props {
+  id: string;
+  num: string;
+  title: string;
+}
+
+const { id, num, title } = Astro.props;
+---
+
+<section class="wrap chapter" id={id} aria-labelledby={`${id}-title`}>
+  <header class="chapter-head">
+    <span class="chapter-num" aria-hidden="true">{num}</span>
+    <h2 class="chapter-title" id={`${id}-title`}>{title}</h2>
+  </header>
+  <div class="chapter-body">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .chapter-head {
+    position: sticky;
+    top: 4.5rem;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .chapter-num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 3.4rem;
+    line-height: 0.9;
+    color: var(--gold);
+  }
+
+  .chapter-title {
+    font-family: var(--font-serif);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .chapter-body {
+    min-width: 0;
+  }
+
+  @media (max-width: 759px) {
+    .chapter-head {
+      position: static;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .chapter-num {
+      font-size: 2.1rem;
+    }
+  }
+</style>

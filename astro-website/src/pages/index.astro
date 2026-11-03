@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import Chapter from '../components/Chapter.astro';
 import portrait from '../assets/self.jpeg';
 import ndLogo from '../assets/ND.png';
 import scuLogo from '../assets/scu.png';
@@ -355,7 +356,19 @@ const toBibtex = (paper: Publication) => {
   return `@${type}{${bibKey(paper)},\n${body}\n}`;
 };
 
-const lastUpdated = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+const buildDate = new Date();
+const lastUpdated = buildDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+const issue = `Vol. ${buildDate.getFullYear()} · No. ${buildDate.getMonth() + 1}`;
+
+const chapters = [
+  { id: 'about', num: 'I', title: 'About' },
+  { id: 'news', num: 'II', title: 'News' },
+  { id: 'research', num: 'III', title: 'Research' },
+  { id: 'publications', num: 'IV', title: 'Publications' },
+  { id: 'cv', num: 'V', title: 'Curriculum Vitae' },
+];
+
+const selectedCount = publications.filter((p) => p.selected).length;
 
 const publicationYears = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
 
@@ -435,78 +448,121 @@ const service = [
 ---
 
 <Layout title="Han Bao | Trustworthy AI and LLM Agents">
+  <div class="progress" aria-hidden="true"><span class="progress-bar"></span></div>
+
+  <div class="masthead">
+    <div class="wrap masthead-inner">
+      <span class="masthead-issue">{issue}</span>
+      <span class="masthead-title">Notes on Trustworthy AI &amp; LLM Agents</span>
+      <span class="masthead-place">Notre Dame, Indiana</span>
+    </div>
+  </div>
+
   <nav class="nav" aria-label="Primary navigation">
-    <div class="nav-inner">
+    <div class="wrap nav-inner">
       <a href="#top" class="nav-brand">Han Bao</a>
       <div class="nav-links">
-        <a href="#news" class="nav-link">News</a>
-        <a href="#research" class="nav-link">Research</a>
-        <a href="#publications" class="nav-link">Publications</a>
-        <a href="#education" class="nav-link">Education</a>
-        <a href="#service" class="nav-link">Service</a>
-        <a href="/cv.pdf" class="nav-link nav-link--cv" target="_blank" rel="noopener">CV</a>
+        {chapters.map((chapter) => (
+          <a href={`#${chapter.id}`} class="nav-link">
+            <span class="nav-num" aria-hidden="true">{chapter.num}</span>
+            {chapter.id === 'cv' ? (
+              <><span class="nav-label-long">Curriculum</span><span class="nav-label-short">CV</span></>
+            ) : (
+              chapter.title
+            )}
+          </a>
+        ))}
+        <a href="/cv.pdf" class="nav-link nav-link--pdf" target="_blank" rel="noopener">CV&nbsp;PDF</a>
       </div>
+      <button type="button" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+          <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </button>
     </div>
   </nav>
 
-  <header class="hero" id="top">
-    <div class="hero-avatar">
-      <Image src={portrait} alt="Portrait of Han Bao" widths={[160, 320]} sizes="160px" format="webp" loading="eager" />
-    </div>
-    <div class="hero-info">
-      <h1 class="hero-name">Han Bao</h1>
-      <p class="hero-affiliation">
-        First-year Ph.D. Student in Computer Science &amp; Engineering<br />
-        <a href="https://www.nd.edu/" target="_blank" rel="noopener">University of Notre Dame</a>
-      </p>
-      <div class="hero-institutions" aria-label="Institution affiliations">
-        <a href="https://www.nd.edu/" target="_blank" rel="noopener" class="hero-institution">
-          <Image src={ndLogo} alt="University of Notre Dame" width={72} height={72} format="webp" />
-        </a>
-        <a href="https://www.scu.edu.cn/" target="_blank" rel="noopener" class="hero-institution">
-          <Image src={scuLogo} alt="Sichuan University" width={64} height={64} format="webp" />
-        </a>
+  <header class="wrap title-page" id="top">
+    <p class="kicker">Ph.D. Student <span aria-hidden="true">·</span> Computer Science &amp; Engineering</p>
+    <h1 class="title-name">Han Bao</h1>
+    <div class="double-rule" aria-hidden="true"></div>
+
+    <div class="title-grid">
+      <dl class="title-meta">
+        <div>
+          <dt>Position</dt>
+          <dd>First-year Ph.D. Student</dd>
+        </div>
+        <div>
+          <dt>Institution</dt>
+          <dd><a href="https://www.nd.edu/" target="_blank" rel="noopener">University of Notre Dame</a></dd>
+        </div>
+        <div>
+          <dt>Advisor</dt>
+          <dd><a href="https://engineering.nd.edu/faculty/yanfang-fanny-ye/" target="_blank" rel="noopener">Prof. Fanny Ye</a></dd>
+        </div>
+      </dl>
+
+      <div class="title-main">
+        <p class="deck">
+          I study reliable and aligned <em>LLM agents</em>, with an emphasis on failure diagnosis,
+          deployment-time risks, and trustworthy evaluation.
+        </p>
+        <p class="title-links" id="contact">
+          <a href="mailto:hbao@nd.edu">Email</a>
+          <a href="/cv.pdf" target="_blank" rel="noopener">CV</a>
+          <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+          <a href="https://github.com/wad3birch" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/han-bao-59796b379/" target="_blank" rel="noopener">LinkedIn</a>
+        </p>
+        <aside class="notice" aria-label="Opportunities">
+          <p class="notice-label"><span class="notice-dot" aria-hidden="true"></span>Open Call</p>
+          <p class="notice-text">
+            I am actively looking for research collaborations and internship opportunities in
+            trustworthy AI and LLM agents. Feel free to
+            <a href="mailto:hbao@nd.edu">reach out by email</a>.
+          </p>
+        </aside>
       </div>
-      <p class="hero-focus">
-        I study reliable and aligned LLM agents, with an emphasis on failure diagnosis,
-        deployment-time risks, and trustworthy evaluation.
-      </p>
-      <p class="hero-links" id="contact">
-        <a href="mailto:hbao@nd.edu">Email</a>
-        <a href="/cv.pdf" target="_blank" rel="noopener">CV</a>
-        <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
-        <a href="https://github.com/wad3birch" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/han-bao-59796b379/" target="_blank" rel="noopener">LinkedIn</a>
-      </p>
+
+      <figure class="title-figure">
+        <div class="portrait">
+          <Image src={portrait} alt="Portrait of Han Bao" widths={[192, 384]} sizes="192px" format="webp" loading="eager" />
+        </div>
+        <figcaption>
+          <span class="fig-label">Fig. 1.</span> The author.
+          <span class="seals">
+            <a href="https://www.nd.edu/" target="_blank" rel="noopener" title="University of Notre Dame">
+              <Image src={ndLogo} alt="University of Notre Dame" width={56} height={56} format="webp" />
+            </a>
+            <a href="https://www.scu.edu.cn/" target="_blank" rel="noopener" title="Sichuan University">
+              <Image src={scuLogo} alt="Sichuan University" width={56} height={56} format="webp" />
+            </a>
+          </span>
+        </figcaption>
+      </figure>
     </div>
   </header>
 
-  <main class="main">
-    <aside class="notice" aria-label="Opportunities">
-      <span class="notice-dot" aria-hidden="true"></span>
-      <p>
-        <strong>Open to opportunities.</strong>
-        I am actively looking for research collaborations and internship opportunities in
-        trustworthy AI and LLM agents. Feel free to
-        <a href="mailto:hbao@nd.edu">reach out by email</a>!
-      </p>
-    </aside>
-
-    <section class="section" id="about-me">
-      <h2 class="section-title">About Me</h2>
+  <main>
+    <Chapter id="about" num="I" title="About">
       <div class="prose">
-        <p>
+        <p class="lede">
           I am a <strong>first-year Ph.D. student</strong> at the
           <a href="https://www.nd.edu/" target="_blank" rel="noopener">University of Notre Dame</a>,
           advised by
-          <a href="https://engineering.nd.edu/faculty/yanfang-fanny-ye/" target="_blank" rel="noopener">Prof. Fanny Ye</a>.
+          <a href="https://engineering.nd.edu/faculty/yanfang-fanny-ye/" target="_blank" rel="noopener">Prof. Fanny Ye</a><span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Ph.D. advisor, Department of Computer Science &amp; Engineering, since Sep 2026.</span>.
           Prior to that, I completed my undergraduate studies in
           <strong>Cyber Science and Engineering</strong> at
-          <a href="https://www.scu.edu.cn/" target="_blank" rel="noopener">Sichuan University</a>.
+          <a href="https://www.scu.edu.cn/" target="_blank" rel="noopener">Sichuan University</a><span class="sn-ref" aria-hidden="true"></span><span class="sidenote">B.Eng., School of Cyber Science and Engineering, Chengdu, 2021–2026.</span>.
         </p>
         <p>
           During my visiting studies, I was mentored by
-          <a href="https://sites.nd.edu/xiangliang-zhang/" target="_blank" rel="noopener">Prof. Xiangliang Zhang</a>
+          <a href="https://sites.nd.edu/xiangliang-zhang/" target="_blank" rel="noopener">Prof. Xiangliang Zhang</a><span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Visiting research student at Notre Dame since Aug 2024, working on trustworthy generative models and agent evaluation.</span>
           and senior researcher <a href="https://howiehwong.github.io/" target="_blank" rel="noopener">Yue Huang</a>,
           whose guidance shaped my research interests in trustworthy AI and foundation models.
           I continue to collaborate closely with
@@ -517,103 +573,99 @@ const service = [
           alignment, and evaluation under realistic training and deployment conditions.
         </p>
       </div>
-    </section>
+    </Chapter>
 
-    <section class="section" id="news">
-      <h2 class="section-title">News</h2>
-      <ul class="dated-list">
+    <Chapter id="news" num="II" title="News">
+      <ol class="dispatches">
         <li>
-          <span class="dated-list-date">Aug 2026</span>
-          <span>One paper was accepted to the <a href="https://2026.emnlp.org/" target="_blank" rel="noopener">EMNLP 2026 Main Conference</a>.</span>
+          <time class="dispatch-date">Aug 2026</time>
+          <p>One paper was accepted to the <a href="https://2026.emnlp.org/" target="_blank" rel="noopener">EMNLP 2026 Main Conference</a>.</p>
         </li>
         <li>
-          <span class="dated-list-date">May 2026</span>
-          <span><em>AutoDavis</em> was accepted to the <a href="https://kdd2026.kdd.org/datasets-and-benchmarks-track-call-for-papers/" target="_blank" rel="noopener">KDD 2026 Datasets &amp; Benchmarks Track</a>. Two papers were accepted to <a href="https://icml.cc/Conferences/2026" target="_blank" rel="noopener">ICML 2026</a>: <em>Capability-Oriented Training Induced Alignment Risk</em> and <em>Drift-Bench</em>.</span>
+          <time class="dispatch-date">May 2026</time>
+          <p><em>AutoDavis</em> was accepted to the <a href="https://kdd2026.kdd.org/datasets-and-benchmarks-track-call-for-papers/" target="_blank" rel="noopener">KDD 2026 Datasets &amp; Benchmarks Track</a>. Two papers were accepted to <a href="https://icml.cc/Conferences/2026" target="_blank" rel="noopener">ICML 2026</a>: <em>Capability-Oriented Training Induced Alignment Risk</em> and <em>Drift-Bench</em>.</p>
         </li>
         <li>
-          <span class="dated-list-date">Apr 2026</span>
-          <span>Two papers were accepted to <a href="https://2026.aclweb.org/" target="_blank" rel="noopener">ACL 2026 Findings</a>.</span>
+          <time class="dispatch-date">Apr 2026</time>
+          <p>Two papers were accepted to <a href="https://2026.aclweb.org/" target="_blank" rel="noopener">ACL 2026 Findings</a>.</p>
         </li>
         <li>
-          <span class="dated-list-date">Jan 2026</span>
-          <span>One paper was accepted to <a href="https://www2026.thewebconf.org/" target="_blank" rel="noopener">WWW 2026 Demo Track</a>. One paper was accepted to ICLR 2026.</span>
+          <time class="dispatch-date">Jan 2026</time>
+          <p>One paper was accepted to <a href="https://www2026.thewebconf.org/" target="_blank" rel="noopener">WWW 2026 Demo Track</a>. One paper was accepted to ICLR 2026.</p>
         </li>
         <li>
-          <span class="dated-list-date">Aug 2024</span>
-          <span>One paper was accepted to <a href="https://aaai.org/conference/aaai/" target="_blank" rel="noopener">AAAI 2025</a>.</span>
+          <time class="dispatch-date">Aug 2024</time>
+          <p>One paper was accepted to <a href="https://aaai.org/conference/aaai/" target="_blank" rel="noopener">AAAI 2025</a>.</p>
         </li>
-      </ul>
-    </section>
+      </ol>
+    </Chapter>
 
-    <section class="section" id="research">
-      <h2 class="section-title">Research Interests</h2>
-      <div class="research-list">
+    <Chapter id="research" num="III" title="Research">
+      <div class="areas">
         {researchAreas.map((area, index) => (
-          <div class="research-area">
-            <div class="research-keyword">
-              <span class="research-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-              <span class="research-keyword-text">{area.keyword}</span>
-            </div>
-            <div class="research-body">
-              <h3 class="research-title">{area.title}</h3>
-              <p class="research-text">{area.text}</p>
-              <p class="research-works">
-                <span class="research-works-label">Selected work:</span>
-                {area.works.map((work, workIndex) => (
-                  <>
-                    {workIndex > 0 && <span class="sep" aria-hidden="true"> · </span>}
-                    {work.href ? (
-                      <a href={work.href} target="_blank" rel="noopener">{work.name}</a>
-                    ) : (
-                      <span>{work.name}</span>
-                    )}
-                    {' '}<span class="research-venue">({work.venue})</span>
-                  </>
+          <article class="area">
+            <p class="area-gloss">
+              <span class="area-num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <span class="area-keyword">{area.keyword}</span>
+            </p>
+            <div class="area-body">
+              <h3 class="area-title">{area.title}</h3>
+              <p class="area-text">{area.text}</p>
+              <ul class="toc" aria-label={`Selected work on ${area.keyword}`}>
+                {area.works.map((work) => (
+                  <li>
+                    <span class="toc-name">
+                      {work.href ? (
+                        <a href={work.href} target="_blank" rel="noopener">{work.name}</a>
+                      ) : (
+                        work.name
+                      )}
+                    </span>
+                    <span class="toc-leader" aria-hidden="true"></span>
+                    <span class="toc-venue">{work.venue}</span>
+                  </li>
                 ))}
-              </p>
+              </ul>
             </div>
-          </div>
+          </article>
         ))}
       </div>
-    </section>
+    </Chapter>
 
-    <section class="section" id="publications">
-      <div class="section-title-row">
-        <h2 class="section-title">Publications</h2>
+    <Chapter id="publications" num="IV" title="Publications">
+      <div class="pub-tools">
         <div class="pub-filter" role="group" aria-label="Filter publications">
-          <button type="button" class="pub-filter-btn" data-filter="selected" aria-pressed="true">Selected</button>
+          <button type="button" class="pub-filter-btn" data-filter="selected" aria-pressed="true">Selected ({selectedCount})</button>
+          <span class="pub-filter-sep" aria-hidden="true">/</span>
           <button type="button" class="pub-filter-btn" data-filter="all" aria-pressed="false">All ({publications.length})</button>
         </div>
+        <p class="pub-legend">
+          * Equal contribution. See also
+          <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener">Google Scholar</a>.
+        </p>
       </div>
-      <p class="pub-legend">
-        * Equal contribution. See also
-        <a href="https://scholar.google.com/citations?user=X8gcICcAAAAJ" target="_blank" rel="noopener">Google Scholar</a>.
-      </p>
 
       <div class="pub-list" data-filter="selected">
         {publicationYears.map((year) => {
           const papers = publications.filter((p) => p.year === year);
           return (
             <div class:list={['pub-year', papers.some((p) => p.selected) && 'pub-year--has-selected']}>
-              <h3 class="pub-year-label">{year}</h3>
+              <h3 class="pub-year-label"><span>{year}</span></h3>
               <ol class="pub-entries">
                 {papers.map((paper) => {
                   const href = primaryLink(paper);
                   const key = bibKey(paper);
                   return (
                     <li class:list={['pub', paper.selected && 'pub--selected']} id={`pub-${key}`}>
-                      <span class:list={['pub-badge', paper.kind === 'preprint' && 'pub-badge--preprint']} aria-hidden="true">
-                        {paper.venue.split(' ')[0]}
-                      </span>
-                      <div class="pub-body">
-                        <div class="pub-title">
+                      <div class="pub-main">
+                        <h4 class="pub-title">
                           {href ? (
                             <a href={href} target="_blank" rel="noopener">{paper.title}</a>
                           ) : (
                             paper.title
                           )}
-                        </div>
-                        <div class="pub-authors">
+                        </h4>
+                        <p class="pub-authors">
                           {paper.authors.map((author, index) => (
                             <>
                               {index > 0 && ', '}
@@ -624,13 +676,8 @@ const service = [
                               )}
                             </>
                           ))}
-                        </div>
-                        <div class="pub-venue">
-                          <strong class="pub-venue-short">{paper.venue}</strong>
-                          {paper.venueFull && <em class="pub-venue-full">{paper.venueFull}</em>}
-                          {paper.note && <span class="pub-note">{paper.note}</span>}
-                        </div>
-                        <div class="pub-links">
+                        </p>
+                        <p class="pub-links">
                           {paperLinks(paper).map((link) => (
                             <a href={link.href} target="_blank" rel="noopener" class="pub-link">{link.label}</a>
                           ))}
@@ -640,12 +687,17 @@ const service = [
                             aria-expanded="false"
                             aria-controls={`bib-${key}`}
                           >BibTeX</button>
-                        </div>
+                        </p>
                         <div class="pub-bib" id={`bib-${key}`} hidden>
                           <pre>{toBibtex(paper)}</pre>
                           <button type="button" class="pub-bib-copy">Copy</button>
                         </div>
                       </div>
+                      <p class:list={['pub-venue', paper.kind === 'preprint' && 'pub-venue--preprint']}>
+                        <span class="pub-venue-short">{paper.venue}</span>
+                        {paper.venueFull && <span class="pub-venue-full">{paper.venueFull}</span>}
+                        {paper.note && <span class="pub-note">{paper.note}</span>}
+                      </p>
                     </li>
                   );
                 })}
@@ -654,131 +706,217 @@ const service = [
           );
         })}
       </div>
-    </section>
+    </Chapter>
 
-    <section class="section" id="education">
-      <h2 class="section-title">Education</h2>
-      <ul class="cv-list">
-        <li class="cv-item">
-          <div class="cv-main">
-            <div class="cv-heading"><strong>University of Notre Dame</strong></div>
-            <div>Ph.D. in Computer Science</div>
-            <div class="cv-detail">
-              Advisor: <a href="https://engineering.nd.edu/faculty/yanfang-fanny-ye/" target="_blank" rel="noopener">Prof. Fanny Ye</a>
-            </div>
-          </div>
-          <div class="cv-date">Sep 2026 – Present</div>
-        </li>
-        <li class="cv-item">
-          <div class="cv-main">
-            <div class="cv-heading"><strong>Sichuan University</strong></div>
-            <div>B.Eng. in Cyber Science and Engineering</div>
-          </div>
-          <div class="cv-date">Sep 2021 – Jun 2026</div>
-        </li>
-      </ul>
-    </section>
+    <Chapter id="cv" num="V" title="Curriculum Vitae">
+      <div class="cv">
+        <section class="cv-block" id="education" aria-labelledby="education-title">
+          <h3 class="cv-label" id="education-title">Education</h3>
+          <ul class="cv-entries">
+            <li>
+              <p class="cv-line">
+                <span class="cv-heading"><strong>University of Notre Dame</strong></span>
+                <span class="cv-leader" aria-hidden="true"></span>
+                <span class="cv-date">Sep 2026 – Present</span>
+              </p>
+              <p class="cv-detail">
+                Ph.D. in Computer Science · Advisor:
+                <a href="https://engineering.nd.edu/faculty/yanfang-fanny-ye/" target="_blank" rel="noopener">Prof. Fanny Ye</a>
+              </p>
+            </li>
+            <li>
+              <p class="cv-line">
+                <span class="cv-heading"><strong>Sichuan University</strong></span>
+                <span class="cv-leader" aria-hidden="true"></span>
+                <span class="cv-date">Sep 2021 – Jun 2026</span>
+              </p>
+              <p class="cv-detail">B.Eng. in Cyber Science and Engineering</p>
+            </li>
+          </ul>
+        </section>
 
-    <section class="section" id="experience">
-      <h2 class="section-title">Research Experience</h2>
-      <ul class="cv-list">
-        <li class="cv-item">
-          <div class="cv-main">
-            <div class="cv-heading"><strong>University of Notre Dame</strong>, Visiting Research Student</div>
-            <div class="cv-detail">
-              Advisor: <a href="https://sites.nd.edu/xiangliang-zhang/" target="_blank" rel="noopener">Prof. Xiangliang Zhang</a>
-              · Trustworthy Generative Models, LLM Alignment, Agent Evaluation
-            </div>
-          </div>
-          <div class="cv-date">Aug 2024 – Present</div>
-        </li>
-        <li class="cv-item">
-          <div class="cv-main">
-            <div class="cv-heading"><strong>National University of Singapore</strong>, Summer Workshop Participant</div>
-            <div class="cv-detail">Advisor: Prof. Tianbai Ma · Cloud Computing, Network Traffic Analysis</div>
-          </div>
-          <div class="cv-date">Jul 2024</div>
-        </li>
-      </ul>
-    </section>
+        <section class="cv-block" id="experience" aria-labelledby="experience-title">
+          <h3 class="cv-label" id="experience-title">Research Experience</h3>
+          <ul class="cv-entries">
+            <li>
+              <p class="cv-line">
+                <span class="cv-heading"><strong>University of Notre Dame</strong>, Visiting Research Student</span>
+                <span class="cv-leader" aria-hidden="true"></span>
+                <span class="cv-date">Aug 2024 – Present</span>
+              </p>
+              <p class="cv-detail">
+                Advisor: <a href="https://sites.nd.edu/xiangliang-zhang/" target="_blank" rel="noopener">Prof. Xiangliang Zhang</a>
+                · Trustworthy Generative Models, LLM Alignment, Agent Evaluation
+              </p>
+            </li>
+            <li>
+              <p class="cv-line">
+                <span class="cv-heading"><strong>National University of Singapore</strong>, Summer Workshop Participant</span>
+                <span class="cv-leader" aria-hidden="true"></span>
+                <span class="cv-date">Jul 2024</span>
+              </p>
+              <p class="cv-detail">Advisor: Prof. Tianbai Ma · Cloud Computing, Network Traffic Analysis</p>
+            </li>
+          </ul>
+        </section>
 
-    <section class="section" id="awards">
-      <h2 class="section-title">Honors &amp; Awards</h2>
-      <ul class="cv-list">
-        {awards.map((award) => (
-          <li class="cv-item">
-            <div class="cv-main">
-              <div class="cv-heading">{award.title}</div>
-              <div class="cv-detail">{award.org}</div>
-            </div>
-            <div class="cv-date">{award.date}</div>
-          </li>
-        ))}
-      </ul>
-    </section>
+        <section class="cv-block" id="awards" aria-labelledby="awards-title">
+          <h3 class="cv-label" id="awards-title">Honors &amp; Awards</h3>
+          <ul class="cv-entries">
+            {awards.map((award) => (
+              <li>
+                <p class="cv-line">
+                  <span class="cv-heading">{award.title}</span>
+                  <span class="cv-leader" aria-hidden="true"></span>
+                  <span class="cv-date">{award.date}</span>
+                </p>
+                <p class="cv-detail">{award.org}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-    <section class="section" id="service">
-      <h2 class="section-title">Academic Service</h2>
-      <ul class="cv-list">
-        {service.map((item) => (
-          <li class="cv-item">
-            <div class="cv-main">
-              <div class="cv-heading">{item.role}</div>
-              <div class="cv-detail">{item.venue}</div>
-            </div>
-            <div class="cv-date">{item.date}</div>
-          </li>
-        ))}
-      </ul>
-    </section>
+        <section class="cv-block" id="service" aria-labelledby="service-title">
+          <h3 class="cv-label" id="service-title">Academic Service</h3>
+          <ul class="cv-entries">
+            {service.map((item) => (
+              <li>
+                <p class="cv-line">
+                  <span class="cv-heading">{item.role}</span>
+                  <span class="cv-leader" aria-hidden="true"></span>
+                  <span class="cv-date">{item.date}</span>
+                </p>
+                <p class="cv-detail">{item.venue}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </Chapter>
   </main>
 
-  <footer class="footer">
-    <p>
-      &copy; {new Date().getFullYear()} Han Bao · University of Notre Dame ·
-      <a href="mailto:hbao@nd.edu">hbao@nd.edu</a>
-    </p>
-    <p>Last updated {lastUpdated}</p>
+  <footer class="wrap chapter colophon">
+    <div class="colophon-mark" aria-hidden="true">❦</div>
+    <div class="colophon-body">
+      <p class="colophon-label">Colophon</p>
+      <p>
+        Set in Source Serif 4 and Instrument Serif. Built with Astro and published on GitHub Pages.
+        Last revised {lastUpdated}.
+      </p>
+      <p class="colophon-meta">
+        <span>&copy; {buildDate.getFullYear()} Han Bao</span>
+        <a href="mailto:hbao@nd.edu">hbao@nd.edu</a>
+        <a href="#top">Back to top ↑</a>
+      </p>
+    </div>
   </footer>
 </Layout>
 
 <style>
-  /* ===========================
-     NAVIGATION
-  =========================== */
-  .nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: var(--bg-primary);
-    border-bottom: 1px solid var(--border);
-    z-index: 100;
+  /* Small-caps label used across the page */
+  .kicker,
+  .masthead-inner,
+  .nav-link,
+  .title-meta dt,
+  .notice-label,
+  .dispatch-date,
+  .toc-venue,
+  .pub-filter,
+  .pub-link,
+  .pub-venue-short,
+  .cv-label,
+  .cv-date,
+  .colophon-label,
+  .fig-label {
+    font-variant-numeric: lining-nums;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
-  .nav-inner {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
-    height: 52px;
+  /* ===========================
+     READING PROGRESS
+  =========================== */
+  .progress {
+    position: fixed;
+    inset: 0 0 auto;
+    height: 2px;
+    z-index: 200;
+    pointer-events: none;
+  }
+
+  .progress-bar {
+    display: block;
+    height: 100%;
+    background: var(--gold);
+    transform: scaleX(var(--progress, 0));
+    transform-origin: left;
+  }
+
+  /* ===========================
+     MASTHEAD + NAV
+  =========================== */
+  .masthead {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .masthead-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-lg);
+    gap: 1rem;
+    height: 2.1rem;
+    color: var(--ink-3);
+    font-size: 0.66rem;
+  }
+
+  .masthead-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-style: italic;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink-2);
+  }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    transition: background-color 0.25s ease;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    height: 3rem;
   }
 
   .nav-brand {
     flex: 0 0 auto;
-    color: var(--nd-blue);
-    font-weight: 600;
-    font-size: 1.02rem;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: var(--accent);
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  :global(html:not(.js)) .nav-brand,
+  .nav.is-condensed .nav-brand {
+    opacity: 1;
+    transform: none;
   }
 
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 1.35rem;
+    gap: 1.4rem;
     min-width: 0;
+    margin-left: auto;
     overflow-x: auto;
     scrollbar-width: none;
   }
@@ -789,330 +927,516 @@ const service = [
 
   .nav-link {
     flex: 0 0 auto;
-    color: var(--text-secondary);
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    padding: 0.2rem 0;
+    color: var(--ink-2);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
     white-space: nowrap;
   }
 
-  .nav-link:hover,
-  .nav-link.active {
-    color: var(--nd-blue);
+  .nav-num {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--gold-text);
+  }
+
+  .nav-label-short {
+    display: none;
+  }
+
+  .nav-link:hover {
+    color: var(--ink);
   }
 
   .nav-link.active {
-    text-decoration: underline;
-    text-decoration-color: var(--nd-gold);
-    text-underline-offset: 6px;
+    color: var(--ink);
+    border-bottom-color: var(--gold);
   }
 
-  .nav-link--cv {
-    color: var(--nd-blue);
-    font-weight: 600;
-  }
-
-  /* ===========================
-     HERO
-  =========================== */
-  .hero {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: calc(52px + 2.5rem) var(--container-padding) 1.25rem;
-    display: grid;
-    grid-template-columns: 160px minmax(0, 1fr);
-    gap: 1.75rem;
-    align-items: start;
-  }
-
-  .hero-avatar {
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
+  .nav-link--pdf {
+    padding: 0.15rem 0.55rem;
+    border: 1px solid var(--rule);
     border-radius: 2px;
   }
 
-  .hero-avatar img {
+  .nav-link--pdf:hover {
+    border-color: var(--gold);
+  }
+
+  .theme-toggle {
+    flex: 0 0 auto;
+    display: none;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--rule);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink-2);
+    cursor: pointer;
+  }
+
+  :global(.js) .theme-toggle {
+    display: grid;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--gold);
+    color: var(--gold-text);
+  }
+
+  .theme-toggle svg {
+    grid-area: 1 / 1;
+  }
+
+  .icon-sun {
+    display: none;
+  }
+
+  :global(:root[data-theme='dark']) .icon-sun {
+    display: block;
+  }
+
+  :global(:root[data-theme='dark']) .icon-moon {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .icon-sun {
+      display: block;
+    }
+
+    :global(:root:not([data-theme='light'])) .icon-moon {
+      display: none;
+    }
+  }
+
+  /* ===========================
+     TITLE PAGE
+  =========================== */
+  .title-page {
+    padding-top: clamp(2.5rem, 7vw, 4.5rem);
+  }
+
+  .kicker {
+    color: var(--gold-text);
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .title-name {
+    margin-top: 0.4rem;
+    font-family: var(--font-display);
+    font-size: clamp(4.25rem, 13vw, 8.75rem);
+    font-weight: 400;
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+  }
+
+  .double-rule {
+    height: 6px;
+    margin-top: 1.25rem;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .title-grid {
+    display: grid;
+    grid-template-columns: var(--rail) minmax(0, 1fr) var(--margin);
+    column-gap: var(--gap);
+    padding-top: 1.75rem;
+  }
+
+  .title-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    font-size: 0.86rem;
+    line-height: 1.35;
+  }
+
+  .title-meta dt {
+    color: var(--ink-3);
+    font-size: 0.62rem;
+    font-weight: 600;
+  }
+
+  .title-meta dd {
+    margin-top: 0.1rem;
+    color: var(--ink-2);
+  }
+
+  .deck {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3.2vw, 2.15rem);
+    line-height: 1.22;
+    color: var(--ink);
+  }
+
+  .deck em {
+    color: var(--gold-text);
+  }
+
+  .title-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0;
+    margin-top: 1.4rem;
+    font-size: 0.95rem;
+  }
+
+  .title-links a:not(:last-child)::after {
+    content: '/';
+    display: inline-block;
+    margin: 0 0.7rem;
+    color: var(--rule);
+  }
+
+  .title-figure {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .portrait {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    padding: 4px;
+    background: var(--paper-2);
+  }
+
+  .portrait img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center 24%;
+    filter: saturate(0.85) contrast(1.02);
+    transition: filter 0.4s ease;
   }
 
-  .hero-name {
-    font-size: 2.1rem;
+  .portrait:hover img {
+    filter: none;
+  }
+
+  .title-figure figcaption {
+    color: var(--ink-3);
+    font-size: 0.82rem;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  .fig-label {
+    font-size: 0.62rem;
+    font-style: normal;
     font-weight: 600;
-    color: var(--nd-blue);
-    line-height: 1.1;
+    color: var(--ink-2);
   }
 
-  .hero-affiliation {
-    margin-top: 0.45rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  .hero-institutions {
+  .seals {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
     margin-top: 0.6rem;
   }
 
-  .hero-institution {
+  .seals a {
     display: block;
-    height: 30px;
-  }
-
-  .hero-institution img {
-    width: auto;
-    height: 100%;
-  }
-
-  .hero-focus {
-    margin-top: 0.65rem;
-    color: var(--text-secondary);
-    line-height: 1.55;
-  }
-
-  .hero-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem 0;
-    margin-top: 0.7rem;
-    font-family: var(--font-sans);
-    font-size: 0.88rem;
-  }
-
-  .hero-links a:not(:last-child)::after {
-    content: '/';
-    margin: 0 0.6rem;
-    color: var(--gray-300);
-  }
-
-  /* ===========================
-     SECTIONS
-  =========================== */
-  .main {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
-  }
-
-  .section {
-    padding: 1.5rem 0 0.5rem;
-    scroll-margin-top: 64px;
-  }
-
-  .section-title,
-  .section-title-row {
-    padding-bottom: 0.3rem;
-    margin-bottom: 0.9rem;
-    border-bottom: 1px solid var(--gray-300);
-  }
-
-  .section > .section-title,
-  .section-title-row {
-    position: relative;
-  }
-
-  .section > .section-title::after,
-  .section-title-row::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -1px;
-    width: 2.25rem;
-    height: 2px;
-    background: var(--nd-gold);
-  }
-
-  .section-title {
-    font-size: 1.32rem;
-    font-weight: 600;
-    color: var(--nd-blue);
-  }
-
-  .section-title-row {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
-  .section-title-row .section-title {
-    padding: 0;
-    margin: 0;
-    border: 0;
-  }
-
-  .prose p {
-    color: var(--text-secondary);
-  }
-
-  .prose p + p {
-    margin-top: 0.6rem;
-  }
-
-  .prose strong {
-    color: var(--text-primary);
-    font-weight: 600;
-  }
-
-  /* ===========================
-     OPPORTUNITIES NOTICE
-  =========================== */
-  .notice {
-    display: flex;
-    gap: 0.75rem;
-    align-items: baseline;
-    margin-top: 0.5rem;
-    padding: 0.75rem 1rem;
-    border: 1px solid rgba(var(--nd-gold-rgb), 0.35);
-    border-left: 3px solid var(--nd-gold);
-    border-radius: 3px;
-    background: rgba(var(--nd-gold-rgb), 0.07);
-    color: var(--text-secondary);
-    font-size: 0.98rem;
-    line-height: 1.55;
-  }
-
-  .notice strong {
-    color: var(--text-primary);
-    font-weight: 600;
-  }
-
-  .notice-dot {
-    flex: 0 0 auto;
-    width: 8px;
-    height: 8px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    background: #2e9d5b;
-    box-shadow: 0 0 0 3px rgba(46, 157, 91, 0.18);
+    opacity: 0.85;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  .seals a:hover {
+    opacity: 1;
     transform: translateY(-1px);
   }
 
-  /* ===========================
-     NEWS
-  =========================== */
-  .dated-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+  .seals img {
+    width: 100%;
+    height: 100%;
   }
 
-  .dated-list li {
+  /* ===========================
+     NOTICE
+  =========================== */
+  .notice {
     display: grid;
-    grid-template-columns: 5.25rem minmax(0, 1fr);
-    gap: 0.75rem;
-    color: var(--text-secondary);
+    margin-top: 2.25rem;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.4rem 1.25rem;
+    align-items: baseline;
+    padding: 0.9rem 0;
+    border-top: 3px double var(--gold);
+    border-bottom: 1px solid var(--gold);
+  }
+
+  .notice-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gold-text);
+    font-size: 0.68rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .notice-dot {
+    position: relative;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--live);
+  }
+
+  .notice-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid var(--live);
+    animation: pulse 2.4s ease-out infinite;
+  }
+
+  @keyframes pulse {
+    from {
+      opacity: 0.8;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.4);
+    }
+  }
+
+  .notice-text {
+    color: var(--ink-2);
+    font-style: italic;
     line-height: 1.55;
   }
 
-  .dated-list-date {
-    color: var(--nd-gold-text);
+  /* ===========================
+     CHAPTERS (shared spacing)
+  =========================== */
+  /* Rule drawn as a background so it stops at the content edge, not the gutter */
+  :global(.chapter) {
+    margin-top: 3rem;
+    padding-top: 2.25rem;
+    background: linear-gradient(var(--rule), var(--rule)) center top / calc(100% - 2 * var(--gutter)) 1px no-repeat;
+  }
+
+  /* ===========================
+     I. ABOUT
+  =========================== */
+  .prose {
+    counter-reset: sidenote;
+    max-width: calc(100% - var(--margin) - var(--gap));
+  }
+
+  .prose p {
+    color: var(--ink-2);
+  }
+
+  .prose p + p {
+    margin-top: 0.85rem;
+  }
+
+  .prose strong {
+    color: var(--ink);
     font-weight: 600;
-    font-family: var(--font-sans);
+  }
+
+  .lede::first-letter {
+    float: left;
+    margin: 0.06em 0.12em 0 0;
+    font-family: var(--font-display);
+    font-size: 4.4em;
+    line-height: 0.78;
+    color: var(--gold);
+  }
+
+  .sn-ref::after {
+    counter-increment: sidenote;
+    content: counter(sidenote);
+    position: relative;
+    top: -0.5em;
+    margin-left: 0.08em;
+    font-size: 0.7em;
+    color: var(--gold-text);
+    font-variant-numeric: lining-nums;
+  }
+
+  .sidenote {
+    float: right;
+    clear: right;
+    width: var(--margin);
+    margin-right: calc(-1 * (var(--margin) + var(--gap)));
+    margin-top: 0.2rem;
+    margin-bottom: 0.75rem;
+    color: var(--ink-3);
     font-size: 0.82rem;
-    padding-top: 0.15rem;
+    line-height: 1.45;
+  }
+
+  .sidenote::before {
+    content: counter(sidenote) '. ';
+    color: var(--gold-text);
+    font-variant-numeric: lining-nums;
+  }
+
+  /* ===========================
+     II. NEWS
+  =========================== */
+  .dispatches {
+    list-style: none;
+    max-width: 46rem;
+  }
+
+  .dispatches li {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.6rem 0;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  .dispatches li:first-child {
+    padding-top: 0;
+  }
+
+  .dispatches li + li {
+    border-top: 1px dotted var(--rule);
+  }
+
+  .dispatch-date {
+    padding-top: 0.2rem;
+    color: var(--gold-text);
+    font-size: 0.68rem;
+    font-weight: 600;
     white-space: nowrap;
   }
 
   /* ===========================
-     RESEARCH
+     III. RESEARCH
   =========================== */
-  .research-list {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .research-area {
+  .area {
     display: grid;
-    grid-template-columns: 9.5rem minmax(0, 1fr);
-    gap: 1.25rem;
-    padding: 0.85rem 0;
+    grid-template-columns: minmax(0, 1fr) var(--margin);
+    column-gap: var(--gap);
+    padding: 1.25rem 0;
   }
 
-  .research-area:first-child {
-    padding-top: 0.2rem;
+  .area:first-child {
+    padding-top: 0;
   }
 
-  .research-area + .research-area {
-    border-top: 1px dotted var(--gray-200);
+  .area + .area {
+    border-top: 1px dotted var(--rule);
   }
 
-  .research-keyword {
+  .area-gloss {
+    grid-column: 2;
+    grid-row: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    padding-top: 0.1rem;
+    gap: 0.15rem;
+    padding-top: 0.15rem;
   }
 
-  .research-index {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--nd-gold-text);
-    font-family: var(--font-sans);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+  .area-num {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    line-height: 0.9;
+    color: var(--gold);
   }
 
-  .research-index::after {
-    content: '';
-    width: 1.25rem;
-    height: 1px;
-    background: var(--nd-gold);
-  }
-
-  .research-keyword-text {
-    color: var(--nd-blue);
-    font-size: 1.12rem;
+  .area-keyword {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
     font-style: italic;
-    font-weight: 600;
-    line-height: 1.25;
+    line-height: 1.15;
+    color: var(--accent);
   }
 
-  .research-body {
+  .area-body {
+    grid-column: 1;
+    grid-row: 1;
     min-width: 0;
   }
 
-  .research-title {
-    font-size: 1.04rem;
+  .area-title {
+    font-size: 1.12rem;
+  }
+
+  .area-text {
+    margin-top: 0.3rem;
+    color: var(--ink-2);
+    line-height: 1.6;
+  }
+
+  .toc {
+    list-style: none;
+    margin-top: 0.7rem;
+    font-size: 0.95rem;
+  }
+
+  .toc li {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4rem;
+    padding: 0.1rem 0;
+  }
+
+  .toc-name {
+    max-width: 78%;
+    line-height: 1.4;
+  }
+
+  .toc-leader {
+    flex: 1 1 1.5rem;
+    min-width: 1.5rem;
+    margin-bottom: 0.4em;
+    border-bottom: 1.5px dotted var(--ink-3);
+    opacity: 0.6;
+  }
+
+  .toc-venue {
+    flex: 0 0 auto;
+    color: var(--ink-3);
+    font-size: 0.66rem;
     font-weight: 600;
-    color: var(--text-primary);
-  }
-
-  .research-text {
-    margin-top: 0.2rem;
-    color: var(--text-secondary);
-    line-height: 1.55;
-  }
-
-  .research-works {
-    margin-top: 0.25rem;
-    font-size: 0.92rem;
-    line-height: 1.55;
-  }
-
-  .research-works-label {
-    color: var(--text-primary);
-    font-style: italic;
-    margin-right: 0.3rem;
-  }
-
-  .research-venue,
-  .research-works .sep {
-    color: var(--text-muted);
+    line-height: 1.9;
   }
 
   /* ===========================
-     PUBLICATIONS
+     IV. PUBLICATIONS
   =========================== */
+  .pub-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+  }
+
   .pub-filter {
     display: none;
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 600;
   }
 
   :global(.js) .pub-filter {
@@ -1120,37 +1444,52 @@ const service = [
   }
 
   .pub-filter-btn {
-    padding: 0.15rem 0.6rem;
-    border: 1px solid var(--gray-300);
-    background: var(--bg-primary);
-    color: var(--text-secondary);
-    font: inherit;
+    padding: 0.1rem 0;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: none;
+    color: var(--ink-3);
+    letter-spacing: inherit;
+    text-transform: inherit;
     cursor: pointer;
   }
 
-  .pub-filter-btn + .pub-filter-btn {
-    border-left: 0;
+  .pub-filter-btn:hover {
+    color: var(--ink);
   }
 
   .pub-filter-btn[aria-pressed='true'] {
-    background: var(--nd-blue);
-    border-color: var(--nd-blue);
-    color: #fff;
+    color: var(--ink);
+    border-bottom-color: var(--gold);
+  }
+
+  .pub-filter-sep {
+    color: var(--rule);
   }
 
   .pub-legend {
-    margin: -0.35rem 0 0.2rem;
-    color: var(--text-muted);
+    color: var(--ink-3);
     font-size: 0.88rem;
     font-style: italic;
   }
 
   .pub-year-label {
-    margin: 0.7rem 0 0;
-    color: var(--text-muted);
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.6rem 0 0.4rem;
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-3);
+  }
+
+  .pub-year-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
   }
 
   .pub-entries {
@@ -1159,40 +1498,14 @@ const service = [
 
   .pub {
     display: grid;
-    grid-template-columns: 4.25rem minmax(0, 1fr);
-    gap: 0.9rem;
-    align-items: start;
-    padding: 0.65rem 0;
+    grid-template-columns: minmax(0, 1fr) var(--margin);
+    column-gap: var(--gap);
+    padding: 0.85rem 0;
     line-height: 1.45;
   }
 
-  .pub-badge {
-    margin-top: 0.15rem;
-    padding: 0.1rem 0.25rem;
-    border: 1px solid var(--nd-blue);
-    border-radius: 3px;
-    background: var(--nd-blue);
-    color: #fff;
-    font-family: var(--font-sans);
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    line-height: 1.5;
-    text-align: center;
-  }
-
-  .pub-badge--preprint {
-    background: transparent;
-    border-color: var(--gray-300);
-    color: var(--text-muted);
-  }
-
-  .pub-body {
-    min-width: 0;
-  }
-
   .pub + .pub {
-    border-top: 1px dotted var(--gray-200);
+    border-top: 1px dotted var(--rule);
   }
 
   :global(.js) .pub-list[data-filter='selected'] .pub:not(.pub--selected),
@@ -1200,246 +1513,476 @@ const service = [
     display: none;
   }
 
+  /* Re-draw separators so the first visible entry in Selected view has none */
+  :global(.js) .pub-list[data-filter='selected'] .pub--selected {
+    border-top: 0;
+  }
+
+  :global(.js) .pub-list[data-filter='selected'] .pub--selected ~ .pub--selected {
+    border-top: 1px dotted var(--rule);
+  }
+
+  .pub-main {
+    min-width: 0;
+  }
+
   .pub-title {
+    font-size: 1.05rem;
     font-weight: 600;
-    color: var(--text-primary);
+    line-height: 1.35;
   }
 
   .pub-title a {
-    color: var(--link);
+    text-decoration-color: transparent;
+  }
+
+  .pub-title a:hover {
+    text-decoration-color: currentColor;
   }
 
   .pub-authors {
-    margin-top: 0.1rem;
-    color: var(--text-secondary);
-    font-size: 0.94rem;
+    margin-top: 0.2rem;
+    color: var(--ink-2);
+    font-size: 0.93rem;
   }
 
   .pub-authors strong {
-    color: var(--text-primary);
+    color: var(--ink);
     font-weight: 600;
-  }
-
-  .pub-venue {
-    margin-top: 0.1rem;
-    font-size: 0.94rem;
-    color: var(--text-secondary);
-  }
-
-  .pub-venue-short {
-    color: var(--nd-blue);
-    font-weight: 600;
-  }
-
-  .pub-venue-full::before,
-  .pub-note::before {
-    content: ' · ';
-    font-style: normal;
-    color: var(--text-muted);
-  }
-
-  .pub-note {
-    color: var(--text-primary);
+    text-decoration: underline;
+    text-decoration-color: rgba(var(--gold-rgb), 0.7);
+    text-underline-offset: 0.2em;
   }
 
   .pub-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem;
+    align-items: baseline;
+    gap: 0.2rem 0;
     margin-top: 0.35rem;
   }
 
   .pub-link {
-    padding: 0.05rem 0.45rem;
-    border: 1px solid var(--gray-300);
-    border-radius: 3px;
-    background: transparent;
+    padding: 0;
+    border: 0;
+    background: none;
     color: var(--link);
-    font-family: var(--font-sans);
-    font-size: 0.72rem;
-    line-height: 1.6;
+    font-size: 0.66rem;
+    font-weight: 600;
+    text-decoration: none;
     cursor: pointer;
+  }
+
+  .pub-link:not(:last-child)::after {
+    content: '·';
+    display: inline-block;
+    margin: 0 0.55rem;
+    color: var(--ink-3);
   }
 
   .pub-link:hover,
   .pub-bib-toggle[aria-expanded='true'] {
-    border-color: var(--link);
-    background: var(--gray-50);
-    text-decoration: none;
+    color: var(--gold-text);
   }
 
   .pub-bib {
     position: relative;
-    margin-top: 0.45rem;
+    margin-top: 0.55rem;
   }
 
   .pub-bib pre {
     white-space: pre-wrap;
     overflow-wrap: anywhere;
-    padding: 0.65rem 4rem 0.65rem 0.8rem;
-    border: 1px solid var(--gray-200);
-    border-radius: 3px;
-    background: var(--gray-50);
-    color: var(--text-primary);
-    font-size: 0.75rem;
-    line-height: 1.5;
+    padding: 0.75rem 4.25rem 0.75rem 0.9rem;
+    border-left: 2px solid var(--gold);
+    background: var(--paper-2);
+    color: var(--ink);
+    font-size: 0.74rem;
+    line-height: 1.55;
   }
 
   .pub-bib-copy {
     position: absolute;
-    top: 0.4rem;
-    right: 0.4rem;
-    padding: 0.05rem 0.45rem;
-    border: 1px solid var(--gray-300);
-    border-radius: 3px;
-    background: var(--bg-primary);
-    color: var(--text-secondary);
-    font-family: var(--font-sans);
+    top: 0.45rem;
+    right: 0.45rem;
+    padding: 0.05rem 0.5rem;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    background: var(--paper);
+    color: var(--ink-2);
     font-size: 0.7rem;
     cursor: pointer;
   }
 
+  .pub-bib-copy:hover {
+    border-color: var(--gold);
+  }
+
+  .pub-venue {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding-top: 0.2rem;
+    padding-left: 0.85rem;
+    border-left: 1px solid var(--rule);
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .pub-venue-short {
+    color: var(--gold-text);
+    font-size: 0.68rem;
+    font-weight: 600;
+  }
+
+  .pub-venue--preprint .pub-venue-short {
+    color: var(--ink-3);
+  }
+
+  .pub-venue-full {
+    color: var(--ink-3);
+    font-style: italic;
+  }
+
+  .pub-note {
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  .pub-note::before {
+    content: '— ';
+    color: var(--gold-text);
+  }
+
   /* ===========================
-     CV-STYLE LISTS
+     V. CURRICULUM VITAE
   =========================== */
-  .cv-list {
+  .cv {
+    display: flex;
+    flex-direction: column;
+    gap: 1.9rem;
+    max-width: 46rem;
+  }
+
+  .cv-block {
+    scroll-margin-top: 4rem;
+  }
+
+  .cv-label {
+    margin-bottom: 0.7rem;
+    color: var(--gold-text);
+    font-size: 0.68rem;
+  }
+
+  .cv-entries {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.75rem;
   }
 
-  .cv-item {
+  .cv-line {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    line-height: 1.5;
-  }
-
-  .cv-main {
-    min-width: 0;
-  }
-
-  .cv-heading {
-    color: var(--text-primary);
+    align-items: flex-end;
+    gap: 0.5rem;
+    line-height: 1.45;
   }
 
   .cv-heading strong {
     font-weight: 600;
   }
 
-  .cv-detail {
-    color: var(--text-secondary);
-    font-size: 0.94rem;
+  .cv-leader {
+    flex: 1 1 1.5rem;
+    min-width: 1.5rem;
+    margin-bottom: 0.4em;
+    border-bottom: 1.5px dotted var(--ink-3);
+    opacity: 0.6;
   }
 
   .cv-date {
     flex: 0 0 auto;
-    color: var(--text-muted);
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
+    color: var(--ink-3);
+    font-size: 0.66rem;
+    font-weight: 600;
+    line-height: 2;
     white-space: nowrap;
   }
 
+  .cv-detail {
+    margin-top: 0.1rem;
+    color: var(--ink-2);
+    font-size: 0.93rem;
+  }
+
   /* ===========================
-     FOOTER
+     COLOPHON
   =========================== */
-  .footer {
+  .colophon {
+    margin-top: 4rem;
+    margin-bottom: 0;
+    padding-top: 1.75rem;
+    padding-bottom: 3rem;
+    background:
+      linear-gradient(var(--rule), var(--rule)) center 0 / calc(100% - 2 * var(--gutter)) 1px no-repeat,
+      linear-gradient(var(--rule), var(--rule)) center 4px / calc(100% - 2 * var(--gutter)) 1px no-repeat;
+    color: var(--ink-3);
+    font-size: 0.88rem;
+  }
+
+  .colophon-mark {
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--gold);
+  }
+
+  .colophon-label {
+    margin-bottom: 0.35rem;
+    color: var(--ink-2);
+    font-size: 0.66rem;
+    font-weight: 600;
+  }
+
+  .colophon-body p + p {
+    margin-top: 0.4rem;
+  }
+
+  .colophon-meta {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.25rem 1rem;
-    max-width: var(--container-max);
-    margin: 2rem auto 0;
-    padding: 1.25rem var(--container-padding) 2rem;
-    border-top: 1px solid var(--border);
-    color: var(--text-muted);
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
+    gap: 0.2rem 1.25rem;
   }
 
   /* ===========================
      RESPONSIVE
   =========================== */
-  @media (max-width: 640px) {
+  @media (max-width: 1099px) {
+    .title-grid {
+      grid-template-columns: var(--rail) minmax(0, 1fr) 10rem;
+    }
+
+    /* Margin column folds into the text column */
+    .prose {
+      max-width: none;
+    }
+
+    /* Sidenotes duplicate the CV chapter; drop them rather than break the paragraph */
+    .sidenote,
+    .sn-ref {
+      display: none;
+    }
+
+    .area,
+    .pub {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .area-gloss {
+      grid-column: 1;
+      grid-row: auto;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .area-num {
+      font-size: 1.5rem;
+    }
+
+    .area-body {
+      grid-row: auto;
+    }
+
+    .pub-main {
+      display: contents;
+    }
+
+    .pub-title { order: 1; }
+    .pub-authors { order: 2; }
+    .pub-venue { order: 3; }
+    .pub-links { order: 4; }
+    .pub-bib { order: 5; }
+
+    .pub-venue {
+      display: block;
+      margin-top: 0.15rem;
+      padding: 0;
+      border: 0;
+      font-size: 0.88rem;
+    }
+
+    .pub-venue > * + *::before {
+      content: ' · ';
+      color: var(--ink-3);
+      font-style: normal;
+    }
+
+    .pub-note::before {
+      content: ' · ';
+    }
+  }
+
+  @media (max-width: 759px) {
+    .masthead-issue,
+    .masthead-place {
+      display: none;
+    }
+
+    .masthead-inner {
+      justify-content: center;
+    }
+
+    .nav-inner {
+      gap: 0.75rem;
+    }
+
     .nav-brand {
       display: none;
     }
 
-    .nav-inner {
-      justify-content: center;
-    }
-
     .nav-links {
-      gap: 1rem;
+      margin-left: 0;
+      gap: 1.1rem;
     }
 
-    /* News sits right under the hero, so drop it to keep the bar on one line */
-    .nav-link[href='#news'] {
+    .nav-link--pdf,
+    .nav-num,
+    .nav-label-long,
+    .nav-link[href='#about'] {
       display: none;
     }
 
-    .hero {
-      grid-template-columns: 104px minmax(0, 1fr);
-      gap: 1rem;
-      padding-top: calc(52px + 1.5rem);
+    .nav-label-short {
+      display: inline;
     }
 
-    .hero-name {
-      font-size: 1.7rem;
+    .theme-toggle {
+      margin-left: auto;
     }
 
-    .hero-info {
-      display: contents;
+    .title-grid {
+      grid-template-columns: minmax(0, 1fr) 7rem;
+      column-gap: 1.25rem;
+      row-gap: 1.25rem;
     }
 
-    .hero-avatar {
-      grid-row: span 3;
-    }
-
-    .hero-name,
-    .hero-affiliation,
-    .hero-institutions {
-      grid-column: 2;
-    }
-
-    .hero-focus,
-    .hero-links {
+    .title-main {
       grid-column: 1 / -1;
+      grid-row: 2;
     }
 
-    .dated-list li {
+    .title-meta {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .title-figure {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .title-figure figcaption {
+      font-size: 0.75rem;
+    }
+
+    .seals a {
+      width: 24px;
+      height: 24px;
+    }
+
+    .notice {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    :global(.chapter) {
+      margin-top: 2.25rem;
+      padding-top: 0;
+      background: none;
+    }
+
+    .dispatches li {
       grid-template-columns: minmax(0, 1fr);
       gap: 0;
     }
 
-    .cv-item {
-      flex-direction: column;
-      gap: 0.1rem;
+    .toc li,
+    .cv-line {
+      flex-wrap: wrap;
+      align-items: baseline;
     }
 
-    .pub,
-    .research-area {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 0.3rem;
+    .toc-name {
+      max-width: none;
     }
 
-    .research-keyword {
-      flex-direction: row;
-      align-items: center;
-      gap: 0.6rem;
+    .toc-leader,
+    .cv-leader {
+      display: none;
     }
 
-    .pub-badge {
-      justify-self: start;
-      margin-top: 0;
-      padding: 0.05rem 0.4rem;
+    .toc-venue::before,
+    .cv-date::before {
+      content: '— ';
+    }
+
+    .colophon {
+      padding-top: 1.5rem;
+      background:
+        linear-gradient(var(--rule), var(--rule)) center 0 / calc(100% - 2 * var(--gutter)) 1px no-repeat,
+        linear-gradient(var(--rule), var(--rule)) center 4px / calc(100% - 2 * var(--gutter)) 1px no-repeat;
+    }
+
+    .colophon-mark {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  /* ===========================
+     PRINT
+  =========================== */
+  @media print {
+    .progress,
+    .masthead,
+    .nav,
+    .pub-filter,
+    .pub-links,
+    .notice,
+    .theme-toggle {
+      display: none !important;
+    }
+
+    :global(.js) .pub-list[data-filter='selected'] .pub,
+    :global(.js) .pub-list[data-filter='selected'] .pub-year {
+      display: grid !important;
+    }
+
+    :global(.js) .pub-list[data-filter='selected'] .pub-year {
+      display: block !important;
+    }
+
+    .chapter-head {
+      position: static;
     }
   }
 </style>
 
 <script>
+  const root = document.documentElement;
+
+  // Theme toggle (respects system preference until the visitor chooses)
+  const darkQuery = matchMedia('(prefers-color-scheme: dark)');
+  document.querySelector('.theme-toggle')?.addEventListener('click', () => {
+    const current = root.dataset.theme ?? (darkQuery.matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      // Storage unavailable (private mode); the choice lasts for this page view.
+    }
+  });
+
   // Publication filter (Selected / All)
   const pubList = document.querySelector<HTMLElement>('.pub-list');
   const filterButtons = document.querySelectorAll<HTMLButtonElement>('.pub-filter-btn');
@@ -1475,31 +2018,47 @@ const service = [
     });
   });
 
-  // Active nav link on scroll; sections without a nav link count toward the one above them
+  // Show the name in the nav once the title-page name scrolls away
+  const nav = document.querySelector<HTMLElement>('.nav')!;
+  const titleName = document.querySelector('.title-name');
+  if (titleName) {
+    new IntersectionObserver(([entry]) => {
+      nav.classList.toggle('is-condensed', !entry.isIntersecting);
+    }, { rootMargin: '-48px 0px 0px 0px' }).observe(titleName);
+  }
+
+  // Reading progress + active nav link
   const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('.nav-link[href^="#"]')];
   const sections = navLinks
     .map((link) => document.querySelector<HTMLElement>(link.getAttribute('href')!))
     .filter((section): section is HTMLElement => section !== null);
 
-  const updateActiveLink = () => {
-    const atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
-    let current = '';
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    root.style.setProperty('--progress', String(max > 0 ? Math.min(scrollY / max, 1) : 0));
 
+    const atBottom = scrollY >= max - 2;
+    let current = '';
     if (atBottom) {
       current = sections[sections.length - 1]?.id ?? '';
     } else {
       sections.forEach((section) => {
-        if (scrollY >= section.offsetTop - 160) {
-          current = section.id;
-        }
+        if (scrollY >= section.offsetTop - 160) current = section.id;
       });
     }
-
     navLinks.forEach((link) => {
       link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
     });
   };
 
-  window.addEventListener('scroll', updateActiveLink, { passive: true });
-  updateActiveLink();
+  addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+  addEventListener('resize', update);
+  update();
 </script>
