@@ -358,7 +358,6 @@ const toBibtex = (paper: Publication) => {
 
 const buildDate = new Date();
 const lastUpdated = buildDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-const issue = `Vol. ${buildDate.getFullYear()} · No. ${buildDate.getMonth() + 1}`;
 
 const chapters = [
   { id: 'about', num: 'I', title: 'About' },
@@ -448,16 +447,6 @@ const service = [
 ---
 
 <Layout title="Han Bao | Trustworthy AI and LLM Agents">
-  <div class="progress" aria-hidden="true"><span class="progress-bar"></span></div>
-
-  <div class="masthead">
-    <div class="wrap masthead-inner">
-      <span class="masthead-issue">{issue}</span>
-      <span class="masthead-title">Notes on Trustworthy AI &amp; LLM Agents</span>
-      <span class="masthead-place">Notre Dame, Indiana</span>
-    </div>
-  </div>
-
   <nav class="nav" aria-label="Primary navigation">
     <div class="wrap nav-inner">
       <a href="#top" class="nav-brand">Han Bao</a>
@@ -489,7 +478,7 @@ const service = [
   <header class="wrap title-page" id="top">
     <p class="kicker">Ph.D. Student <span aria-hidden="true">·</span> Computer Science &amp; Engineering</p>
     <h1 class="title-name">Han Bao</h1>
-    <div class="double-rule" aria-hidden="true"></div>
+    <div class="title-rule" aria-hidden="true"></div>
 
     <div class="title-grid">
       <dl class="title-meta">
@@ -509,7 +498,7 @@ const service = [
 
       <div class="title-main">
         <p class="deck">
-          I study reliable and aligned <em>LLM agents</em>, with an emphasis on failure diagnosis,
+          I study reliable and aligned LLM agents, with an emphasis on failure diagnosis,
           deployment-time risks, and trustworthy evaluation.
         </p>
         <p class="title-links" id="contact">
@@ -534,7 +523,6 @@ const service = [
           <Image src={portrait} alt="Portrait of Han Bao" widths={[192, 384]} sizes="192px" format="webp" loading="eager" />
         </div>
         <figcaption>
-          <span class="fig-label">Fig. 1.</span> The author.
           <span class="seals">
             <a href="https://www.nd.edu/" target="_blank" rel="noopener" title="University of Notre Dame">
               <Image src={ndLogo} alt="University of Notre Dame" width={56} height={56} format="webp" />
@@ -551,7 +539,7 @@ const service = [
   <main>
     <Chapter id="about" num="I" title="About">
       <div class="prose">
-        <p class="lede">
+        <p>
           I am a <strong>first-year Ph.D. student</strong> at the
           <a href="https://www.nd.edu/" target="_blank" rel="noopener">University of Notre Dame</a>,
           advised by
@@ -796,11 +784,10 @@ const service = [
   </main>
 
   <footer class="wrap chapter colophon">
-    <div class="colophon-mark" aria-hidden="true">❦</div>
+    <div aria-hidden="true"></div>
     <div class="colophon-body">
-      <p class="colophon-label">Colophon</p>
       <p>
-        Set in Source Serif 4 and Instrument Serif. Built with Astro and published on GitHub Pages.
+        Set in Source Serif 4. Built with Astro and published on GitHub Pages.
         Last revised {lastUpdated}.
       </p>
       <p class="colophon-meta">
@@ -815,7 +802,6 @@ const service = [
 <style>
   /* Small-caps label used across the page */
   .kicker,
-  .masthead-inner,
   .nav-link,
   .title-meta dt,
   .notice-label,
@@ -825,59 +811,15 @@ const service = [
   .pub-link,
   .pub-venue-short,
   .cv-label,
-  .cv-date,
-  .colophon-label,
-  .fig-label {
+  .cv-date {
     font-variant-numeric: lining-nums;
     letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
   /* ===========================
-     READING PROGRESS
+     NAV
   =========================== */
-  .progress {
-    position: fixed;
-    inset: 0 0 auto;
-    height: 2px;
-    z-index: 200;
-    pointer-events: none;
-  }
-
-  .progress-bar {
-    display: block;
-    height: 100%;
-    background: var(--gold);
-    transform: scaleX(var(--progress, 0));
-    transform-origin: left;
-  }
-
-  /* ===========================
-     MASTHEAD + NAV
-  =========================== */
-  .masthead {
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .masthead-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    height: 2.1rem;
-    color: var(--ink-3);
-    font-size: 0.66rem;
-  }
-
-  .masthead-title {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-style: italic;
-    letter-spacing: 0;
-    text-transform: none;
-    color: var(--ink-2);
-  }
-
   .nav {
     position: sticky;
     top: 0;
@@ -896,8 +838,8 @@ const service = [
 
   .nav-brand {
     flex: 0 0 auto;
-    font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: 1.02rem;
+    font-weight: 600;
     color: var(--accent);
     text-decoration: none;
     opacity: 0;
@@ -940,10 +882,8 @@ const service = [
   }
 
   .nav-num {
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-style: italic;
-    font-weight: 400;
+    font-size: 0.7rem;
+    font-weight: 600;
     letter-spacing: 0;
     text-transform: none;
     color: var(--gold-text);
@@ -1024,7 +964,7 @@ const service = [
      TITLE PAGE
   =========================== */
   .title-page {
-    padding-top: clamp(2.5rem, 7vw, 4.5rem);
+    padding-top: clamp(2.25rem, 5vw, 3.5rem);
   }
 
   .kicker {
@@ -1034,20 +974,17 @@ const service = [
   }
 
   .title-name {
-    margin-top: 0.4rem;
-    font-family: var(--font-display);
-    font-size: clamp(4.25rem, 13vw, 8.75rem);
-    font-weight: 400;
-    line-height: 0.88;
-    letter-spacing: -0.02em;
+    margin-top: 0.35rem;
+    font-size: clamp(2.4rem, 5.5vw, 3.2rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
     color: var(--accent);
   }
 
-  .double-rule {
-    height: 6px;
-    margin-top: 1.25rem;
-    border-top: 2px solid var(--ink);
-    border-bottom: 1px solid var(--ink);
+  .title-rule {
+    margin-top: 1.1rem;
+    border-top: 1px solid var(--rule);
   }
 
   .title-grid {
@@ -1077,21 +1014,17 @@ const service = [
   }
 
   .deck {
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 3.2vw, 2.15rem);
-    line-height: 1.22;
-    color: var(--ink);
-  }
-
-  .deck em {
-    color: var(--gold-text);
+    max-width: 36rem;
+    font-size: 1.18rem;
+    line-height: 1.6;
+    color: var(--ink-2);
   }
 
   .title-links {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem 0;
-    margin-top: 1.4rem;
+    margin-top: 1rem;
     font-size: 0.95rem;
   }
 
@@ -1111,9 +1044,7 @@ const service = [
   .portrait {
     aspect-ratio: 4 / 5;
     overflow: hidden;
-    border: 1px solid var(--rule);
-    padding: 4px;
-    background: var(--paper-2);
+    border-radius: 2px;
   }
 
   .portrait img {
@@ -1121,32 +1052,15 @@ const service = [
     height: 100%;
     object-fit: cover;
     object-position: center 24%;
-    filter: saturate(0.85) contrast(1.02);
-    transition: filter 0.4s ease;
-  }
-
-  .portrait:hover img {
-    filter: none;
   }
 
   .title-figure figcaption {
-    color: var(--ink-3);
-    font-size: 0.82rem;
-    font-style: italic;
-    line-height: 1.4;
-  }
-
-  .fig-label {
-    font-size: 0.62rem;
-    font-style: normal;
-    font-weight: 600;
-    color: var(--ink-2);
+    line-height: 1;
   }
 
   .seals {
     display: flex;
     gap: 0.5rem;
-    margin-top: 0.6rem;
   }
 
   .seals a {
@@ -1173,13 +1087,13 @@ const service = [
   =========================== */
   .notice {
     display: grid;
-    margin-top: 2.25rem;
+    margin-top: 1.75rem;
     grid-template-columns: auto minmax(0, 1fr);
     gap: 0.4rem 1.25rem;
     align-items: baseline;
-    padding: 0.9rem 0;
-    border-top: 3px double var(--gold);
-    border-bottom: 1px solid var(--gold);
+    padding: 0.7rem 0.9rem;
+    border-left: 2px solid var(--gold);
+    background: rgba(var(--gold-rgb), 0.07);
   }
 
   .notice-label {
@@ -1200,29 +1114,8 @@ const service = [
     background: var(--live);
   }
 
-  .notice-dot::after {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    border: 1px solid var(--live);
-    animation: pulse 2.4s ease-out infinite;
-  }
-
-  @keyframes pulse {
-    from {
-      opacity: 0.8;
-      transform: scale(0.5);
-    }
-    to {
-      opacity: 0;
-      transform: scale(1.4);
-    }
-  }
-
   .notice-text {
     color: var(--ink-2);
-    font-style: italic;
     line-height: 1.55;
   }
 
@@ -1255,15 +1148,6 @@ const service = [
   .prose strong {
     color: var(--ink);
     font-weight: 600;
-  }
-
-  .lede::first-letter {
-    float: left;
-    margin: 0.06em 0.12em 0 0;
-    font-family: var(--font-display);
-    font-size: 4.4em;
-    line-height: 0.78;
-    color: var(--gold);
   }
 
   .sn-ref::after {
@@ -1356,17 +1240,17 @@ const service = [
   }
 
   .area-num {
-    font-family: var(--font-display);
-    font-size: 2.6rem;
-    line-height: 0.9;
-    color: var(--gold);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    font-variant-numeric: lining-nums;
+    color: var(--gold-text);
   }
 
   .area-keyword {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-style: italic;
-    line-height: 1.15;
+    line-height: 1.3;
     color: var(--accent);
   }
 
@@ -1477,11 +1361,10 @@ const service = [
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin: 1.6rem 0 0.4rem;
-    font-family: var(--font-display);
-    font-size: 1.9rem;
-    font-style: italic;
-    font-weight: 400;
+    margin: 1.5rem 0 0.3rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-variant-numeric: lining-nums;
     color: var(--ink-3);
   }
 
@@ -1723,24 +1606,9 @@ const service = [
     margin-bottom: 0;
     padding-top: 1.75rem;
     padding-bottom: 3rem;
-    background:
-      linear-gradient(var(--rule), var(--rule)) center 0 / calc(100% - 2 * var(--gutter)) 1px no-repeat,
-      linear-gradient(var(--rule), var(--rule)) center 4px / calc(100% - 2 * var(--gutter)) 1px no-repeat;
+    background: linear-gradient(var(--rule), var(--rule)) center 0 / calc(100% - 2 * var(--gutter)) 1px no-repeat;
     color: var(--ink-3);
     font-size: 0.88rem;
-  }
-
-  .colophon-mark {
-    font-size: 1.6rem;
-    line-height: 1;
-    color: var(--gold);
-  }
-
-  .colophon-label {
-    margin-bottom: 0.35rem;
-    color: var(--ink-2);
-    font-size: 0.66rem;
-    font-weight: 600;
   }
 
   .colophon-body p + p {
@@ -1786,9 +1654,6 @@ const service = [
       margin-bottom: 0.25rem;
     }
 
-    .area-num {
-      font-size: 1.5rem;
-    }
 
     .area-body {
       grid-row: auto;
@@ -1824,15 +1689,6 @@ const service = [
   }
 
   @media (max-width: 759px) {
-    .masthead-issue,
-    .masthead-place {
-      display: none;
-    }
-
-    .masthead-inner {
-      justify-content: center;
-    }
-
     .nav-inner {
       gap: 0.75rem;
     }
@@ -1882,10 +1738,6 @@ const service = [
       grid-row: 1;
     }
 
-    .title-figure figcaption {
-      font-size: 0.75rem;
-    }
-
     .seals a {
       width: 24px;
       height: 24px;
@@ -1928,13 +1780,7 @@ const service = [
 
     .colophon {
       padding-top: 1.5rem;
-      background:
-        linear-gradient(var(--rule), var(--rule)) center 0 / calc(100% - 2 * var(--gutter)) 1px no-repeat,
-        linear-gradient(var(--rule), var(--rule)) center 4px / calc(100% - 2 * var(--gutter)) 1px no-repeat;
-    }
-
-    .colophon-mark {
-      margin-bottom: 0.5rem;
+      background: linear-gradient(var(--rule), var(--rule)) center 0 / calc(100% - 2 * var(--gutter)) 1px no-repeat;
     }
   }
 
@@ -1942,8 +1788,6 @@ const service = [
      PRINT
   =========================== */
   @media print {
-    .progress,
-    .masthead,
     .nav,
     .pub-filter,
     .pub-links,
@@ -2027,7 +1871,7 @@ const service = [
     }, { rootMargin: '-48px 0px 0px 0px' }).observe(titleName);
   }
 
-  // Reading progress + active nav link
+  // Active nav link
   const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('.nav-link[href^="#"]')];
   const sections = navLinks
     .map((link) => document.querySelector<HTMLElement>(link.getAttribute('href')!))
@@ -2037,7 +1881,6 @@ const service = [
   const update = () => {
     ticking = false;
     const max = document.documentElement.scrollHeight - innerHeight;
-    root.style.setProperty('--progress', String(max > 0 ? Math.min(scrollY / max, 1) : 0));
 
     const atBottom = scrollY >= max - 2;
     let current = '';
