@@ -43,8 +43,37 @@ const { id, num, title } = Astro.props;
     color: var(--ink);
   }
 
+  /* Short gold rule that draws in when the chapter enters the viewport */
+  .chapter-title::after {
+    content: '';
+    display: block;
+    width: 1.5rem;
+    height: 2px;
+    margin-top: 0.55rem;
+    background: var(--gold);
+    transform-origin: left;
+    transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s;
+  }
+
   .chapter-body {
     min-width: 0;
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  :global(html.js) .chapter:not(.is-in) .chapter-title::after {
+    transform: scaleX(0);
+  }
+
+  :global(html.js) .chapter:not(.is-in) .chapter-body {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  @media print {
+    .chapter-body {
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 
   @media (max-width: 759px) {
@@ -60,6 +89,10 @@ const { id, num, title } = Astro.props;
 
     .chapter-num {
       font-size: 1.1rem;
+    }
+
+    .chapter-title::after {
+      display: none;
     }
   }
 </style>
