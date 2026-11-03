@@ -438,20 +438,6 @@ const pubKeyFor = (name: string) => {
 };
 researchAreas.forEach((area) => area.works.forEach((work) => (work.key = pubKeyFor(work.name))));
 
-const isLead = (p: Publication) => p.authors[0].me || p.authors.some((a) => a.me && a.equal);
-const stats = [
-  { value: publications.length, label: 'Papers' },
-  { value: publications.filter((p) => p.kind !== 'preprint').length, label: 'Peer-reviewed' },
-  { value: publications.filter(isLead).length, label: 'First / co-first author' },
-];
-const venues = [
-  ...new Set(
-    publications
-      .filter((p) => p.kind !== 'preprint')
-      .map((p) => p.venue.replace(/ \d{4}.*$/, '').replace(/ (Findings|Demo)$/, '')),
-  ),
-];
-
 const nowPhrases = [
   'diagnosing how LLM agents break down under input faults',
   'studying why alignment breaks at the edge of deployment',
@@ -618,18 +604,6 @@ const service = [
       </figure>
     </div>
 
-    <div class="stats">
-      {stats.map((stat) => (
-        <div class="stat">
-          <span class="stat-num" data-count={stat.value}>{stat.value}</span>
-          <span class="stat-label">{stat.label}</span>
-        </div>
-      ))}
-      <div class="stat stat--venues">
-        <span class="stat-venues">{venues.join(' · ')}</span>
-        <span class="stat-label">Published at</span>
-      </div>
-    </div>
   </header>
 
   <main>
@@ -2175,57 +2149,6 @@ const service = [
   }
 
   /* ===========================
-     STATS
-  =========================== */
-  .stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem 2.75rem;
-    margin-top: 2.25rem;
-    margin-left: calc(var(--rail) + var(--gap));
-  }
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .stat::before {
-    content: '';
-    width: 1.25rem;
-    height: 2px;
-    margin-bottom: 0.6rem;
-    background: var(--gold);
-  }
-
-  .stat-num,
-  .stat-venues {
-    color: var(--accent);
-    font-weight: 600;
-    font-variant-numeric: lining-nums tabular-nums;
-  }
-
-  .stat-num {
-    font-size: 2rem;
-    line-height: 1;
-  }
-
-  .stat-venues {
-    font-size: 0.98rem;
-    line-height: 2rem;
-    letter-spacing: 0.03em;
-  }
-
-  .stat-label {
-    margin-top: 0.4rem;
-    color: var(--ink-3);
-    font-size: 0.62rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  /* ===========================
      HIGHLIGHTER
   =========================== */
   mark.hl {
@@ -2656,19 +2579,6 @@ const service = [
       display: none;
     }
 
-    .stats {
-      margin-left: 0;
-      gap: 1.1rem 1.75rem;
-    }
-
-    .stat-num {
-      font-size: 1.65rem;
-    }
-
-    .stat--venues {
-      flex-basis: 100%;
-    }
-
     .to-top {
       width: 36px;
       height: 36px;
@@ -3008,21 +2918,6 @@ const service = [
         }
       }
     })();
-  }
-
-  // Count-up for the stats row
-  if (!reducedMotion) {
-    document.querySelectorAll<HTMLElement>('.stat-num[data-count]').forEach((el) => {
-      const target = Number(el.dataset.count);
-      el.textContent = '0';
-      const start = performance.now() + 250;
-      const tick = (now: number) => {
-        const t = Math.max(0, Math.min((now - start) / 1100, 1));
-        el.textContent = String(Math.round(target * (1 - Math.pow(1 - t, 3))));
-        if (t < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    });
   }
 
   // Reveal chapters and draw highlighter marks as they scroll into view
