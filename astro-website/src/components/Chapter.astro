@@ -12,6 +12,7 @@ const { id, num, title } = Astro.props;
   <header class="chapter-head">
     <span class="chapter-num" aria-hidden="true">{num}</span>
     <h2 class="chapter-title" id={`${id}-title`}>{title}</h2>
+    <span class="chapter-progress" aria-hidden="true"><span class="chapter-progress-fill"></span></span>
   </header>
   <div class="chapter-body">
     <slot />
@@ -43,16 +44,23 @@ const { id, num, title } = Astro.props;
     color: var(--ink);
   }
 
-  /* Short gold rule that draws in when the chapter enters the viewport */
-  .chapter-title::after {
-    content: '';
+  /* Reading progress for this chapter: a short track that fills with gold as you read */
+  .chapter-progress {
     display: block;
-    width: 1.5rem;
+    width: 4.5rem;
     height: 2px;
-    margin-top: 0.55rem;
+    margin-top: 0.2rem;
+    background: var(--rule);
+    overflow: hidden;
+  }
+
+  .chapter-progress-fill {
+    display: block;
+    height: 100%;
     background: var(--gold);
+    transform: scaleX(calc(0.3 + 0.7 * var(--read, 0)));
     transform-origin: left;
-    transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s;
+    transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
   .chapter-body {
@@ -60,7 +68,7 @@ const { id, num, title } = Astro.props;
     transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
-  :global(html.js) .chapter:not(.is-in) .chapter-title::after {
+  :global(html.js) .chapter:not(.is-in) .chapter-progress-fill {
     transform: scaleX(0);
   }
 
@@ -91,7 +99,7 @@ const { id, num, title } = Astro.props;
       font-size: 1.1rem;
     }
 
-    .chapter-title::after {
+    .chapter-progress {
       display: none;
     }
   }
