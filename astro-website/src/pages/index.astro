@@ -2,9 +2,20 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Chapter from '../components/Chapter.astro';
+import type { ImageMetadata } from 'astro';
 import portrait from '../assets/self.jpeg';
 import ndLogo from '../assets/ND.png';
 import scuLogo from '../assets/scu.png';
+
+// Paper figures live in src/assets/papers/<bibkey>.png; papers without one get a placeholder
+const paperImages: Record<string, { default: ImageMetadata }> = import.meta.glob(
+  '../assets/papers/*.{png,jpg,jpeg,webp}',
+  { eager: true },
+);
+const thumbFor = (key: string): ImageMetadata | undefined => {
+  const match = Object.keys(paperImages).find((path) => path.endsWith(`/${key}.png`) || path.endsWith(`/${key}.jpg`) || path.endsWith(`/${key}.webp`));
+  return match ? paperImages[match].default : undefined;
+};
 
 type Author = {
   name: string;
@@ -44,9 +55,10 @@ const publications: Publication[] = [
     year: 2026,
     kind: 'conference',
     selected: true,
+    arxiv: '2602.02455',
   },
   {
-    title: 'Capability-Oriented Training Induced Alignment Risk',
+    title: 'Alignment Risks from Capability-Seeking RL Training',
     authors: [
       { name: 'Yujun Zhou', equal: true },
       { name: 'Yue Huang', equal: true },
@@ -65,6 +77,7 @@ const publications: Publication[] = [
     year: 2026,
     kind: 'conference',
     selected: true,
+    arxiv: '2602.12124',
   },
   {
     title: 'MemoHarness: Agent Harnesses That Learn from Experience',
@@ -142,6 +155,7 @@ const publications: Publication[] = [
     venueFull: 'Findings of the Association for Computational Linguistics',
     year: 2026,
     kind: 'conference',
+    arxiv: '2604.12995',
     selected: true,
   },
   {
@@ -195,6 +209,7 @@ const publications: Publication[] = [
     venueFull: 'Findings of the Association for Computational Linguistics',
     year: 2026,
     kind: 'conference',
+    arxiv: '2604.07655',
   },
   {
     title: 'On the Trustworthiness of Generative Foundation Models: Guideline, Assessment, and Perspective',
@@ -211,6 +226,7 @@ const publications: Publication[] = [
     venueFull: 'International Conference on Learning Representations',
     year: 2026,
     kind: 'conference',
+    arxiv: '2502.14296',
     project: 'https://trustgen.github.io/',
     note: 'Leader of T2I Group',
   },
@@ -395,7 +411,7 @@ const researchAreas: {
     title: 'Alignment under Training and Deployment Shifts',
     text: 'I investigate how alignment risks emerge as models acquire new capabilities or move into constrained deployment environments, together with guardian and advisor mechanisms for safer behavior.',
     works: [
-      { name: 'Capability-Oriented Training Induced Alignment Risk', venue: "ICML'26" },
+      { name: 'Alignment Risks from Capability-Seeking RL Training', venue: "ICML'26" },
       { name: 'Guardian-as-an-Advisor', venue: "ACL'26 Findings" },
       { name: 'AI Alignment Breaks at the Edge', venue: 'Position Paper', href: 'https://arxiv.org/abs/2602.20042' },
     ],
@@ -651,7 +667,7 @@ const service = [
         </li>
         <li>
           <time class="dispatch-date">May 2026</time>
-          <p><em>AutoDavis</em> was accepted to the <a href="https://kdd2026.kdd.org/datasets-and-benchmarks-track-call-for-papers/" target="_blank" rel="noopener">KDD 2026 Datasets &amp; Benchmarks Track</a>. Two papers were accepted to <a href="https://icml.cc/Conferences/2026" target="_blank" rel="noopener">ICML 2026</a>: <em>Capability-Oriented Training Induced Alignment Risk</em> and <em>Drift-Bench</em>.</p>
+          <p><em>AutoDavis</em> was accepted to the <a href="https://kdd2026.kdd.org/datasets-and-benchmarks-track-call-for-papers/" target="_blank" rel="noopener">KDD 2026 Datasets &amp; Benchmarks Track</a>. Two papers were accepted to <a href="https://icml.cc/Conferences/2026" target="_blank" rel="noopener">ICML 2026</a>: <em>Alignment Risks from Capability-Seeking RL Training</em> and <em>Drift-Bench</em>.</p>
         </li>
         <li>
           <time class="dispatch-date">Apr 2026</time>
@@ -669,10 +685,15 @@ const service = [
     </Chapter>
 
     <Chapter id="research" num="III" title="Research">
-      <p class="research-lede">Three questions run through my work.</p>
+      <p class="research-thesis">
+        I make <strong>LLM agents</strong> dependable:
+        <em class="kw" style="--ac: var(--area-0)">diagnosing how they fail</em>,
+        <em class="kw" style="--ac: var(--area-1)">keeping them aligned</em> as capabilities and deployments shift,
+        and <em class="kw" style="--ac: var(--area-2)">measuring whether they can be trusted</em>.
+      </p>
       <div class="areas">
         {researchAreas.map((area, index) => (
-          <article class="area" style={`--a: ${index}`}>
+          <article class="area" style={`--a: ${index}; --ac: var(--area-${index})`}>
             <div class="area-art" aria-hidden="true">
               {index === 0 && (
                 <svg viewBox="0 0 48 48">
@@ -771,7 +792,28 @@ const service = [
                   const key = bibKey(paper);
                   return (
                     <li class:list={['pub', paper.selected && 'pub--selected']} id={`pub-${key}`}>
+                      {(() => {
+                        const thumb = thumbFor(key);
+                        const inner = thumb ? (
+                          <Image src={thumb} alt="" widths={[240, 480]} sizes="(max-width: 759px) 6rem, 10.5rem" format="webp" loading="lazy" />
+                        ) : (
+                          <span class="pub-thumb-ph">
+                            <span class="pub-thumb-ph-venue">{paper.venue.split(' ')[0]}</span>
+                            <span class="pub-thumb-ph-year">{paper.year}</span>
+                          </span>
+                        );
+                        return href ? (
+                          <a class="pub-thumb" href={href} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">{inner}</a>
+                        ) : (
+                          <span class="pub-thumb" aria-hidden="true">{inner}</span>
+                        );
+                      })()}
                       <div class="pub-main">
+                        <p class:list={['pub-venue', paper.kind === 'preprint' && 'pub-venue--preprint']}>
+                          <span class="pub-venue-short">{paper.venue}</span>
+                          {paper.venueFull && <span class="pub-venue-full">{paper.venueFull}</span>}
+                          {paper.note && <span class="pub-note">{paper.note}</span>}
+                        </p>
                         <h4 class="pub-title">
                           {href ? (
                             <a href={href} target="_blank" rel="noopener">{paper.title}</a>
@@ -807,11 +849,6 @@ const service = [
                           <button type="button" class="pub-bib-copy">Copy</button>
                         </div>
                       </div>
-                      <p class:list={['pub-venue', paper.kind === 'preprint' && 'pub-venue--preprint']}>
-                        <span class="pub-venue-short">{paper.venue}</span>
-                        {paper.venueFull && <span class="pub-venue-full">{paper.venueFull}</span>}
-                        {paper.note && <span class="pub-note">{paper.note}</span>}
-                      </p>
                     </li>
                   );
                 })}
@@ -1241,6 +1278,10 @@ const service = [
     transform: translateY(-1px);
   }
 
+  .seals a:not(:hover) img {
+    filter: grayscale(1);
+  }
+
   .seals img {
     width: 100%;
     height: 100%;
@@ -1413,10 +1454,24 @@ const service = [
   /* ===========================
      III. RESEARCH
   =========================== */
-  .research-lede {
-    margin-bottom: 0.4rem;
-    color: var(--ink-3);
-    font-style: italic;
+  .research-thesis {
+    max-width: 44rem;
+    margin-bottom: 0.6rem;
+    color: var(--ink-2);
+    font-size: 1.28rem;
+    line-height: 1.55;
+  }
+
+  .research-thesis strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .research-thesis .kw {
+    color: var(--ac);
+    font-weight: 600;
+    background: linear-gradient(currentColor, currentColor) left bottom / 100% 1px no-repeat;
+    padding-bottom: 0.05em;
   }
 
   .area {
@@ -1446,7 +1501,7 @@ const service = [
   }
 
   .area:hover .area-art {
-    border-color: rgba(var(--gold-rgb), 0.7);
+    border-color: var(--ac);
   }
 
   .area-art svg {
@@ -1469,7 +1524,7 @@ const service = [
   }
 
   .area-art .gd {
-    stroke: var(--gold);
+    stroke: var(--ac, var(--gold));
     stroke-width: 1.8;
   }
 
@@ -1486,7 +1541,7 @@ const service = [
   }
 
   .area-art .bar--gold {
-    stroke: var(--gold);
+    stroke: var(--ac, var(--gold));
     opacity: 1;
   }
 
@@ -1497,7 +1552,7 @@ const service = [
   }
 
   .area-art .dot--gold {
-    fill: var(--gold);
+    fill: var(--ac, var(--gold));
   }
 
   .area-art .draw {
@@ -1538,7 +1593,7 @@ const service = [
     display: flex;
     align-items: baseline;
     gap: 0.55rem;
-    color: var(--gold-text);
+    color: var(--ac, var(--gold-text));
     font-size: 0.66rem;
     font-weight: 600;
   }
@@ -1586,13 +1641,13 @@ const service = [
   }
 
   a.work:hover {
-    border-color: var(--gold);
+    border-color: var(--ac, var(--gold));
     background: var(--paper-2);
     color: var(--ink);
   }
 
   .work-venue {
-    color: var(--gold-text);
+    color: var(--ac, var(--gold-text));
     font-size: 0.6rem;
     font-weight: 600;
   }
@@ -1703,10 +1758,68 @@ const service = [
 
   .pub {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) var(--margin);
-    column-gap: var(--gap);
-    padding: 0.85rem 0;
+    grid-template-columns: 10.5rem minmax(0, 1fr);
+    column-gap: 1.6rem;
+    align-items: start;
+    padding: 1.1rem 0;
     line-height: 1.45;
+  }
+
+  /* Paper figure thumbnail */
+  .pub-thumb {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .pub-thumb :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 0.3rem;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .pub:hover .pub-thumb {
+    border-color: rgba(var(--gold-rgb), 0.7);
+    box-shadow: 0 8px 22px -16px rgba(0, 0, 0, 0.4);
+  }
+
+  .pub:hover .pub-thumb :global(img) {
+    transform: scale(1.05);
+  }
+
+  .pub-thumb-ph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    width: 100%;
+    height: 100%;
+    background:
+      linear-gradient(var(--gold), var(--gold)) center 62% / 1.25rem 2px no-repeat,
+      var(--paper-2);
+  }
+
+  .pub-thumb-ph-venue {
+    margin-bottom: 0.45rem;
+    color: var(--accent);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .pub-thumb-ph-year {
+    color: var(--ink-3);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    font-variant-numeric: lining-nums;
   }
 
   .pub + .pub {
@@ -1859,14 +1972,16 @@ const service = [
   }
 
   .pub-venue {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    padding-top: 0.2rem;
-    padding-left: 0.85rem;
-    border-left: 1px solid var(--rule);
-    font-size: 0.82rem;
+    margin-bottom: 0.2rem;
+    color: var(--ink-3);
+    font-size: 0.84rem;
     line-height: 1.4;
+  }
+
+  .pub-venue > * + *::before {
+    content: ' · ';
+    color: var(--ink-3);
+    font-style: normal;
   }
 
   .pub-venue-short {
@@ -1885,12 +2000,10 @@ const service = [
   }
 
   .pub-note {
-    color: var(--ink);
     font-style: italic;
   }
 
-  .pub-note::before {
-    content: '— ';
+  .pub-note {
     color: var(--gold-text);
   }
 
@@ -2364,6 +2477,17 @@ const service = [
     color: var(--ink);
   }
 
+  /* Venue names in News read as highlighted, like a journal's italic citations */
+  .dispatches a {
+    color: var(--gold-text);
+    font-style: italic;
+    text-decoration-color: rgba(var(--gold-rgb), 0.35);
+  }
+
+  .dispatches a:hover {
+    color: var(--accent);
+  }
+
   /* External links reveal a small arrow on hover (no layout shift) */
   .prose a[target='_blank']::after,
   .dispatches a[target='_blank']::after,
@@ -2489,35 +2613,8 @@ const service = [
     }
 
     .pub {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .pub-main {
-      display: contents;
-    }
-
-    .pub-title { order: 1; }
-    .pub-authors { order: 2; }
-    .pub-venue { order: 3; }
-    .pub-links { order: 4; }
-    .pub-bib { order: 5; }
-
-    .pub-venue {
-      display: block;
-      margin-top: 0.15rem;
-      padding: 0;
-      border: 0;
-      font-size: 0.88rem;
-    }
-
-    .pub-venue > * + *::before {
-      content: ' · ';
-      color: var(--ink-3);
-      font-style: normal;
-    }
-
-    .pub-note::before {
-      content: ' · ';
+      grid-template-columns: 8.5rem minmax(0, 1fr);
+      column-gap: 1.25rem;
     }
   }
 
@@ -2583,6 +2680,25 @@ const service = [
 
     .pub::before {
       display: none;
+    }
+
+    .pub {
+      grid-template-columns: 5.75rem minmax(0, 1fr);
+      column-gap: 0.9rem;
+    }
+
+    .pub-venue-full {
+      display: none;
+    }
+
+    .pub-thumb-ph-venue {
+      margin-bottom: 0.3rem;
+      font-size: 0.82rem;
+    }
+
+    .pub-thumb-ph {
+      background-position: center 64%, 0 0;
+      background-size: 0.9rem 2px, auto;
     }
 
     .dispatches li {
