@@ -18,7 +18,8 @@ astro-website/
 ├── public/favicon.svg
 ├── src/
 │   ├── assets/              # Portrait and logos (optimized at build time)
-│   ├── layouts/Layout.astro # <head>, SEO/social metadata, global styles
+│   ├── components/Chapter.astro # Numbered section shell (§ I, § II …) with sticky rail
+│   ├── layouts/Layout.astro # <head>, SEO metadata, theme tokens (light/dark), page grid
 │   └── pages/index.astro    # Page content: publications, research areas, awards and service are data arrays at the top
 └── astro.config.mjs
 ```

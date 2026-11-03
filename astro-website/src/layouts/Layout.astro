@@ -47,6 +47,9 @@ const personSchema = {
     <meta name="author" content="Han Bao" />
     <meta name="keywords" content="Han Bao, trustworthy AI, LLM agents, AI alignment, foundation model evaluation, University of Notre Dame" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#12161d" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content="Research on reliable and aligned LLM agents, failure diagnosis, and trustworthy AI evaluation." />
     <meta property="og:type" content="profile" />
@@ -62,10 +65,19 @@ const personSchema = {
     <link rel="apple-touch-icon" href="/favicon.svg?v=2" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet">
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var theme = localStorage.getItem('theme');
+          if (theme === 'dark' || theme === 'light') root.dataset.theme = theme;
+        } catch (e) {}
+      })();
+    </script>
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>
   <body>
@@ -74,50 +86,89 @@ const personSchema = {
 </html>
 
 <style is:global>
+  /* ===========================
+     TOKENS
+  =========================== */
   :root {
-    /* Notre Dame Colors */
-    --nd-blue: #0c2340;
-    --nd-blue-rgb: 12, 35, 64;
-    --nd-gold: #c99700;
-    --nd-gold-rgb: 201, 151, 0;
-    --nd-gold-text: #8a6500; /* gold dark enough for text on white */
+    color-scheme: light;
 
-    /* Neutrals */
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-300: #d1d5db;
-    --gray-400: #9ca3af;
-    --gray-500: #6b7280;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
+    /* Paper and ink */
+    --paper: #ffffff;
+    --paper-2: #f7f6f3;
+    --ink: #1a1a1a;
+    --ink-2: #3d3d3d;
+    --ink-3: #6b6b6b;
+    --rule: #e4e4e4;
+    --rule-soft: #f0f0f0;
 
-    /* Semantic */
-    --bg-primary: #ffffff;
-    --text-primary: #111827;
-    --text-secondary: #374151;
-    --text-muted: #6b7280;
-    --border: #e5e7eb;
+    /* Notre Dame accents */
+    --accent: #0c2340;
+    --gold: #c99700;
+    --gold-rgb: 201, 151, 0;
+    --gold-text: #8a6500;
     --link: #1f4f96;
+    --live: #2e9d5b;
 
     /* Typography */
+    --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
     --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-    /* Spacing */
-    --space-xs: 0.25rem;
-    --space-sm: 0.5rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 1.75rem;
-    --space-2xl: 2.25rem;
-
-    /* Container */
-    --container-max: 800px;
-    --container-padding: clamp(1.25rem, 3vw, 2rem);
+    /* Grid: rail | main | margin */
+    --rail: 8rem;
+    --margin: 12rem;
+    --gap: 2.5rem;
+    --gutter: clamp(1.25rem, 4vw, 2.5rem);
+    --page-max: 68rem;
   }
 
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --paper: #12161d;
+    --paper-2: #1a2029;
+    --ink: #ece7db;
+    --ink-2: #c8c2b4;
+    --ink-3: #969083;
+    --rule: #343b47;
+    --rule-soft: #262c36;
+    --accent: #f1e7cd;
+    --gold: #d6a72b;
+    --gold-rgb: 214, 167, 43;
+    --gold-text: #e2b84c;
+    --link: #a3c1f2;
+    --live: #4cc27e;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      color-scheme: dark;
+      --paper: #12161d;
+      --paper-2: #1a2029;
+      --ink: #ece7db;
+      --ink-2: #c8c2b4;
+      --ink-3: #969083;
+      --rule: #343b47;
+      --rule-soft: #262c36;
+      --accent: #f1e7cd;
+      --gold: #d6a72b;
+      --gold-rgb: 214, 167, 43;
+      --gold-text: #e2b84c;
+      --link: #a3c1f2;
+      --live: #4cc27e;
+    }
+  }
+
+  @media (max-width: 1099px) {
+    :root {
+      --rail: 6rem;
+      --gap: 2rem;
+      --page-max: 54rem;
+    }
+  }
+
+  /* ===========================
+     BASE
+  =========================== */
   *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -134,49 +185,42 @@ const personSchema = {
   body {
     font-family: var(--font-serif);
     font-size: 1.0625rem;
-    line-height: 1.6;
-    color: var(--text-primary);
-    background-color: var(--bg-primary);
-  }
-
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--gray-50);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--gray-300);
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--gray-400);
+    line-height: 1.65;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    color: var(--ink);
+    background-color: var(--paper);
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   ::selection {
-    background-color: rgba(var(--nd-gold-rgb), 0.2);
-    color: var(--nd-blue);
+    background-color: rgba(var(--gold-rgb), 0.28);
+    color: var(--ink);
   }
 
   :focus-visible {
-    outline: 2px solid var(--nd-gold);
+    outline: 2px solid var(--gold);
     outline-offset: 2px;
     border-radius: 2px;
   }
 
   a {
-    color: var(--link);
-    text-decoration: none;
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-color: rgba(var(--gold-rgb), 0.55);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
   }
+
   a:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--nd-gold);
-    text-underline-offset: 3px;
+    color: var(--gold-text);
+    text-decoration-color: currentColor;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    line-height: 1.25;
-    color: var(--text-primary);
+    line-height: 1.2;
+    font-weight: 600;
+    color: var(--ink);
   }
 
   img {
@@ -190,9 +234,42 @@ const personSchema = {
     font-family: var(--font-mono);
   }
 
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  /* ===========================
+     PAGE GRID
+  =========================== */
+  .wrap {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  .chapter {
+    display: grid;
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    column-gap: var(--gap);
+    scroll-margin-top: 3.25rem;
+  }
+
+  @media (max-width: 759px) {
+    .chapter {
+      display: block;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+
+    *, *::before, *::after {
+      transition: none !important;
+      animation: none !important;
     }
   }
 </style>

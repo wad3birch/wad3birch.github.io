@@ -1,0 +1,106 @@
+---
+interface Props {
+  id: string;
+  num: string;
+  title: string;
+}
+
+const { id, num, title } = Astro.props;
+---
+
+<section class="wrap chapter" id={id} aria-labelledby={`${id}-title`}>
+  <header class="chapter-head">
+    <span class="chapter-num" aria-hidden="true">{num}</span>
+    <h2 class="chapter-title" id={`${id}-title`}>{title}</h2>
+    <span class="chapter-progress" aria-hidden="true"><span class="chapter-progress-fill"></span></span>
+  </header>
+  <div class="chapter-body">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .chapter-head {
+    position: sticky;
+    top: 4.5rem;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .chapter-num {
+    font-size: 1.35rem;
+    line-height: 1;
+    color: var(--gold-text);
+  }
+
+  .chapter-title {
+    font-family: var(--font-serif);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  /* Reading progress for this chapter: a short track that fills with gold as you read */
+  .chapter-progress {
+    display: block;
+    width: 4.5rem;
+    height: 2px;
+    margin-top: 0.2rem;
+    background: var(--rule);
+    overflow: hidden;
+  }
+
+  .chapter-progress-fill {
+    display: block;
+    height: 100%;
+    background: var(--gold);
+    transform: scaleX(calc(0.3 + 0.7 * var(--read, 0)));
+    transform-origin: left;
+    transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .chapter-body {
+    min-width: 0;
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  :global(html.js) .chapter:not(.is-in) .chapter-progress-fill {
+    transform: scaleX(0);
+  }
+
+  :global(html.js) .chapter:not(.is-in) .chapter-body {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  @media print {
+    .chapter-body {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  @media (max-width: 759px) {
+    .chapter-head {
+      position: static;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .chapter-num {
+      font-size: 1.1rem;
+    }
+
+    .chapter-progress {
+      display: none;
+    }
+  }
+</style>
