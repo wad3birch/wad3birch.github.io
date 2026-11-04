@@ -1429,10 +1429,10 @@ const service = [
      III. RESEARCH
   =========================== */
   .research-thesis {
-    max-width: 44rem;
-    margin-bottom: 0.6rem;
+    max-width: 46rem;
+    margin-bottom: 2.1rem;
     color: var(--ink-2);
-    font-size: 1.28rem;
+    font-size: 1.24rem;
     line-height: 1.55;
   }
 
@@ -1448,27 +1448,42 @@ const service = [
     padding-bottom: 0.05em;
   }
 
+  /* Three directions side by side; each column is topped by its color */
+  .areas {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 2.25rem;
+  }
+
+  /* Subgrid lines up the question, text and paper list rows across the three columns */
   .area {
     display: grid;
-    grid-template-columns: 5.5rem minmax(0, 1fr);
-    column-gap: 1.75rem;
-    padding: 1.6rem 0;
+    grid-row: span 4;
+    grid-template-columns: 3.4rem minmax(0, 1fr);
+    grid-template-rows: subgrid;
+    column-gap: 0.85rem;
+    padding-top: 1.15rem;
+    border-top: 2px solid var(--ac);
   }
 
-  .area + .area {
-    border-top: 1px dotted var(--rule);
+  @supports not (grid-template-rows: subgrid) {
+    .area {
+      grid-template-rows: auto auto 1fr auto;
+    }
   }
 
-  .area:last-child {
-    padding-bottom: 0.5rem;
+  .area-body {
+    display: contents;
   }
 
   /* Line illustration */
   .area-art {
+    grid-column: 1;
+    grid-row: 1;
     display: grid;
     place-items: center;
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 3.4rem;
+    height: 3.4rem;
     border: 1px solid var(--rule);
     border-radius: 6px;
     transition: border-color 0.25s ease;
@@ -1479,8 +1494,8 @@ const service = [
   }
 
   .area-art svg {
-    width: 4.6rem;
-    height: 4.6rem;
+    width: 2.85rem;
+    height: 2.85rem;
     overflow: visible;
   }
 
@@ -1558,18 +1573,17 @@ const service = [
   }
 
   /* Text */
-  .area-body {
-    min-width: 0;
-    max-width: 44rem;
-  }
-
   .area-kicker {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
     display: flex;
-    align-items: baseline;
-    gap: 0.55rem;
+    flex-direction: column;
+    gap: 0.15rem;
     color: var(--ac, var(--gold-text));
     font-size: 0.66rem;
     font-weight: 600;
+    line-height: 1.35;
   }
 
   .area-num {
@@ -1577,80 +1591,79 @@ const service = [
   }
 
   .area-q {
-    margin-top: 0.35rem;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 0.95rem;
     color: var(--accent);
-    font-size: 1.32rem;
+    font-size: 1.08rem;
     font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: -0.005em;
+    line-height: 1.35;
   }
 
   .area-text {
-    margin-top: 0.55rem;
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin-top: 0.5rem;
     color: var(--ink-2);
+    font-size: 0.94rem;
     line-height: 1.6;
   }
 
-  /* Selected work as tags */
+  /* Selected work as a short list, aligned to the bottom of each column */
   .works {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
-    margin-top: 0.85rem;
+    grid-column: 1 / -1;
+    grid-row: 4;
+    margin-top: 1rem;
     list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .works li + li {
+    border-top: 1px dotted var(--rule);
   }
 
   .work {
-    display: inline-flex;
+    display: flex;
     align-items: baseline;
-    gap: 0.5rem;
-    padding: 0.2rem 0.7rem 0.22rem;
-    border: 1px solid var(--rule);
-    border-radius: 999px;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.45rem 0;
     color: var(--ink);
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     line-height: 1.4;
     text-decoration: none;
-    transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
   }
 
-  a.work:hover {
-    border-color: var(--ac, var(--gold));
-    background: var(--paper-2);
-    color: var(--ink);
+  .work-name {
+    min-width: 0;
+    transition: color 0.15s ease;
+  }
+
+  a.work:hover .work-name {
+    color: var(--ac);
   }
 
   .work-venue {
+    flex: 0 0 auto;
     color: var(--ac, var(--gold-text));
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     font-weight: 600;
+    white-space: nowrap;
   }
 
-  .work-venue::before {
-    content: '·';
-    margin-right: 0.5rem;
-    color: var(--ink-3);
-  }
-
-  /* Jump links reserve room for a small arrow that appears on hover */
-  a.jump {
-    padding-right: 0.4rem;
-  }
-
-  a.jump::after {
+  /* Jump links show a small arrow on hover, in space reserved after the venue */
+  a.jump .work-venue::after {
     content: '↓';
     display: inline-block;
-    width: 0.9em;
-    margin-left: -0.15rem;
+    width: 0.8em;
+    margin-left: 0.3rem;
     opacity: 0;
-    color: var(--gold-text);
-    font-size: 0.78rem;
     text-align: center;
     transform: translateY(-0.15em);
     transition: opacity 0.15s ease, transform 0.15s ease;
   }
 
-  a.jump:hover::after {
+  a.jump:hover .work-venue::after {
     opacity: 1;
     transform: translateY(0.05em);
   }
@@ -2539,6 +2552,24 @@ const service = [
       grid-template-columns: 8.5rem minmax(0, 1fr);
       column-gap: 1.25rem;
     }
+
+    .areas {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 2rem;
+    }
+
+    .area {
+      grid-row: auto;
+      grid-template-rows: auto;
+    }
+
+    .area-q {
+      font-size: 1.16rem;
+    }
+
+    .works {
+      max-width: 34rem;
+    }
   }
 
   @media (max-width: 759px) {
@@ -2669,86 +2700,12 @@ const service = [
       content: '— ';
     }
 
-    .area {
-      grid-template-columns: 3.75rem minmax(0, 1fr);
-      column-gap: 1rem;
-      padding: 1.25rem 0;
-    }
-
-    .area-art {
-      width: 3.75rem;
-      height: 3.75rem;
-    }
-
-    .area-art svg {
-      width: 3.1rem;
-      height: 3.1rem;
-    }
-
-    /* On phones the tags become a simple list so long titles wrap cleanly */
-    .works {
-      display: block;
-      margin-top: 0.7rem;
-    }
-
-    .works li {
-      position: relative;
-      padding: 0.2rem 0 0.2rem 1.1rem;
-    }
-
-    .works li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0.95rem;
-      width: 0.55rem;
-      height: 2px;
-      background: var(--gold);
-    }
-
-    .work {
-      display: inline;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      font-size: 0.95rem;
-    }
-
-    a.work .work-name {
-      text-decoration: underline;
-      text-decoration-color: rgba(var(--gold-rgb), 0.55);
-      text-underline-offset: 0.2em;
-    }
-
-    a.jump::after {
-      display: none;
-    }
-
-    .area-body {
-      display: contents;
-    }
-
-    .area-art {
-      grid-column: 1;
-      grid-row: 1 / span 2;
-    }
-
-    .area-kicker {
-      grid-column: 2;
-      grid-row: 1;
-      align-self: end;
+    .research-thesis {
+      font-size: 1.1rem;
     }
 
     .area-q {
-      grid-column: 2;
-      grid-row: 2;
-      align-self: start;
-      font-size: 1.12rem;
-    }
-
-    .area-text,
-    .works {
-      grid-column: 1 / -1;
+      font-size: 1.08rem;
     }
 
     .colophon {
